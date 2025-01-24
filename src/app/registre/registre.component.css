@@ -1,0 +1,11 @@
+.alerts {
+    /* position: relative; */
+    padding-top: 1rem;
+
+}
+
+.alert-dangers {
+    color: #680200;
+    /* background-color: #f8d7da; */
+    /* border-color: #f5c2c7; */
+}

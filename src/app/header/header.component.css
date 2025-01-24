@@ -1,0 +1,17 @@
+.cart-dropdown-wrap {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 20px);
+    z-index: 99;
+    width: 320px;
+    background-color: #fff;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, .05);
+    padding: 30px 20px 27px;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 10px;
+    border: 1px solid #ececec;
+}
+.cart-dropdown-wrap, .header-info>ul>li>ul.language-dropdown, .search-style-1 form input {
+    transition: .25s cubic-bezier(.645, .045, .355, 1);
+}

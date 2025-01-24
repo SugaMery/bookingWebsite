@@ -1,0 +1,762 @@
+<app-header></app-header>
+<div class="th-hero-wrapper hero-1" id="hero">
+    <div class="swiper th-slider hero-slider-1" id="heroSlide1" data-slider-options='{"effect":"fade","menu": ["", "", ""],"heroSlide1": {"swiper-container": {"pagination": {"el": ".swiper-pagination", "clickable": true }}}}'>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="hero-inner">
+                    <div class="th-hero-bg" data-bg-src="assets/img/hero/hero_bg_1_3.jpg"></div>
+                    <div class="container">
+                        <div class="hero-style1" style="max-width: 1200px;"><span class="sub-title style1" data-ani="slideinup" data-ani-delay="0.2s">Découvrez l'art de la détente au Maroc</span>
+                            <h1 class="hero-title" data-ani="slideinup" data-ani-delay="0.4s">Réservez votre expérience inoubliable</h1>
+                            <div class="btn-group" data-ani="slideinup" data-ani-delay="0.6s"><a href="tour.html" class="th-btn th-icon">Réserver un spa</a> <a href="service.html" class="th-btn style2 th-icon">Découvrir nos services</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="hero-inner">
+                    <div class="th-hero-bg" data-bg-src="assets/img/hero/hero_bg_1_2.jpg"></div>
+                    <div class="container">
+                        <div class="hero-style1" style="max-width: 1200px;"><span class="sub-title style1" data-ani="slideinup" data-ani-delay="0.2s">Vivez l'exception au Maroc</span>
+                            <h1 class="hero-title" data-ani="slideinup" data-ani-delay="0.4s">Réservez vos moments de bien-être et d'aventure</h1>
+                            <div class="btn-group" data-ani="slideinup" data-ani-delay="0.6s"><a href="tour.html" class="th-btn th-icon">Réserver un restaurant</a> <a href="service.html" class="th-btn style2 th-icon">Découvrez nos activités</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="th-swiper-custom"><button data-slider-prev="#heroSlide1" class="slider-arrow slider-prev"><img src="assets/img/icon/right-arrow.svg" alt=""></button>
+            <div class="slider-pagination"></div><button data-slider-next="#heroSlide1" class="slider-arrow slider-next"><img src="assets/img/icon/left-arrow.svg" alt=""></button></div>
+    </div>
+</div>
+<div class="booking-sec">
+    <div class="container">
+        <form action="mail.php" method="POST" class="booking-form ajax-contact">
+            <div class="input-wrap">
+                <div class="row align-items-center justify-content-between">
+                    <div class="form-group col-md-6 col-lg-auto">
+                        <div class="icon"><i class="fa-light fa-route"></i></div>
+                        <div class="search-input"><label>Destination</label> <select name="subject" id="subject" class="form-select nice-select"><option value="Select Destination" selected="selected" disabled="disabled">Sélectionnez la destination</option><option value="Australia">Australie</option><option value="Dubai">Dubaï</option><option value="England">Angleterre</option><option value="Sweden">Suède</option><option value="Thailand">Thaïlande</option><option value="Egypt">Égypte</option><option value="Saudi Arab">Arabie Saoudite</option><option value="Switzerland">Suisse</option><option value="Scandinavia">Scandinavie</option><option value="Western Europe">Europe de l'Ouest</option><option value="Indonesia">Indonésie</option><option class="Italy">Italie</option></select></div>
+                    </div>
+                    <div class="form-group col-md-6 col-lg-auto">
+                        <div class="icon"><i class="fa-regular fa-person-hiking"></i></div>
+                        <div class="search-input"><label>Type</label> <select class="nice-select" name="Adventure" id="Adventure"><option value="Adventure" selected="selected" disabled="disabled">Aventure</option><option value="Beach">Plage</option><option value="Group Tour">Tour de groupe</option><option value="Couple Tour">Tour en couple</option><option value="Family Tour">Tour en famille</option></select></div>
+                    </div>
+                    <div class="form-group col-md-6 col-lg-auto">
+                        <div class="icon"><i class="fa-light fa-clock"></i></div>
+                        <div class="search-input"><label>Durée</label> <select class="form-select nice-select" name="Duration" id="Duration"><option value="Normal" selected="selected" disabled="disabled">Durée</option><option value="1">1 jour</option><option value="2">2 jours</option><option value="3">3 jours</option><option value="4">4 jours</option><option value="5">5 jours</option><option value="6">6 jours</option><option value="7">7 jours</option></select></div>
+                    </div>
+                    <div class="form-group col-md-6 col-lg-auto">
+                        <div class="icon"><i class="fa-light fa-map-location-dot"></i></div>
+                        <div class="search-input"><label>Catégorie de tour</label> <select name="subject" id="category" class="form-select nice-select"><option value="Normal" selected="selected" disabled="disabled">Luxe</option><option value="1">Deluxe</option><option value="2">Économie</option></select></div>
+                    </div>
+                    <div class="form-btn col-md-12 col-lg-auto"><button class="th-btn"><img src="assets/img/icon/search.svg" alt="">Rechercher</button></div>
+                </div>
+                <p class="form-messages mb-0 mt-3"></p>
+            </div>
+        </form>
+    </div>
+</div>
+<section class="category-area bg-top-center" data-bg-src="assets/img/bg/category_bg_1.png">
+    <div class="container th-container">
+        <div class="title-area text-center"><span class="sub-title">Endroit merveilleux pour vous</span>
+            <h2 class="sec-title">Catégories de tours </h2>
+        </div>
+        <div class="swiper th-slider has-shadow categorySlider" id="categorySlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"3"},"1400":{"slidesPerView":"5"}}}'>
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" *ngFor="let category of categories">
+                    <div class="category-card single">
+                        <div class="box-img global-img"><img [src]="category.image_url" alt="Image"></div>
+                        <h3 class="box-title"><a href="destination.html">{{ category.name }}</a></h3>
+                        <a class="line-btn" href="destination.html">Voir plus</a>
+                    </div>
+                </div>
+                <div class="swiper-slide" *ngFor="let category of categories">
+                    <div class="category-card single">
+                        <div class="box-img global-img"><img [src]="category.image_url" alt="Image"></div>
+                        <h3 class="box-title"><a href="destination.html">{{ category.name }}</a></h3>
+                        <a class="line-btn" href="destination.html">Voir plus</a>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+<div class="destination-area position-relative overflow-hidden">
+    <div class="container">
+        <div class="title-area text-center"><span class="sub-title">Destination principale</span>
+            <h2 class="sec-title">Destination populaire</h2>
+        </div>
+        <div class="swiper th-slider destination-slider slider-drag-wrap" id="aboutSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"992":{"slidesPerView":"3"}},"effect":"coverflow","coverflowEffect":{"rotate":"0","stretch":"95","depth":"212","modifier":"1"},"centeredSlides":"true"}'>
+            <div class="swiper-wrapper">
+                <div *ngFor="let destination of cities" class="swiper-slide">
+                  <div class="destination-box gsap-cursor">
+                    <div class="destination-img">
+                      <img [src]="destination.image_url" [alt]="destination.name + ' image'">
+                      <div class="destination-content">
+                        <div class="media-left">
+                          <h4 class="box-title"><a href="destination-details.html">{{ destination.name }}</a></h4>
+                          <span class="destination-subtitle">{{ destination.region }} </span>
+                        </div>
+                        <div><a href="destination-details.html" class="th-btn style2 th-icon">Voir tout</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngFor="let destination of cities" class="swiper-slide">
+                    <div class="destination-box gsap-cursor">
+                      <div class="destination-img">
+                        <img [src]="destination.image_url" [alt]="destination.name + ' image'">
+                        <div class="destination-content">
+                          <div class="media-left">
+                            <h4 class="box-title"><a href="destination-details.html">{{ destination.name }}</a></h4>
+                            <span class="destination-subtitle">{{ destination.region }}</span>
+                          </div>
+                          <div><a href="destination-details.html" class="th-btn style2 th-icon">Voir tout</a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              
+            
+        </div>
+    </div>
+</div>
+<div class="about-area position-relative overflow-hidden space" id="about-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="img-box1">
+                    <div class="img1"><img src="assets/img/normal/1.png" alt="About"></div>
+                    <div class="img2"><img src="assets/img/normal/2.png" alt="About"></div>
+                    <div class="img3"><img src="assets/img/normal/3.png" alt="About"></div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="ps-xl-4 ms-xl-2">
+                    <div class="title-area mb-20 pe-xl-5 me-xl-5">
+                        <span class="sub-title style1">Prêt pour une expérience unique</span>
+                        <h2 class="sec-title mb-20 pe-xl-5 me-xl-5 heading" style="
+
+                        margin-right: 0rem !important;
+                    ">Réservez vos moments de détente avec nous</h2>
+                        <p class="sec-text mb-30">Explorez une sélection de spas, restaurants, hébergements, piscines et activités soigneusement sélectionnés pour répondre à vos envies et besoins.</p>
+                    </div>
+                    <div class="about-item-wrap">
+                        <div class="about-item">
+                            <div class="about-item_img">
+                                <img src="assets/img/icon/spa-and-relaxation.png" alt="Spa Icon">
+                            </div>
+                            <div class="about-item_centent">
+                                <h5 class="box-title">Expériences bien-être</h5>
+                                <p class="about-item_text">Profitez d'une variété de soins relaxants dans nos spas partenaires.</p>
+                            </div>
+                        </div>
+                        <div class="about-item">
+                            <div class="about-item_img">
+                                <img src="assets/img/icon/chef.png" alt="Restaurant Icon">
+                            </div>
+                            <div class="about-item_centent">
+                                <h5 class="box-title">Saveurs gourmandes</h5>
+                                <p class="about-item_text">Découvrez des tables raffinées et des saveurs uniques dans nos restaurants.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mt-35">
+                        <a href="about.html" class="th-btn style3 th-icon">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="shape-mockup shape1 d-none d-xl-block" data-top="12%" data-left="-16%"><img src="assets/img/shape/chef.png" alt="shape"></div>
+        <div class="shape-mockup shape2 d-none d-xl-block" data-top="20%" data-left="-16%"><img src="assets/img/shape/facial-massage.png" alt="shape"></div>
+        <div class="shape-mockup shape3 d-none d-xl-block" data-top="14%" data-left="-10%"><img src="assets/img/shape/food.png" alt="shape"></div>
+        <div class="shape-mockup about-shape movingX d-none d-xxl-block" data-bottom="0%" data-right="-11%"><img src="assets/img/normal/about-slide-img.png" alt="shape"></div>
+        <div class="shape-mockup about-rating d-none d-xxl-block" data-bottom="50%" data-right="-20%"><i class="fa-sharp fa-solid fa-star"></i><span>4.9k</span></div>
+        <div class="shape-mockup about-emoji d-none d-xxl-block" data-bottom="25%" data-right="5%"><img src="assets/img/icon/emoji.png" alt=""></div>
+    </div>
+</div>
+<section class="tour-area position-relative bg-top-center overflow-hidden space" id="service-sec" data-bg-src="assets/img/bg/tour_bg_1.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="title-area text-center">
+                    <span class="sub-title">Découvrez les meilleurs lieux pour vous détendre</span>
+                    <h2 class="sec-title">Nos destinations les plus populaires</h2>
+                    <p class="sec-text">Plongez dans une expérience unique avec nos spas, restaurants, hébergements, piscines et activités sélectionnés pour répondre à toutes vos envies. Réservez dès maintenant et profitez de moments inoubliables.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slider-area tour-slider">
+            <div class="swiper th-slider has-shadow slider-drag-wrap" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"2"},"1200":{"slidesPerView":"3"},"1300":{"slidesPerView":"4"}}}'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" *ngFor="let tour of tours">
+                      <div class="tour-box th-ani gsap-cursor">
+                        <div class="tour-box_img global-img">
+                          <img [src]="tour.image" [alt]="tour.title" />
+                        </div>
+                        <div class="tour-content">
+                          <h3 class="box-title">
+                            <a [href]="tour.link">{{ tour.title }}</a>
+                          </h3>
+                          <div class="tour-rating">
+                            <div class="star-rating" role="img" [attr.aria-label]="'Rated ' + tour.rating + ' out of 5'">
+                              <span [style.width]="(tour.rating / 5) * 100 + '%'">
+                                Rated <strong class="rating">{{ tour.rating }}</strong> out of 5
+                              </span>
+                            </div>
+                            <a [href]="tour.link" class="woocommerce-review-link">({{ tour.rating }} Rating)</a>
+                          </div>
+                          <h4 class="tour-box_price">
+                            <span class="currency">{{ tour.price }}</span>/Person
+                          </h4>
+                          <div class="tour-action">
+                            <span><i class="fa-light fa-clock"></i> {{ tour.duration }}</span>
+                            <a href="contact.html" class="th-btn style4 th-icon">Book Now</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+            </div>
+        </div>
+    </div>
+</section>
+<div class="gallery-area">
+    <div class="container th-container">
+        <div class="title-area text-center">
+            <span class="sub-title">Explorez nos lieux d'exception</span>
+            <h2 class="sec-title">Notre sélection récente</h2>
+        </div>
+        
+        <div class="row gy-10 gx-10 justify-content-center align-items-center">
+            <div class="col-md-6 col-lg-2">
+                <div class="gallery-card">
+                    <div class="box-img global-img">
+                        <a href="assets/img/gallery/1.png" class="popup-image">
+                            <div class="icon-btn"><i class="fal fa-magnifying-glass-plus"></i></div>
+                            <img src="assets/img/gallery/1.png" alt="gallery image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-2">
+                <div class="gallery-card">
+                    <div class="box-img global-img">
+                        <a href="assets/img/gallery/2.png" class="popup-image">
+                            <div class="icon-btn"><i class="fal fa-magnifying-glass-plus"></i></div>
+                            <img src="assets/img/gallery/2.png" alt="gallery image">
+                        </a>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="box-img global-img">
+                        <a href="assets/img/gallery/3.png" class="popup-image">
+                            <div class="icon-btn"><i class="fal fa-magnifying-glass-plus"></i></div>
+                            <img src="assets/img/gallery/3.png" alt="gallery image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-2">
+                <div class="gallery-card">
+                    <div class="box-img global-img">
+                        <a href="assets/img/gallery/4.png" class="popup-image">
+                            <div class="icon-btn"><i class="fal fa-magnifying-glass-plus"></i></div>
+                            <img src="assets/img/gallery/4.png" alt="gallery image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-2">
+                <div class="gallery-card">
+                    <div class="box-img global-img">
+                        <a href="assets/img/gallery/5.png" class="popup-image">
+                            <div class="icon-btn"><i class="fal fa-magnifying-glass-plus"></i></div>
+                            <img src="assets/img/gallery/5.png" alt="gallery image">
+                        </a>
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="box-img global-img">
+                        <a href="assets/img/gallery/8.png" class="popup-image">
+                            <div class="icon-btn"><i class="fal fa-magnifying-glass-plus"></i></div>
+                            <img src="assets/img/gallery/8.png" alt="gallery image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-2">
+                <div class="gallery-card">
+                    <div class="box-img global-img">
+                        <a href="assets/img/gallery/7.png" class="popup-image">
+                            <div class="icon-btn"><i class="fal fa-magnifying-glass-plus"></i></div>
+                            <img src="assets/img/gallery/7.png" alt="gallery image">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="shape-mockup d-none d-xl-block" data-top="-25%" data-left="0%"><img src="assets/img/shape/facial-massage.png" alt="shape"></div>
+        <div class="shape-mockup movingX d-none d-xl-block" data-top="30%" data-left="-3%"><img class="gmovingX" src="assets/img/shape/romantic-dinner.png" alt="shape"></div>
+    </div>
+</div>
+<div class="counter-area space">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-xl-3 counter-card-wrap">
+                <div class="counter-card">
+                    <div class="counter-shape"><span></span></div>
+                    <div class="media-body">
+                        <h3 class="box-number"><span class="counter-number">15</span></h3>
+                        <h6 class="counter-title">Années d'excellence</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3 counter-card-wrap">
+                <div class="counter-card">
+                    <div class="counter-shape"><span></span></div>
+                    <div class="media-body">
+                        <h3 class="box-number"><span class="counter-number">120</span>+</h3>
+                        <h6 class="counter-title">Partenaires spas & restaurants</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3 counter-card-wrap">
+                <div class="counter-card">
+                    <div class="counter-shape"><span></span></div>
+                    <div class="media-body">
+                        <h3 class="box-number"><span class="counter-number">25</span>k</h3>
+                        <h6 class="counter-title">Réservations effectuées</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xl-3 counter-card-wrap">
+                <div class="counter-card">
+                    <div class="counter-shape"><span></span></div>
+                    <div class="media-body">
+                        <h3 class="box-number"><span class="counter-number">30</span>k</h3>
+                        <h6 class="counter-title">Clients satisfaits</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="shape-mockup shape1 d-none d-xl-block" data-top="30%" data-left="-15%"><img src="assets/img/shape/chef.png" alt="shape"></div>
+        <div class="shape-mockup shape2 d-none d-xl-block" data-top="45%" data-left="-13%"><img src="assets/img/shape/facial-massage.png" alt="shape"></div>
+        <div class="shape-mockup shape3 d-none d-xl-block" data-top="32%" data-left="-7%"><img src="assets/img/shape/food.png" alt="shape"></div>
+        <div class="shape-mockup d-none d-xl-block" data-bottom="-24%" data-left="-15%"><img src="assets/img/shape/shape_6.png" alt="shape"></div>
+        <div class="shape-mockup jump d-none d-xl-block" data-top="5%" data-right="-10%"><img src="assets/img/shape/facial-massage.png" alt="shape"></div>
+    </div>
+</div>
+<!-- <section class="bg-smoke space" data-bg-src="assets/img/bg/team_bg_1.png">
+    <div class="container z-index-common">
+        <div class="title-area text-center"><span class="sub-title">Rencontrez le guide</span>
+            <h2 class="sec-title">Guide touristique</h2>
+        </div>
+        <div class="slider-area">
+            <div class="swiper th-slider teamSlider1 has-shadow" id="teamSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="th-team team-box">
+                            <div class="team-img"><img src="assets/img/team/team_1_1.jpg" alt="Team"></div>
+                            <div class="team-content">
+                                <div class="media-body">
+                                    <h3 class="box-title"><a href="tour-guider-details.html">Jacob Jones</a></h3><span class="team-desig">Guide touristique</span>
+                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a>                                                <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="th-team team-box">
+                            <div class="team-img"><img src="assets/img/team/team_1_2.jpg" alt="Team"></div>
+                            <div class="team-content">
+                                <div class="media-body">
+                                    <h3 class="box-title"><a href="tour-guider-details.html">Jane Cooper</a></h3><span class="team-desig">Guide touristique</span>
+                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a>                                                <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="th-team team-box">
+                            <div class="team-img"><img src="assets/img/team/team_1_3.jpg" alt="Team"></div>
+                            <div class="team-content">
+                                <div class="media-body">
+                                    <h3 class="box-title"><a href="tour-guider-details.html">Guy Hawkins</a></h3><span class="team-desig">Guide touristique</span>
+                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a>                                                <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="th-team team-box">
+                            <div class="team-img"><img src="assets/img/team/team_1_4.jpg" alt="Team"></div>
+                            <div class="team-content">
+                                <div class="media-body">
+                                    <h3 class="box-title"><a href="tour-guider-details.html">Jenny Wilson</a></h3><span class="team-desig">Guide touristique</span>
+                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a>                                                <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="th-team team-box">
+                            <div class="team-img"><img src="assets/img/team/team_1_1.jpg" alt="Team"></div>
+                            <div class="team-content">
+                                <div class="media-body">
+                                    <h3 class="box-title"><a href="tour-guider-details.html">Jacob Jones</a></h3><span class="team-desig">Guide touristique</span>
+                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a>                                                <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="th-team team-box">
+                            <div class="team-img"><img src="assets/img/team/team_1_2.jpg" alt="Team"></div>
+                            <div class="team-content">
+                                <div class="media-body">
+                                    <h3 class="box-title"><a href="tour-guider-details.html">Jane Cooper</a></h3><span class="team-desig">Guide touristique</span>
+                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a>                                                <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="th-team team-box">
+                            <div class="team-img"><img src="assets/img/team/team_1_3.jpg" alt="Team"></div>
+                            <div class="team-content">
+                                <div class="media-body">
+                                    <h3 class="box-title"><a href="tour-guider-details.html">Guy Hawkins</a></h3><span class="team-desig">Guide touristique</span>
+                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a>                                                <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="th-team team-box">
+                            <div class="team-img"><img src="assets/img/team/team_1_4.jpg" alt="Team"></div>
+                            <div class="team-content">
+                                <div class="media-body">
+                                    <h3 class="box-title"><a href="tour-guider-details.html">Jenny Wilson</a></h3><span class="team-desig">Guide touristique</span>
+                                    <div class="th-social"><a target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f"></i></a> <a target="_blank" href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a target="_blank" href="https://instagram.com/"><i class="fab fa-instagram"></i></a>                                                <a target="_blank" href="https://linkedin.com/"><i class="fab fa-linkedin-in"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-pagination"></div>
+            </div>
+        </div>
+    </div>
+</section> -->
+
+<section class="bg-smoke overflow-hidden space" id="blog-sec">
+    <div class="container">
+        <div class="mb-30 text-center text-md-start">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md-7">
+                    <div class="title-area mb-md-0">
+                        <span class="sub-title">À propos de nos nouveaux partenaires</span>
+                        <h2 class="sec-title">Nouvelles et articles de Mynjma</h2>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <a href="blog.html" class="th-btn style4 th-icon">Voir plus d'articles</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-area">
+            <div class="swiper th-slider has-shadow" id="blogSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"2"},"1200":{"slidesPerView":"3"}}}'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="blog-box th-ani">
+                            <div class="blog-img global-img">
+                                <img src="assets/img/blog/eloomm-cuisine-mediterraneenne.jpg" alt="Partenaire image">
+                            </div>
+                            <div class="blog-box_content">
+                                <div class="blog-meta">
+                                    <a class="author" href="blog.html">5 janvier 2025</a>
+                                    <a href="blog.html">5 min de lecture</a>
+                                </div>
+                                <h3 class="box-title">
+                                    <a href="blog-details.html">Nouveau partenariat avec XYZ pour améliorer nos services</a>
+                                </h3>
+                                <a href="blog-details.html" class="th-btn style4 th-icon">Lire la suite</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="blog-box th-ani">
+                            <div class="blog-img global-img">
+                                <img src="assets/img/blog/eloomm-cuisine-mediterraneenne.jpg" alt="Partenaire image">
+                            </div>
+                            <div class="blog-box_content">
+                                <div class="blog-meta">
+                                    <a class="author" href="blog.html">10 janvier 2025</a>
+                                    <a href="blog.html">6 min de lecture</a>
+                                </div>
+                                <h3 class="box-title">
+                                    <a href="blog-details.html">Nos nouveaux partenaires: un pas vers des expériences inoubliables</a>
+                                </h3>
+                                <a href="blog-details.html" class="th-btn style4 th-icon">Lire la suite</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="blog-box th-ani">
+                            <div class="blog-img global-img">
+                                <img src="assets/img/blog/eloomm-cuisine-mediterraneenne.jpg" alt="Partenaire image">
+                            </div>
+                            <div class="blog-box_content">
+                                <div class="blog-meta">
+                                    <a class="author" href="blog.html">15 janvier 2025</a>
+                                    <a href="blog.html">7 min de lecture</a>
+                                </div>
+                                <h3 class="box-title">
+                                    <a href="blog-details.html">Les coulisses de nos partenariats et comment cela transforme vos voyages</a>
+                                </h3>
+                                <a href="blog-details.html" class="th-btn style4 th-icon">Lire la suite</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shape-mockup shape1 d-none d-xxl-block" data-bottom="20%" data-left="-17%">
+            <img src="assets/img/shape/chef.png" alt="shape">
+        </div>
+        <div class="shape-mockup shape2 d-none d-xl-block" data-bottom="5%" data-left="-17%">
+            <img src="assets/img/shape/facial-massage.png" alt="shape">
+        </div>
+        <div class="shape-mockup shape3 d-none d-xxl-block" data-bottom="12%" data-left="-10%">
+            <img src="assets/img/shape/food.png" alt="shape">
+        </div>
+    </div>
+</section>
+
+<section class="testi-area overflow-hidden space" id="testi-sec">
+    <div class="container-fluid p-0">
+        <div class="title-area mb-20 text-center"><span class="sub-title">Témoignage</span>
+            <h2 class="sec-title">Ce que disent les clients de nous</h2>
+        </div>
+        <div class="slider-area">
+            <div class="swiper th-slider testiSlider1 has-shadow" id="testiSlider1" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"767":{"slidesPerView":"2","centeredSlides":"true"},"992":{"slidesPerView":"2","centeredSlides":"true"},"1200":{"slidesPerView":"2","centeredSlides":"true"},"1400":{"slidesPerView":"3","centeredSlides":"true"}}}'>
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testi-card">
+                            <div class="testi-card_wrapper">
+                                <div class="testi-card_profile">
+                                    <div class="testi-card_avater"><img src="assets/img/testimonial/testi_1_1.jpg" alt="testimonial"></div>
+                                    <div class="media-body">
+                                        <h3 class="box-title">Maria Doe</h3><span class="testi-card_desig">Cliente Restaurant</span></div>
+                                </div>
+                                <div class="testi-card_review"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                            </div>
+                            <p class="testi-card_text">
+                                “Un repas délicieux avec un service impeccable ! Les plats sont savoureux et le cadre est très agréable. Une expérience à renouveler, sans hésiter !”
+                            </p>
+                            <div
+                                class="testi-card-quote"><img src="assets/img/icon/testi-quote.svg" alt="img"></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="testi-card">
+                        <div class="testi-card_wrapper">
+                            <div class="testi-card_profile">
+                                <div class="testi-card_avater"><img src="assets/img/testimonial/testi_1_2.jpg" alt="testimonial"></div>
+                                <div class="media-body">
+                                    <h3 class="box-title">Andrew Simon</h3><span class="testi-card_desig">Client Spa</span></div>
+                            </div>
+                            <div class="testi-card_review"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                        </div>
+                        <p class="testi-card_text">
+                            “L'expérience au spa était extraordinaire ! Les soins sont de haute qualité et le personnel est très professionnel. Un endroit parfait pour se détendre.
+                            ”</p>
+                        <div class="testi-card-quote"><img src="assets/img/icon/testi-quote.svg" alt="img"></div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="testi-card">
+                        <div class="testi-card_wrapper">
+                            <div class="testi-card_profile">
+                                <div class="testi-card_avater"><img src="assets/img/testimonial/testi_1_1.jpg" alt="testimonial"></div>
+                                <div class="media-body">
+                                    <h3 class="box-title">Maria Doe</h3><span class="testi-card_desig">Cliente Restaurant</span></div>
+                            </div>
+                            <div class="testi-card_review"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                        </div>
+                        <p class="testi-card_text">
+                            “Un repas délicieux avec un service impeccable ! Les plats sont savoureux et le cadre est très agréable. Une expérience à renouveler, sans hésiter !”
+                        </p>
+                        <div
+                            class="testi-card-quote"><img src="assets/img/icon/testi-quote.svg" alt="img"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="testi-card">
+                    <div class="testi-card_wrapper">
+                        <div class="testi-card_profile">
+                            <div class="testi-card_avater"><img src="assets/img/testimonial/testi_1_2.jpg" alt="testimonial"></div>
+                            <div class="media-body">
+                                <h3 class="box-title">Andrew Simon</h3><span class="testi-card_desig">Client Spa</span></div>
+                        </div>
+                        <div class="testi-card_review"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                    </div>
+                    <p class="testi-card_text">
+                        “L'expérience au spa était extraordinaire ! Les soins sont de haute qualité et le personnel est très professionnel. Un endroit parfait pour se détendre.
+                        ”</p>
+                    <div class="testi-card-quote"><img src="assets/img/icon/testi-quote.svg" alt="img"></div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="testi-card">
+                    <div class="testi-card_wrapper">
+                        <div class="testi-card_profile">
+                            <div class="testi-card_avater"><img src="assets/img/testimonial/testi_1_1.jpg" alt="testimonial"></div>
+                            <div class="media-body">
+                                <h3 class="box-title">Maria Doe</h3><span class="testi-card_desig">Cliente Restaurant</span></div>
+                        </div>
+                        <div class="testi-card_review"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                    </div>
+                    <p class="testi-card_text">
+                        “Un repas délicieux avec un service impeccable ! Les plats sont savoureux et le cadre est très agréable. Une expérience à renouveler, sans hésiter !”
+                    </p>
+                    <div
+                        class="testi-card-quote"><img src="assets/img/icon/testi-quote.svg" alt="img"></div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="testi-card">
+                <div class="testi-card_wrapper">
+                    <div class="testi-card_profile">
+                        <div class="testi-card_avater"><img src="assets/img/testimonial/testi_1_2.jpg" alt="testimonial"></div>
+                        <div class="media-body">
+                            <h3 class="box-title">Andrew Simon</h3><span class="testi-card_desig">Client Spa</span></div>
+                    </div>
+                    <div class="testi-card_review"><i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i></div>
+                </div>
+                <p class="testi-card_text">
+                    “L'expérience au spa était extraordinaire ! Les soins sont de haute qualité et le personnel est très professionnel. Un endroit parfait pour se détendre.
+                    ”</p>
+                <div class="testi-card-quote"><img src="assets/img/icon/testi-quote.svg" alt="img"></div>
+            </div>
+        </div>
+        </div>
+        <div class="slider-pagination"></div>
+    </div>
+    </div>
+    </div>
+    <div class="shape-mockup d-none d-xl-block" data-bottom="-2%" data-right="0%"><img src="assets/img/shape/line2.png" alt="shape"></div>
+    <div class="shape-mockup movingX d-none d-xl-block" data-top="30%" data-left="5%"><img src="assets/img/shape/shape_7.png" alt="shape"></div>
+</section>
+
+
+<div
+id="login-form" class="popup-login-register mfp-hide">
+<ul class="nav" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation"><button class="nav-menu" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Connexion</button></li>
+    <li class="nav-item" role="presentation"><button class="nav-menu " id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">S'inscrire</button></li>
+    <li class="nav-item" role="presentation"><button class="nav-menu active" id="pills-profile-tabS" data-bs-toggle="pill" data-bs-target="#pills-profileS" type="button" role="tab" aria-controls="pills-profileS" aria-selected="true">S'inscrire comme propriétaire</button></li>
+
+</ul>
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <h3 class="box-title mb-30">Connectez-vous à votre compte</h3>
+        <div class="th-login-form">
+            <form action="" method="POST" class="login-form ajax-contact">
+                <div class="row">
+                    <div class="form-group col-12"><label>Nom d'utilisateur ou email</label> <input type="text" class="form-control" name="email" id="email" required="required"></div>
+                    <div class="form-group col-12"><label>Mot de passe</label> <input type="password" class="form-control" name="pasword" id="pasword" required="required"></div>
+                    <div class="form-btn mb-20 col-12"><button class="th-btn btn-fw th-radius2">Envoyer le message</button></div>
+                </div>
+                <div id="forgot_url"><a href="my-account.html">Mot de passe oublié?</a></div>
+                <p class="form-messages mb-0 mt-3"></p>
+            </form>
+        </div>
+    </div>
+    <div class="tab-pane fade " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <h3 class="th-form-title mb-30">Connectez-vous à votre compte</h3>
+        <form action="" method="POST" class="login-form ajax-contact">
+            <div class="row">
+                <div class="form-group col-12"><label>Nom d'utilisateur*</label> <input type="text" class="form-control" name="usename" id="usename" required="required"></div>
+                <div class="form-group col-12"><label>Prénom*</label> <input type="text" class="form-control" name="firstname" id="firstname" required="required"></div>
+                <div class="form-group col-12"><label>Nom de famille*</label> <input type="text" class="form-control" name="lastname" id="lastname" required="required"></div>
+                <div class="form-group col-12"><label for="new_email">Votre email*</label> <input type="text" class="form-control" name="new_email" id="new_email" required="required"></div>
+                <div class="form-group col-12"><label for="new_email_confirm">Confirmer l'email*</label> <input type="text" class="form-control" name="new_email_confirm" id="new_email_confirm" required="required"></div>
+                <div class="statement"><span class="register-notes">Un mot de passe vous sera envoyé par email.</span></div>
+                <div class="form-btn mt-20 col-12"><button class="th-btn btn-fw th-radius2">S'inscrire</button></div>
+            </div>
+            <p class="form-messages mb-0 mt-3"></p>
+        </form>
+    </div>
+
+    <!-- Business Owner Registration Form -->
+    <div class="tab-pane fade active show" id="pills-profileS" role="tabpanel" aria-labelledby="pills-profile-tabS">
+        <h3 class="th-form-title mb-30">S'inscrire comme propriétaire</h3>
+        <form (submit)="onRegisterActivityOwner($event)" class="login-form ajax-contact">
+            <div class="row">
+                <div class="form-group col-12">
+                    <label>Nom de l'entreprise*</label> 
+                    <input type="text" class="form-control" name="business_name" id="business_name" required="required">
+                </div>
+                <div class="form-group col-12">
+                    <label>Numéro d'identification fiscale*</label> 
+                    <input type="text" class="form-control" name="tax_id" id="tax_id" required="required">
+                </div>
+                <div class="form-group col-12">
+                    <label>Adresse de l'entreprise*</label> 
+                    <input type="text" class="form-control" name="business_address" id="business_address" required="required">
+                </div>
+                <div class="form-group col-12">
+                    <label>Numéro de téléphone*</label> 
+                    <input type="text" class="form-control" name="business_phone" id="business_phone" required="required">
+                </div>
+                <div class="form-group col-12">
+                    <label for="business_email">Email de l'entreprise*</label> 
+                    <input type="text" class="form-control" name="business_email" id="business_email" required="required">
+                    <div *ngIf="errorMessage" style="
+                    margin-top: 0.5rem;
+                    color: red;
+                " class="error-message">{{ errorMessage }}</div>
+
+                </div>
+                <div class="form-group col-12">
+                    <label>Mot de passe*</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" name="business_password" id="business_password" required="required">
+
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    <label>Confirmer le mot de passe*</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" name="business_password_confirm" id="business_password_confirm" required="required">
+
+                    </div>
+                </div>
+                <div class="form-btn mt-20 col-12">
+                    <button class="th-btn btn-fw th-radius2">S'inscrire comme propriétaire</button>
+                </div>
+            </div>
+           <!--  <p class="form-messages mb-0 mt-3"></p> -->
+        </form>
+    </div>
+</div>
+
+
+
+</div>
+
+<app-footer></app-footer>

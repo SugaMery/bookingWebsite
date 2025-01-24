@@ -1,0 +1,126 @@
+<header class="th-header header-layout1">
+  <div class="header-top">
+    <div class="container th-container">
+      <div class="row justify-content-center justify-content-xl-between align-items-center">
+        <div class="col-auto d-none d-md-block">
+          <div class="header-links">
+            <ul>
+              <li class="d-none d-xl-inline-block"><i class="fa-sharp fa-regular fa-location-dot"></i> <span>Avenue Yaacoub Almansour centre d'affaire Sara Guéliz ,Marrakech</span></li>
+              <li class="d-none d-xl-inline-block"><i class="fa-regular fa-clock"></i> <span>Lundi à Vendredi: 09h00 - 19h00</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="header-right">
+            <div class="currency-menu"><select class="form-select nice-select"><option selected="">langue</option><option>FR</option></select></div>
+            <div class="header-links">
+              <ul>
+                <li class="d-none d-md-inline-block"><a href="faq.html">FAQ</a></li>
+                <li class="d-none d-md-inline-block"><a href="contact.html">Support</a></li>
+                <li class="dropdown">
+                  <a href="#login-form" id="login-dropdown-toggle">{{ getUserFullName() }}<i class="fa-regular fa-user"></i></a>
+                  <div class="account-dropdown" id="login-dropdown">
+                    <ul>
+                      <li *ngIf="getUserRole() === 4"><a href="/ajouter_propriete"><i class="fa-regular fa-home" style="text-align: left; margin-right: 10px;"></i> Ajouter une propriété</a></li>
+                      <li *ngIf="getUserRole() === 4 || getUserRole() === 2"><a href="/mes_reservations"><i class="fa-regular fa-calendar-check" style="text-align: left; margin-right: 10px;"></i> Voir mes réservations</a></li>
+                      <li *ngIf="getUserRole() === 2"><a href="/settings"><i class="fa-regular fa-cog" style="text-align: left; margin-right: 10px;"></i> Paramètres</a></li>
+                      <li *ngIf="!getUserRole()"><a href="/connexion"><i class="fa-regular fa-sign-in" style="text-align: left; margin-right: 10px;"></i> Se Connectez</a></li>
+                      <li *ngIf="!getUserRole()"><a href="/inscrire"><i class="fa-regular fa-user-plus" style="text-align: left; margin-right: 10px;"></i> S'inscrire</a></li>
+                      <li *ngIf="!getUserRole()"><a href="/inscrire_proprietaire"><i class="fa-regular fa-home" style="text-align: left; margin-right: 10px;"></i> S'inscrire comme propriétaire</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sticky-wrapper">
+    <div class="menu-area">
+      <div class="container th-container">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="header-logo"><a href="home-travel.html"><img src="assets/img/mynjmaLogo.png" alt="Tourm"></a></div>
+          </div>
+          <div class="col-auto me-xl-auto">
+            <nav class="main-menu d-none d-xl-inline-block">
+              <ul>
+                <li><a class="active" href="/">Accueil</a></li>
+                <li><a href="about.html">À Propos</a></li>
+                <li><a href="activities.html">Activités</a></li>
+                <li><a href="restaurants.html">Restaurants</a></li>
+                <li><a href="pools.html">Piscines</a></li>
+                <li><a href="excursions.html">Excursions</a></li>
+                <li><a href="spas.html">Spas</a></li>
+                <li><a href="accommodations.html">Hébergements</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contactez-nous</a></li>
+              </ul>
+            </nav>
+            <button type="button" class="th-menu-toggle d-block d-xl-none"><i class="far fa-bars"></i></button>
+          </div>
+          <div class="col-auto d-none d-xl-block">
+            <div class="header-button"><a href="contact.html" class="th-btn style3 th-icon">Réservez Maintenant</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="logo-bg" data-mask-src="assets/img/logo_bg_mask.png"></div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .account-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 20px);
+    z-index: 99;
+    width: 320px;
+    background-color: #fff;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, .05);
+    padding: 30px 20px 27px;
+    opacity: 0;
+    visibility: hidden;
+    border-radius: 10px;
+    border: 1px solid #ececec;
+    transition: .25s cubic-bezier(.645, .045, .355, 1);
+  }
+  .account-dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .account-dropdown ul li {
+    padding: 8px 16px;
+  }
+  .account-dropdown ul li a {
+    color: black;
+    text-decoration: none;
+  }
+  .account-dropdown ul li :hover {
+    color: #93A692;
+  }
+  .dropdown:hover .account-dropdown,
+  .account-dropdown:hover {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+  .header-links .account-dropdown li:not(:last-child):after {
+    content: '';
+    height: 14px;
+    width: 1px;
+    background-color: #ffffff;
+    position: none !important;
+    top: 5px;
+    right: -27px;
+  }
+
+
+</style>
+

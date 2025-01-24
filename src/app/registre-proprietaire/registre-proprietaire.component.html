@@ -1,0 +1,93 @@
+<app-header></app-header>
+
+<div class="breadcumb-wrapper background-image" style="opacity: 0.65; padding: 20px 0 !important; background-image: url('assets/img/bg/bgMarrakech.jpg');">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title" style="font-family: cursive;">S'inscrire comme propriétaire</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="home-travel.html" style="font-family: cursive;">Accueil</a></li>
+                <li style="font-family: cursive;">S'inscrire comme propriétaire</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="space-extra2-top space-extra2-bottom background-image">    
+    <div class="container">
+        <div class="row flex-row-reverse justify-content-center align-items-center">
+            <div class="col-lg-12">
+                <div>
+                    
+                    <form action="mail.php" method="POST" class="contact-form style2 ajax-contact" style="background-color: var(--white-color); box-shadow: 0px 0px 2px 2px #93a692;">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="title-area text-center"><span class="sub-title">S'inscrire comme propriétaire</span>
+                                    <h3 class="sec-title" style="font-family: cursive;">Veuillez remplir les informations</h3>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 form-group">
+                                        <label for="nomEntreprise">Nom de l'entreprise</label>
+                                        <input type="text" class="form-control" name="nomEntreprise" id="nomEntreprise" placeholder="Nom de l'entreprise">
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <label for="numeroICE">Numéro ICE</label>
+                                        <input type="text" class="form-control" name="numeroICE" id="numeroICE" placeholder="Numéro ICE">
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <label for="adresse">Adresse</label>
+                                        <input type="text" class="form-control" name="adresse" id="adresse" placeholder="Adresse">
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <label for="telephone">Numéro de téléphone</label>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <select class="form-control" name="phonePrefix" id="phonePrefix">
+                                                    <option >+33</option>
+                                                    <option selected="">+212</option>
+                                                    <option>+1</option>
+                                                    <!-- Add more options as needed -->
+                                                </select>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Numéro de téléphone">
+                                     
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 form-group">
+                                        <label for="email3">Email</label>
+                                        <input type="email" class="form-control" name="email3" id="email3" placeholder="Votre Email"> 
+                                        <img style="top: 50px;" src="assets/img/icon/mail.svg" alt="">
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <label for="password">Mot de Passe</label>
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Votre Mot de Passe"> 
+                                      
+                                        <i style="top: 50px;font-size: 1.3rem" id="password-icon" class="pi pi-eye" (click)="togglePasswordVisibility('password')"></i>
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <label for="confirmPassword">Confirmer Mot de Passe</label>
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirmer Mot de Passe"> 
+                                     
+                                      
+                                        <i style="top: 50px;font-size: 1.3rem" id="confirmPassword-icon" class="pi pi-eye " (click)="togglePasswordVisibility('confirmPassword')"></i>
+                                    </div>
+                                    <div class="form-btn col-12 mt-24"><button type="submit" class="th-btn style3">S'inscrire <img src="assets/img/icon/plane.svg" alt=""></button></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center" >
+                                <img src="assets/img/bg/bgMarrakech.png" alt="Tourm" style="height: 100%; width: 100%; object-fit: cover; border-radius: 1rem;">
+                            </div>
+                        </div>
+                <p class="form-messages mb-0 mt-3"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<app-footer></app-footer>
+
+
