@@ -1,4 +1,6 @@
 <!-- Contenu de la page -->
+<app-header></app-header>
+
 <div class="content doctor-content">
     <div class="container">
         <div class="row">
@@ -11,23 +13,15 @@
                                 <img src="assets2/img/doctors-dashboard/doctor-profile-img.jpg" alt="Image de l'utilisateur">
                             </a>
                             <div class="profile-det-info">
-                                <h3><a href="doctor-profile.html">Dr Edalin Hendry</a></h3>
+                                <h3><a href="doctor-profile.html">{{ user.name }}</a></h3>
                                 <div class="patient-details">
-                                    <h5 class="mb-0">BDS, MDS - Chirurgie orale et maxillo-faciale</h5>
+                                    <h5 class="mb-0">{{ user.qualification }}</h5>
                                 </div>
-                                <span class="badge doctor-role-badge"><i class="fa-solid fa-circle"></i>Dentiste</span>
+                                <span class="badge doctor-role-badge"><i class="fa-solid fa-circle"></i>{{ user.role }}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="doctor-available-head">
-                        <div class="input-block input-block-new">
-                            <label class="form-label">Disponibilité <span class="text-danger">*</span></label>
-                            <select class="select form-control">
-                                <option>Je suis disponible maintenant</option>
-                                <option>Non disponible</option>
-                            </select>
-                        </div>
-                    </div>
+
                     <div class="dashboard-widget">
                         <nav class="dashboard-menu">
                             <ul>
@@ -38,77 +32,28 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="doctor-request.html">
-                                        <i class="fa-solid fa-calendar-check"></i>
-                                        <span>Demandes</span>
-                                        <small class="unread-msg">2</small>
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="appointments.html">
                                         <i class="fa-solid fa-calendar-days"></i>
                                         <span>Rendez-vous</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="available-timings.html">
-                                        <i class="fa-solid fa-calendar-day"></i>
-                                        <span>Horaires disponibles</span>
+                                    <a href="my-activity.html">
+                                        <i class="fa-solid fa-briefcase"></i>
+                                        <span>Mon activité</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="my-patients.html">
-                                        <i class="fa-solid fa-user-injured"></i>
-                                        <span>Mes patients</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="doctor-specialities.html">
-                                        <i class="fa-solid fa-clock"></i>
-                                        <span>Spécialités et services</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="reviews.html">
-                                        <i class="fas fa-star"></i>
-                                        <span>Avis</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="accounts.html">
-                                        <i class="fa-solid fa-file-contract"></i>
-                                        <span>Comptes</span>
-                                    </a>
-                                </li>
-                                <li>
+                                <li class="active">
                                     <a href="invoices.html">
                                         <i class="fa-solid fa-file-lines"></i>
                                         <span>Factures</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="doctor-payment.html">
-                                        <i class="fa-solid fa-money-bill-1"></i>
-                                        <span>Paramètres de paiement</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="chat-doctor.html">
                                         <i class="fa-solid fa-comments"></i>
-                                        <span>Message</span>
+                                        <span>Messages</span>
                                         <small class="unread-msg">7</small>
-                                    </a>
-                                </li>
-                                <li class="active">
-                                    <a href="doctor-profile-settings.html">
-                                        <i class="fa-solid fa-user-pen"></i>
-                                        <span>Paramètres du profil</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="social-media.html">
-                                        <i class="fa-solid fa-shield-halved"></i>
-                                        <span>Médias sociaux</span>
                                     </a>
                                 </li>
                                 <li>
@@ -118,8 +63,14 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="account-details.html">
+                                        <i class="fa-solid fa-user-cog"></i>
+                                        <span>Détails du compte</span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="login.html">
-                                        <i class="fa-solid fa-calendar-check"></i>
+                                        <i class="fa-solid fa-sign-out-alt"></i>
                                         <span>Déconnexion</span>
                                     </a>
                                 </li>
@@ -139,32 +90,31 @@
                     <div class="appointment-tabs">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link active" href="details-de-base.html">Détails de base</a>
+                                <a class="nav-link" [class.active]="activeTab === 'details-de-base'" (click)="setActiveTab('details-de-base')">Détails de base</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="heures-douverture.html">Heures d'ouverture</a>
+                                <a class="nav-link" [class.active]="activeTab === 'general-availability'" (click)="setActiveTab('general-availability')">Heures d'ouverture</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="images.html">Images</a>
+                                <a class="nav-link" [class.active]="activeTab === 'images'" (click)="setActiveTab('images')">Images</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="carte.html">Carte</a>
+                                <a class="nav-link" [class.active]="activeTab === 'carte'" (click)="setActiveTab('carte')">Carte</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="faq.html">FAQ</a>
+                                <a class="nav-link" [class.active]="activeTab === 'faq'" (click)="setActiveTab('faq')">FAQ</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="reservations-autorisees.html">Settings Activité</a>
+                                <a class="nav-link" [class.active]="activeTab === 'reservations-autorisees'" (click)="setActiveTab('reservations-autorisees')">Settings Activité</a>
                             </li>
-                
                         </ul>
                     </div>
                 </div>
                 <!-- /Liste des paramètres -->
-                <div class="setting-title">
+                <div class="setting-title" *ngIf="activeTab === 'details-de-base'">
                     <h5>Informations sur l'activité</h5>
                 </div>
-                <form (ngSubmit)="onSubmit()">
+                <form *ngIf="activeTab === 'details-de-base'" (ngSubmit)="onSubmit()">
                     <div class="setting-card">
                         <div class="change-avatar img-upload">
                             <div class="profile-img">
@@ -172,7 +122,7 @@
                                 <img *ngIf="imageUrl" [src]="imageUrl" alt="Activity Logo">
                             </div>
                             <div class="upload-img">
-                                <h5>Logo de l'activité</h5>
+                                <h5>Image principale de l'activité</h5>
                                 <div class="imgs-load d-flex align-items-center">
                                     <div class="change-photo">
                                         Télécharger une nouvelle
@@ -202,7 +152,7 @@
                                 <div class="form-wrap">
                                     <label class="col-form-label">Catégorie <span class="text-danger">*</span></label>
                                     <select class="form-control" [(ngModel)]="activity.category_id" name="category_id">
-                                        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                                        <option *ngFor="let category of categories" [value]="category.category_id">{{ category.name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -210,7 +160,7 @@
                                 <div class="form-wrap">
                                     <label class="col-form-label">Ville <span class="text-danger">*</span></label>
                                     <select class="form-control" [(ngModel)]="activity.city_id" name="city_id">
-                                        <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+                                        <option *ngFor="let city of cities" [value]="city.city_id">{{ city.name }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -234,10 +184,408 @@
                     </div>
                 </form>
                 <!-- /Paramètres du profil -->
+
+                <!-- Availability Slots -->
+                <div class="tab-content" *ngIf="activeTab === 'general-availability'">
+                    <div class="tab-pane fade show active" id="general-availability" role="tabpanel">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="card-header">
+                                    <h3>Sélectionnez les créneaux disponibles</h3>
+                                </div>
+                                <div class="available-tab">
+                                    <label class="form-label">Sélectionnez les jours disponibles</label>
+                                    <ul class="nav" role="tablist">
+                                        <li>
+                                            <a href="#" class="active" (click)="setActiveDay('monday')" [class.active]="currentDay === 'monday'" role="tab">Lundi</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" (click)="setActiveDay('tuesday')" [class.active]="currentDay === 'tuesday'" role="tab">Mardi</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" (click)="setActiveDay('wednesday')" [class.active]="currentDay === 'wednesday'" role="tab">Mercredi</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" (click)="setActiveDay('thursday')" [class.active]="currentDay === 'thursday'" role="tab">Jeudi</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" (click)="setActiveDay('friday')" [class.active]="currentDay === 'friday'" role="tab">Vendredi</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" (click)="setActiveDay('saturday')" [class.active]="currentDay === 'saturday'" role="tab">Samedi</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" (click)="setActiveDay('sunday')" [class.active]="currentDay === 'sunday'" role="tab">Dimanche</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content pt-0">
+                                    <!-- Slot -->
+                                    <div class="tab-pane" [class.active]="currentDay === 'monday'" role="tabpanel">
+                                        <div class="slot-box">
+                                            <div class="slot-header">
+                                                <h5>Lundi</h5>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#" class="add-slot" (click)="showModal('monday')">Ajouter des créneaux</a>
+                                                    </li>
+                                         
+                                                    <li>
+                                                        <a href="#" class="del-slot" (click)="setNonWorkingDay('monday')">Jour non travaillé</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="slot-body">
+                                                <ul class="time-slots">
+                                                    <li *ngIf="slots['monday'].isNonWorkingDay" style="background-color: #f4433621; color: #0f172a;">
+                                                        <i class="fa-regular fa-clock"></i><span style="color: #0f172a;">Jour non travaillé</span>
+                                                    </li>
+                                                    <li *ngIf="!slots['monday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['monday'].startTime | date: 'HH:mm' }}
+                                                    </li>
+                                                    <li *ngIf="!slots['monday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['monday'].endTime | date: 'HH:mm' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <style>
+                                                .slot-box .slot-body .time-slots li:hover {
+                                                    background-color: black;
+                                                    color: white;
+                                                }
+                                            </style>
+                                        </div>
+                                    </div>
+                                    <!-- /Slot -->
+                                    <!-- Slot -->
+                                    <div class="tab-pane" [class.active]="currentDay === 'tuesday'" role="tabpanel">
+                                        <div class="slot-box">
+                                            <div class="slot-header">
+                                                <h5>Mardi</h5>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#" class="add-slot" (click)="showModal('tuesday')">Ajouter des créneaux</a>
+                                                    </li>
+                                     
+                                                    <li>
+                                                        <a href="#" class="del-slot" (click)="setNonWorkingDay('tuesday')">Jour non travaillé</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="slot-body">
+                                                <ul class="time-slots">
+                                                    <li *ngIf="slots['tuesday'].isNonWorkingDay" style="background-color: #f4433621; color: #0f172a;">
+                                                        <i class="fa-regular fa-clock"></i><span style="color: #0f172a;">Jour non travaillé</span>
+                                                    </li>
+                                                    <li *ngIf="!slots['tuesday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['tuesday'].startTime | date: 'HH:mm' }}
+                                                    </li>
+                                                    <li *ngIf="!slots['tuesday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['tuesday'].endTime | date: 'HH:mm' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Slot -->
+                                    <!-- Slot -->
+                                    <div class="tab-pane" [class.active]="currentDay === 'wednesday'" role="tabpanel">
+                                        <div class="slot-box">
+                                            <div class="slot-header">
+                                                <h5>Mercredi</h5>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#" class="add-slot" (click)="showModal('wednesday')">Ajouter des créneaux</a>
+                                                    </li>
+                                        
+                                                    <li>
+                                                        <a href="#" class="del-slot" (click)="setNonWorkingDay('wednesday')">Jour non travaillé</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="slot-body">
+                                                <ul class="time-slots">
+                                                    <li *ngIf="slots['wednesday'].isNonWorkingDay" style="background-color: #f4433621; color: #0f172a;">
+                                                        <i class="fa-regular fa-clock"></i><span style="color: #0f172a;">Jour non travaillé</span>
+                                                    </li>
+                                                    <li *ngIf="!slots['wednesday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['wednesday'].startTime | date: 'HH:mm' }}
+                                                    </li>
+                                                    <li *ngIf="!slots['wednesday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['wednesday'].endTime | date: 'HH:mm' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Slot -->
+                                    <!-- Slot -->
+                                    <div class="tab-pane" [class.active]="currentDay === 'thursday'" role="tabpanel">
+                                        <div class="slot-box">
+                                            <div class="slot-header">
+                                                <h5>Jeudi</h5>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#" class="add-slot" (click)="showModal('thursday')">Ajouter des créneaux</a>
+                                                    </li>
+                               
+                                                    <li>
+                                                        <a href="#" class="del-slot" (click)="setNonWorkingDay('thursday')">Jour non travaillé</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="slot-body">
+                                                <ul class="time-slots">
+                                                    <li *ngIf="slots['thursday'].isNonWorkingDay" style="background-color: #f4433621; color: #0f172a;">
+                                                        <i class="fa-regular fa-clock"></i><span style="color: #0f172a;">Jour non travaillé</span>
+                                                    </li>
+                                                    <li *ngIf="!slots['thursday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['thursday'].startTime | date: 'HH:mm' }}
+                                                    </li>
+                                                    <li *ngIf="!slots['thursday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['thursday'].endTime | date: 'HH:mm' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Slot -->
+                                    <!-- Slot -->
+                                    <div class="tab-pane" [class.active]="currentDay === 'friday'" role="tabpanel">
+                                        <div class="slot-box">
+                                            <div class="slot-header">
+                                                <h5>Vendredi</h5>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#" class="add-slot" (click)="showModal('friday')">Ajouter des créneaux</a>
+                                                    </li>
+                                 
+                                                    <li>
+                                                        <a href="#" class="del-slot" (click)="setNonWorkingDay('friday')">Jour non travaillé</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="slot-body">
+                                                <ul class="time-slots">
+                                                    <li *ngIf="slots['friday'].isNonWorkingDay" style="background-color: #f4433621; color: #0f172a;">
+                                                        <i class="fa-regular fa-clock"></i><span style="color: #0f172a;">Jour non travaillé</span>
+                                                    </li>
+                                                    <li *ngIf="!slots['friday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['friday'].startTime | date: 'HH:mm' }}
+                                                    </li>
+                                                    <li *ngIf="!slots['friday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['friday'].endTime | date: 'HH:mm' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Slot -->
+                                    <!-- Slot -->
+                                    <div class="tab-pane" [class.active]="currentDay === 'saturday'" role="tabpanel">
+                                        <div class="slot-box">
+                                            <div class="slot-header">
+                                                <h5>Samedi</h5>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#" class="add-slot" (click)="showModal('saturday')">Ajouter des créneaux</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#" class="del-slot" (click)="setNonWorkingDay('saturday')">Jour non travaillé</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="slot-body">
+                                                <ul class="time-slots">
+                                                    <li *ngIf="slots['saturday'].isNonWorkingDay" style="background-color: #f4433621; color: #0f172a;">
+                                                        <i class="fa-regular fa-clock"></i><span style="color: #0f172a;">Jour non travaillé</span>
+                                                    </li>
+                                                    <li *ngIf="!slots['saturday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['saturday'].startTime | date: 'HH:mm' }}
+                                                    </li>
+                                                    <li *ngIf="!slots['saturday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['saturday'].endTime | date: 'HH:mm' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Slot -->
+                                    <!-- Slot -->
+                                    <div class="tab-pane" [class.active]="currentDay === 'sunday'" role="tabpanel">
+                                        <div class="slot-box">
+                                            <div class="slot-header">
+                                                <h5>Dimanche</h5>
+                                                <ul>
+                                                    <li>
+                                                        <a href="#" class="add-slot" (click)="showModal('sunday')">Ajouter des créneaux</a>
+                                                    </li>
+            
+                                                    <li>
+                                                        <a href="#" class="del-slot" (click)="setNonWorkingDay('sunday')">Jour non travaillé</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="slot-body">
+                                                <ul class="time-slots">
+                                                    <li *ngIf="slots['sunday'].isNonWorkingDay" style="background-color: #f4433621; color: #0f172a;">
+                                                        <i class="fa-regular fa-clock"></i><span style="color: #0f172a;">Jour non travaillé</span>
+                                                    </li>
+                                                    <li *ngIf="!slots['sunday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['sunday'].startTime | date: 'HH:mm' }}
+                                                    </li>
+                                                    <li *ngIf="!slots['sunday'].isNonWorkingDay">
+                                                        <i class="fa-regular fa-clock"></i>{{ slots['sunday'].endTime | date: 'HH:mm' }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Slot -->
+                                    <div class="modal-btn text-end">
+                                        <a href="#" class="btn btn-gray" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</a>
+                                        <button class="btn btn-primary prime-btn" (click)="saveActivityHours()">Enregistrer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Availability Slots -->
+
+                <!-- New tab content for Images -->
+                <div class="tab-content" *ngIf="activeTab === 'images'">
+                    <div class="tab-pane fade show active" id="images" role="tabpanel">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="card-header">
+                                    <h3>Télécharger des images</h3>
+                                </div>
+                                <div class="content-collapse">
+                                    <div class="add-service-info">
+                                        <div class="add-info">
+                                            <div class="col-md-12">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Galerie</label>
+                                                    <div class="drop-file" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+                                                        <p>Déposez des fichiers ou cliquez pour télécharger</p>
+                                                        <input type="file" (change)="onFileSelected($event)" multiple>
+                                                    </div>
+                                                    <div class="view-imgs">
+                                                        <div class="view-img" *ngFor="let image of images">
+                                                            <img [src]="image.url" alt="img">
+                                                            <a href="javascript:void(0);" (click)="deleteImage(image)">Supprimer</a>
+                                                        </div>
+                                                    </div>
+                                                </div>													
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <a href="#" class="reset more-item" (click)="resetImages()">Réinitialiser</a>
+                                            <button class="btn btn-primary prime-btn" style="margin-left: 1rem;" (click)="uploadImages()">Télécharger les images</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /New tab content for Images -->
+
+                <!-- New tab content for Map -->
+                <div class="tab-content" *ngIf="activeTab === 'carte'">
+                    <div class="tab-pane fade show active" id="carte" role="tabpanel">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="card-header">
+                                    <h3>Choisir la position</h3>
+                                </div>
+                                <div class="content-collapse">
+                                    <div class="add-service-info">
+                                        <div class="add-info">
+                                            <div class="col-md-12">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Carte</label>
+                                                    <div id="map" style="height: 400px;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <button class="btn btn-primary prime-btn" style="margin-left: 1rem;" (click)="saveMapLocation()">Enregistrer la position</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /New tab content for Map -->
             </div>
         </div>
     </div>
+<!-- Modal for adding new slot -->
+<div class="modal fade custom-modals" id="add_slot" [ngClass]="{'show': isModalVisible}" [attr.inert]="isModalVisible ? null : ''" [style.display]="isModalVisible ? 'block' : 'none'" aria-modal="true" role="dialog" tabindex="-1" aria-labelledby="addSlotModalLabel">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addSlotModalLabel">Ajouter un nouveau créneau</h5>
+        <button type="button" class="btn-close" (click)="hideModal()" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form (ngSubmit)="onAddSlot()">
+        <div class="modal-body">
+          <div class="timing-modal">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-wrap">
+                  <label class="col-form-label">Heure de début</label>
+                  <p-calendar inputId="calendar-start-time" [(ngModel)]="startTime" [showTime]="true" [timeOnly]="true" name="modalStartTime" [iconDisplay]="'input'" [showIcon]="true">
+                    <ng-template #inputicon let-clickCallBack="clickCallBack">
+                      <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+                    </ng-template>
+                  </p-calendar>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-wrap">
+                  <label class="col-form-label">Heure de fin</label>
+                  <p-calendar inputId="calendar-end-time" [(ngModel)]="endTime" [showTime]="true" [timeOnly]="true" name="modalEndTime" [iconDisplay]="'input'" [showIcon]="true">
+                    <ng-template #inputicon let-clickCallBack="clickCallBack">
+                      <i class="pi pi-clock" (click)="clickCallBack($event)"></i>
+                    </ng-template>
+                  </p-calendar>
+                </div>
+              </div>
+
+            </div>  
+          </div>
+        </div>
+        <div class="modal-footer">          
+          <div class="modal-btn text-end">
+            <a href="#" class="btn btn-gray" (click)="hideModal()">Annuler</a>
+            <button type="submit" class="btn btn-primary prime-btn">Enregistrer </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
+
+
+<style>
+  .modal.fade.show {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  .uploaded-image-preview {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+</style>
+
+<p-toast></p-toast>
+
 <!-- /Contenu de la page -->
 
 

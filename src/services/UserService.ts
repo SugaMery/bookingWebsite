@@ -322,6 +322,69 @@ class ActivityOwnerService {
             this.handleAxiosError(error);
         }
     }
+
+    async updateActivity(activityId: number, activity: Partial<Activity>, token: string): Promise<any> {
+        try {
+            const formData = new FormData();
+            if (activity.name) formData.append('name', activity.name);
+            if (activity.description) formData.append('description', activity.description);
+            if (activity.city_id) formData.append('city_id', activity.city_id.toString());
+            if (activity.category_id) formData.append('category_id', activity.category_id.toString());
+            if (activity.address) formData.append('address', activity.address);
+            if (activity.capacity) formData.append('capacity', activity.capacity.toString());
+            if (activity.logo) formData.append('logo', activity.logo);
+
+            const response = await axios.put(`${this.baseUrls}/activities/${activityId}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateActivityHour(activityHourId: number, activityHour: Partial<ActivityHour>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/activity_hours/${activityHourId}`, activityHour, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async uploadActivityImages(formData: FormData, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/activity_images`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteActivityImage(imageId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/activity_images/${imageId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
 }
 
 export default new ActivityOwnerService();

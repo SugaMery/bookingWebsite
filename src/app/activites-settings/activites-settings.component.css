@@ -1,0 +1,190 @@
+.modal-content {
+    position: relative;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 0.5rem;
+    outline: 0;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+}
+
+
+
+
+::ng-deep p-calendar span {
+    width: 100% !important;
+}
+
+
+::ng-deep div#pn_id_1_panel{
+
+    transform-origin: center top;
+    top: 62px !important;
+    left: 0px;
+    margin-top: calc(var(--p-anchor-gutter));
+    z-index: 1002;
+    border-radius: 0.5rem !important;
+}
+
+::ng-deep p-calendar span {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+::ng-deep .p-datepicker-input-icon-container {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    inset-inline-end: var(--p-form-field-padding-x);
+    margin-top: calc(-1*(var(--p-icon-size) / 2));
+    color: var(--p-datepicker-input-icon-color);
+    line-height: 1;
+}
+
+::ng-deep calendaricon.p-element.p-icon-wrapper.p-datepicker-icon {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: 0.75rem;
+    margin-top: calc(-1*1rem / 2);
+    color: #94a3b8;
+    line-height: 1;
+}
+
+
+::ng-deep span.p-calendar input {
+    width: 100% !important;
+    text-align: center !important;
+    color:  black !important;
+}
+
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success {
+    box-shadow: 0px 4px 8px 0px rgba(34, 197, 94, 0.04);
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success {
+    background: rgba(240, 253, 244, 0.95);
+    border: solid #bbf7d0;
+    border-width: 1px;
+    color: #16a34a;
+}
+::ng-deep .p-toast .p-toast-message {
+    backdrop-filter: blur(1.5px);
+}
+::ng-deep .p-toast .p-toast-message .p-toast-message-content {
+    padding: 0.75rem;
+    border-width: 1px;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success .p-toast-message-icon,::ng-deep .p-toast .p-toast-message.p-toast-message-success .p-toast-icon-close {
+    color: #16a34a;
+}
+
+::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+    font-size: 1.125rem;
+}
+::ng-deep .p-toast-message-content {
+    display: flex
+;
+    align-items: flex-start;
+}
+
+::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-icon:not(.p-toast-icon-close-icon) {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+::ng-deep .p-icon {
+    display: inline-block;
+}
+
+::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-icon:not(.p-toast-icon-close-icon) {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
+    margin: 0 0 0 0.5rem;
+}
+
+
+::ng-deep .p-toast-message-text {
+    flex: 1 1 auto;
+}
+
+::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+    font-weight: 500;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-success .p-toast-detail {
+    color: #334155;
+}
+.p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+    font-size: 0.875rem;
+}
+::ng-deep .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+    margin: 0.5rem 0 0 0;
+}
+
+::ng-deep .p-ink {
+    display: block;
+    position: absolute;
+    background: #ffffff80;
+    border-radius: 100%;
+    transform: scale(0);
+}
+
+::ng-deep .p-icon {
+    display: inline-block;
+}
+
+
+.view-imgs .view-img {
+    box-shadow: 0px 7.5px 17.5px 0px #e2e8f0 !important;
+    margin: 10px 10px 0 0;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+::ng-deep .p-toast .p-toast-message.p-toast-message-info .p-toast-message-content .p-toast-message-icon {
+    font-size: 1.125rem;
+    margin-top: 0.5rem !important;
+}
+
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+    margin: 0.5rem 0 0 0 ;
+}
+
+::ng-deep .profile-sidebar .dashboard-widget .dashboard-menu ul li a i {
+    font-size: 16px;
+    margin-right: 15px !important;
+    width: 16px;
+}

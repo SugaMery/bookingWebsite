@@ -60761,7 +60761,6 @@ ul li {
 }
 
 .slot-box .slot-body .time-slots li:hover::before {
-    content: "Space : 2";
     background: #0F172A;
     color: #ffffff;
     width: 100%;
