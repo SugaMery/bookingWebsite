@@ -1,5 +1,16 @@
 <!-- Contenu de la page -->
 <app-header></app-header>
+<div class="breadcumb-wrapper background-image" style="opacity: 0.65; padding: 20px 0 !important; background-image: url('assets/img/bg/bgMarrakech.jpg');">
+    <div class="container" >
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title" style="    font-family: cursive;">Connexion</h1>
+            <ul class="breadcumb-menu" >
+                <li><a href="home-travel.html" style="    font-family: cursive;">Accueil</a></li>
+                <li style="    font-family: cursive;">Connexion</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <div class="content doctor-content">
     <div class="container">
@@ -37,13 +48,13 @@
                                         <span>Rendez-vous</span>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="active">
                                     <a href="my-activity.html">
                                         <i class="fa-solid fa-briefcase"></i>
                                         <span>Mon activité</span>
                                     </a>
                                 </li>
-                                <li class="active">
+                                <li >
                                     <a href="invoices.html">
                                         <i class="fa-solid fa-file-lines"></i>
                                         <span>Factures</span>
@@ -98,14 +109,17 @@
                             <li class="nav-item">
                                 <a class="nav-link" [class.active]="activeTab === 'images'" (click)="setActiveTab('images')">Images</a>
                             </li>
-                            <li class="nav-item">
+<!--                             <li class="nav-item">
                                 <a class="nav-link" [class.active]="activeTab === 'carte'" (click)="setActiveTab('carte')">Carte</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" [class.active]="activeTab === 'faq'" (click)="setActiveTab('faq')">FAQ</a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" [class.active]="activeTab === 'reservations-autorisees'" (click)="setActiveTab('reservations-autorisees')">Settings Activité</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" [class.active]="activeTab === 'criteres'" (click)="setActiveTab('criteres')">Critères</a>
                             </li>
                         </ul>
                     </div>
@@ -520,6 +534,331 @@
                     </div>
                 </div>
                 <!-- /New tab content for Map -->
+
+                <!-- New tab content for Reservations Settings -->
+                <div class="setting-title" *ngIf="activeTab === 'reservations-autorisees'">
+                    <h5>Paramètres des réservations</h5>
+                </div>
+                <form *ngIf="activeTab === 'reservations-autorisees'" (ngSubmit)="onSubmitReservations()">
+                    <div class="setting-card">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Réservations autorisées <span class="text-danger">*</span></label>
+                                    <select class="form-control" [(ngModel)]="activity.reservations_allowed" name="reservations_allowed">
+                                        <option [value]=1>Oui</option>
+                                        <option [value]=0>Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Actif <span class="text-danger">*</span></label>
+                                    <select class="form-control" [(ngModel)]="activity.active" name="active">
+                                        <option [value]=1>Oui</option>
+                                        <option [value]=0>Non</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-gray">Annuler</a>
+                        <button type="submit" class="btn btn-primary prime-btn">Enregistrer les modifications</button>
+                    </div>
+                </form>
+                <!-- /New tab content for Reservations Settings -->
+
+                <!-- New tab content for Critères -->
+                <div class="tab-content" *ngIf="activeTab === 'criteres'">
+                    <div class="tab-pane fade show active" id="criteres" role="tabpanel">
+                        <div class="dashboard-header border-0 mb-0">
+                            <h3>Définir les critères</h3>
+                            <ul>
+                                <li>
+                                    <a href="#" class="btn btn-primary prime-btn add-experiences" (click)="showCritereModal()">Ajouter un critère</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="accordions experience-infos" id="list-accord">
+
+                            <!-- Experience1 Item -->
+                            <div class="user-accordion-item">
+                                <a href="#" class="accordion-wrap collapsed" data-bs-toggle="collapse" data-bs-target="#experience1" aria-expanded="false">Experience<span>Delete</span></a>
+                                <div class="accordion-collapse collapse" id="experience1" data-bs-parent="#list-accord" style="">
+                                    <div class="content-collapse">
+                                        <div class="add-service-info" data-select2-id="13">
+                                            <div class="add-info" data-select2-id="12">
+                                                <div class="row align-items-center">
+                                                    <div class="col-md-12">
+                                                        <div class="form-wrap mb-2">
+                                                            <div class="change-avatar img-upload">
+                                                                <div class="profile-img">
+                                                                    <i class="fa-solid fa-file-image"></i>
+                                                                </div>
+                                                                <div class="upload-img">
+                                                                    <h5>Hospital Logo</h5>
+                                                                    <div class="imgs-load d-flex align-items-center">
+                                                                        <div class="change-photo">
+                                                                            Upload New 
+                                                                            <input type="file" class="upload">
+                                                                        </div>
+                                                                        <a href="#" class="upload-remove">Remove</a>
+                                                                    </div>
+                                                                    <p class="form-text">Your Image should Below 4 MB, Accepted format jpg,png,svg</p>
+                                                                </div>			
+                                                            </div>	
+                                                        </div>	
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Title</label>
+                                                            <input type="text" class="form-control">
+                                                        </div>													
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Hospital <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control">
+                                                        </div>													
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Year of Experience <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control">
+                                                        </div>													
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Location <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control">
+                                                        </div>													
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-wrap" data-select2-id="11">
+                                                            <label class="col-form-label">Employement </label>
+                                                            <select class="select select2-hidden-accessible" data-select2-id="4" tabindex="-1" aria-hidden="true">
+                                                                <option data-select2-id="6">Full Time</option>
+                                                                <option data-select2-id="18">Part Time</option>
+                                                            </select><span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="5" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-edkd-container"><span class="select2-selection__rendered" id="select2-edkd-container" role="textbox" aria-readonly="true" title="Full Time">Full Time</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                        </div>													
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Job Description <span class="text-danger">*</span></label>
+                                                            <textarea class="form-control" rows="3"></textarea>
+                                                        </div>													
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Start Date <span class="text-danger">*</span></label>
+                                                            <div class="form-icon">
+                                                                <input type="text" class="form-control datetimepicker">
+                                                                <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
+                                                            </div>
+                                                        </div>													
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">End Date <span class="text-danger">*</span></label>
+                                                            <div class="form-icon">
+                                                                <input type="text" class="form-control datetimepicker">
+                                                                <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
+                                                            </div>
+                                                        </div>													
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">&nbsp;</label>
+                                                            <div class="form-check">
+                                                                   <label class="form-check-label">
+                                                                       <input class="form-check-input" type="checkbox"> I Currently Working Here
+                                                                   </label>
+                                                               </div>
+                                                        </div>													
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-end">
+                                                <a href="#" class="reset more-item">Reset</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Experience1 Item -->
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /New tab content for Critères -->
+
+                <!-- Modal for adding new critère -->
+                <div class="modal fade custom-modals" id="add_critere" [ngClass]="{'show': isCritereModalVisible}" [attr.inert]="isCritereModalVisible ? null : ''" [style.display]="isCritereModalVisible ? 'block' : 'none'" aria-modal="true" role="dialog" tabindex="-1" aria-labelledby="addCritereModalLabel">
+
+                  <div class="modal-dialog modal-dialog-centered modal-lg">
+                    
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        
+                        <h5 class="modal-title" id="addCritereModalLabel">Ajouter un nouveau critère</h5>
+                        <button type="button" class="btn-close" (click)="hideCritereModal()" aria-label="Close">
+                          <i class="fa-solid fa-xmark"></i>
+                        </button>
+                      </div>
+                      <form (ngSubmit)="onAddCritere()">
+                        <div class="modal-body">
+                          <div *ngIf="activity.category_id === 3">
+                            <div class="form-wrap">
+                              <label class="col-form-label">Type de Menu</label>
+                              <select class="form-control" [(ngModel)]="critere.type_menu_id" name="type_menu_id">
+                                <option *ngFor="let typeMenu of typeMenus" [value]="typeMenu.id">{{ typeMenu.nom }}</option>
+                              </select>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-wrap">
+                                  <label class="col-form-label">Nom</label>
+                                  <input type="text" class="form-control" [(ngModel)]="critere.nom" name="nom">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-wrap">
+                                  <label class="col-form-label">Prix</label>
+                                  <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-wrap">
+                              <label class="col-form-label">Description</label>
+                              <textarea class="form-control" [(ngModel)]="critere.description" name="description"></textarea>
+                            </div>
+                            <!-- Add this section to upload imageplat -->
+                            <div class="setting-card">
+                              <div class="change-avatar img-upload">
+                                <div class="profile-img">
+                                  <i class="fa-solid fa-file-image" *ngIf="!imagePlatUrl"></i>
+                                  <img *ngIf="imagePlatUrl" [src]="imagePlatUrl" alt="Image Plat">
+                                </div>
+                                <div class="upload-img">
+                                  <h5>Image du Plat</h5>
+                                  <div class="imgs-load d-flex align-items-center">
+                                    <div class="change-photo">
+                                      Télécharger une nouvelle
+                                      <input type="file" class="upload" (change)="onImagePlatUpload($event)">
+                                    </div>
+                                    <a href="#" class="upload-remove" (click)="imagePlatUrl = null">Supprimer</a>
+                                  </div>
+                                  <p class="form-text">Votre image doit être inférieure à 4 Mo, formats acceptés : jpg, png, svg</p>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- End of added section -->
+                          </div>
+                          <div *ngIf="activity.category_id === 4">
+                            <div class="form-wrap">
+                              <label class="col-form-label">Type de Soin</label>
+                              <select class="form-control" [(ngModel)]="critere.type_soin_id" name="type_soin_id">
+                                <option *ngFor="let typeSoin of typeSoins" [value]="typeSoin.id">{{ typeSoin.nom }}</option>
+                              </select>
+                            </div>
+                            <div class="form-wrap">
+                              <label class="col-form-label">Description</label>
+                              <textarea class="form-control" [(ngModel)]="critere.description" name="description"></textarea>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-wrap">
+                                  <label class="col-form-label">Durée</label>
+                                  <input type="text" class="form-control" [(ngModel)]="critere.duree" name="duree">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-wrap">
+                                  <label class="col-form-label">Prix</label>
+                                  <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="activity.category_id === 5">
+                            <div class="form-wrap">
+                              <label class="col-form-label">Service de Piscine</label>
+                              <select class="form-control" [(ngModel)]="critere.service_piscine_id" name="service_piscine_id">
+                                <option *ngFor="let servicePiscine of servicePiscines" [value]="servicePiscine.id">{{ servicePiscine.nom }}</option>
+                              </select>
+                            </div>
+                            <div class="form-wrap">
+                              <label class="col-form-label">Description</label>
+                              <textarea class="form-control" [(ngModel)]="critere.description" name="description"></textarea>
+                            </div>
+                            <div class="form-wrap">
+                              <label class="col-form-label">Prix</label>
+                              <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
+                            </div>
+                          </div>
+                          <div *ngIf="activity.category_id === 6">
+                            <div class="form-wrap">
+                              <label class="col-form-label">Service de Villa</label>
+                              <select class="form-control" [(ngModel)]="critere.service_villa_id" name="service_villa_id">
+                                <option *ngFor="let serviceVilla of serviceVillas" [value]="serviceVilla.id">{{ serviceVilla.nom }}</option>
+                              </select>
+                            </div>
+                            <div class="form-wrap">
+                              <label class="col-form-label">Nombre de Chambres</label>
+                              <input type="number" class="form-control" [(ngModel)]="critere.nombre_chambres" name="nombre_chambres">
+                            </div>
+                            <div class="form-wrap">
+                              <label class="col-form-label">Description</label>
+                              <textarea class="form-control" [(ngModel)]="critere.description" name="description"></textarea>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-wrap">
+                                  <label class="col-form-label">Prix par Nuit</label>
+                                  <input type="number" class="form-control" [(ngModel)]="critere.prix_nuit" name="prix_nuit">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-wrap">
+                                  <label class="col-form-label">Prix</label>
+                                  <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="activity.category_id === 7">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-wrap">
+                                  <label class="col-form-label">Prix</label>
+                                  <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-wrap">
+                                  <label class="col-form-label">Durée</label>
+                                  <input type="text" class="form-control" [(ngModel)]="critere.duree" name="duree">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-wrap">
+                              <label class="col-form-label">Description</label>
+                              <textarea class="form-control" [(ngModel)]="critere.description" name="description"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <div class="modal-btn text-end">
+                            <a href="#" class="btn btn-gray" (click)="hideCritereModal()">Annuler</a>
+                            <button type="submit" class="btn btn-primary prime-btn">Enregistrer</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Modal for adding new critère -->
             </div>
         </div>
     </div>
@@ -572,6 +911,27 @@
   </div>
 </div>
 
+<!-- Modal for unsaved changes -->
+<div class="modal fade custom-modals" id="unsavedChangesModal" [ngClass]="{'show': showUnsavedChangesModal}" [attr.inert]="showUnsavedChangesModal ? null : ''" [style.display]="showUnsavedChangesModal ? 'block' : 'none'" aria-modal="true" role="dialog" tabindex="-1" aria-labelledby="unsavedChangesModalLabel">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="unsavedChangesModalLabel">Modifications non enregistrées</h5>
+        <button type="button" class="btn-close" (click)="close()" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Vous avez des modifications non enregistrées. Voulez-vous les enregistrer avant de changer d'onglet ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" style="font-size: 0.9375rem !important;" (click)="discardChanges()">Ignorer les modifications</button>
+        <button type="button" class="btn btn-primary" style="font-size: 0.9375rem !important;     background-color: #93a692;
+    border-color: #93a692;" (click)="confirmTabChange()">Enregistrer les modifications</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
   .modal.fade.show {

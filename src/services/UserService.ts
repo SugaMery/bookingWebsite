@@ -48,6 +48,8 @@ interface Activity {
     address: string;
     capacity: number;
     logo: File;
+    active?: boolean;
+    reservations_allowed ?: boolean;
 }
 
 interface ActivityHour {
@@ -55,6 +57,77 @@ interface ActivityHour {
     day_of_week: string;
     opening_time: string;
     closing_time: string;
+}
+
+interface Spa {
+    activity_id: number;
+}
+
+interface TypeSoin {
+    nom: string;
+}
+
+interface SpaSoin {
+    spa_id: number;
+    type_soin_id: number;
+    duree: string;
+    prix: number;
+}
+
+interface SalonBeaute {
+    activity_id: number;
+}
+
+interface ServiceBeaute {
+    nom: string;
+}
+
+interface SalonService {
+    salon_id: number;
+    service_id: number;
+    prix: number;
+}
+
+interface Piscine {
+    activity_id: number;
+    type_piscine: string;
+}
+
+interface ServicePiscine {
+    nom: string;
+}
+
+interface Restaurant {
+    activity_id: number;
+}
+
+interface TypeMenu {
+    nom: string;
+}
+
+interface Menu {
+    restaurant_id: number;
+    type_menu_id: number;
+    nom: string;
+    description: string;
+    prix: number;
+    imageplat?: File; // New field added
+}
+
+interface Villa {
+    activity_id: number;
+    nombre_chambres?: number;
+    prix_nuit?: number;
+}
+
+interface ServiceVilla {
+    nom: string;
+}
+
+interface VillaService {
+    villa_id: number;
+    service_id: number;
+    prix: number;
 }
 
 class ActivityOwnerService {
@@ -325,6 +398,7 @@ class ActivityOwnerService {
 
     async updateActivity(activityId: number, activity: Partial<Activity>, token: string): Promise<any> {
         try {
+            console.log("activity",activity);
             const formData = new FormData();
             if (activity.name) formData.append('name', activity.name);
             if (activity.description) formData.append('description', activity.description);
@@ -332,8 +406,10 @@ class ActivityOwnerService {
             if (activity.category_id) formData.append('category_id', activity.category_id.toString());
             if (activity.address) formData.append('address', activity.address);
             if (activity.capacity) formData.append('capacity', activity.capacity.toString());
-            if (activity.logo) formData.append('logo', activity.logo);
 
+            if (activity.logo) formData.append('logo', activity.logo);
+            if(activity.active !== undefined) formData.append('active', activity.active.toString());
+            if(activity.reservations_allowed !== undefined) formData.append('reservations_allowed', activity.reservations_allowed.toString());
             const response = await axios.put(`${this.baseUrls}/activities/${activityId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -381,6 +457,620 @@ class ActivityOwnerService {
                 }
             });
             return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createSpa(spa: Spa, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/spas`, spa, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateSpa(spaId: number, spa: Partial<Spa>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/spas/${spaId}`, spa, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteSpa(spaId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/spas/${spaId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createTypeSoin(typeSoin: TypeSoin, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/types_soins`, typeSoin, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateTypeSoin(typeSoinId: number, typeSoin: Partial<TypeSoin>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/types_soins/${typeSoinId}`, typeSoin, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteTypeSoin(typeSoinId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/types_soins/${typeSoinId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createSpaSoin(spaSoin: SpaSoin, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/spas_soins`, spaSoin, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateSpaSoin(spaSoinId: number, spaSoin: Partial<SpaSoin>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/spas_soins/${spaSoinId}`, spaSoin, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteSpaSoin(spaSoinId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/spas_soins/${spaSoinId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createSalonBeaute(salonBeaute: SalonBeaute, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/salons_beaute`, salonBeaute, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateSalonBeaute(salonBeauteId: number, salonBeaute: Partial<SalonBeaute>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/salons_beaute/${salonBeauteId}`, salonBeaute, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteSalonBeaute(salonBeauteId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/salons_beaute/${salonBeauteId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createServiceBeaute(serviceBeaute: ServiceBeaute, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/services_beaute`, serviceBeaute, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateServiceBeaute(serviceBeauteId: number, serviceBeaute: Partial<ServiceBeaute>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/services_beaute/${serviceBeauteId}`, serviceBeaute, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteServiceBeaute(serviceBeauteId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/services_beaute/${serviceBeauteId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createSalonService(salonService: SalonService, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/salons_services`, salonService, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateSalonService(salonServiceId: number, salonService: Partial<SalonService>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/salons_services/${salonServiceId}`, salonService, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteSalonService(salonServiceId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/salons_services/${salonServiceId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createPiscine(piscine: Piscine, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/piscines`, piscine, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updatePiscine(piscineId: number, piscine: Partial<Piscine>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/piscines/${piscineId}`, piscine, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deletePiscine(piscineId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/piscines/${piscineId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createServicePiscine(servicePiscine: ServicePiscine, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/services_piscine`, servicePiscine, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateServicePiscine(servicePiscineId: number, servicePiscine: Partial<ServicePiscine>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/services_piscine/${servicePiscineId}`, servicePiscine, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteServicePiscine(servicePiscineId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/services_piscine/${servicePiscineId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createRestaurant(restaurant: Restaurant, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/restaurants`, restaurant, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateRestaurant(restaurantId: number, restaurant: Partial<Restaurant>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/restaurants/${restaurantId}`, restaurant, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteRestaurant(restaurantId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/restaurants/${restaurantId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createTypeMenu(typeMenu: TypeMenu, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/type_menu`, typeMenu, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateTypeMenu(typeMenuId: number, typeMenu: Partial<TypeMenu>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/type_menu/${typeMenuId}`, typeMenu, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteTypeMenu(typeMenuId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/type_menu/${typeMenuId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createMenu(menu: Menu, token: string): Promise<any> {
+        try {
+            const formData = new FormData();
+            formData.append('restaurant_id', menu.restaurant_id.toString());
+            formData.append('type_menu_id', menu.type_menu_id.toString());
+            formData.append('nom', menu.nom);
+            formData.append('description', menu.description);
+            formData.append('prix', menu.prix.toString());
+            if (menu.imageplat) {
+                formData.append('imageplat', menu.imageplat);
+            }
+
+            const response = await axios.post(`${this.baseUrls}/menus`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateMenu(menuId: number, menu: Partial<Menu>, token: string): Promise<any> {
+        try {
+            const formData = new FormData();
+            if (menu.restaurant_id !== undefined) formData.append('restaurant_id', menu.restaurant_id.toString());
+            if (menu.type_menu_id !== undefined) formData.append('type_menu_id', menu.type_menu_id.toString());
+            if (menu.nom !== undefined) formData.append('nom', menu.nom);
+            if (menu.description !== undefined) formData.append('description', menu.description);
+            if (menu.prix !== undefined) formData.append('prix', menu.prix.toString());
+            if (menu.imageplat) {
+                formData.append('imageplat', menu.imageplat);
+            }
+
+            const response = await axios.put(`${this.baseUrls}/menus/${menuId}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteMenu(menuId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/menus/${menuId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createVilla(villa: Villa, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/villas`, villa, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateVilla(villaId: number, villa: Partial<Villa>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/villas/${villaId}`, villa, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteVilla(villaId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/villas/${villaId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createServiceVilla(serviceVilla: ServiceVilla, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/services_villa`, serviceVilla, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateServiceVilla(serviceVillaId: number, serviceVilla: Partial<ServiceVilla>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/services_villa/${serviceVillaId}`, serviceVilla, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteServiceVilla(serviceVillaId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/services_villa/${serviceVillaId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async createVillaService(villaService: VillaService, token: string): Promise<any> {
+        try {
+            const response = await axios.post(`${this.baseUrls}/villas_services`, villaService, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async updateVillaService(villaServiceId: number, villaService: Partial<VillaService>, token: string): Promise<any> {
+        try {
+            const response = await axios.put(`${this.baseUrls}/villas_services/${villaServiceId}`, villaService, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async deleteVillaService(villaServiceId: number, token: string): Promise<any> {
+        try {
+            const response = await axios.delete(`${this.baseUrls}/villas_services/${villaServiceId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            return response.data;
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async getTypeMenus(): Promise<TypeMenu[]> {
+        try {
+            const response = await axios.get(`${this.baseUrls}/type_menu`);
+            console.log("responseddddddddddddd",response.data);
+            return response.data; // Access the 'data' property
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async getTypeSoins(): Promise<TypeSoin[]> {
+        try {
+            const response = await axios.get(`${this.baseUrls}/types_soins`);
+            return response.data; // Access the 'data' property
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async getServiceSalons(): Promise<ServiceBeaute[]> {
+        try {
+            const response = await axios.get(`${this.baseUrls}/services_beaute`);
+            return response.data; // Access the 'data' property
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async getServicePiscines(): Promise<ServicePiscine[]> {
+        try {
+            const response = await axios.get(`${this.baseUrls}/services_piscine`);
+            return response.data; // Access the 'data' property
+        } catch (error) {
+            this.handleAxiosError(error);
+        }
+    }
+
+    async getServiceVillas(): Promise<ServiceVilla[]> {
+        try {
+            const response = await axios.get(`${this.baseUrls}/services_villa`);
+            return response.data; // Access the 'data' property
         } catch (error) {
             this.handleAxiosError(error);
         }

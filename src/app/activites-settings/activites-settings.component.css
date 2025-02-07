@@ -188,3 +188,268 @@
     margin-right: 15px !important;
     width: 16px;
 }
+::ng-deep .header-links li {
+
+    font-size: 14px !important;
+
+}
+
+::ng-deep .header-top ul li {
+    padding-right: 0px !important;
+
+}
+
+::ng-deep .header-top {
+    display: flex
+;
+    background: none !important;
+
+}
+
+::ng-deep .doctor-content {
+    background-color: #ffffff;
+    margin: 0;
+    padding: 140px 0 60px;
+}
+
+::ng-deep .setting-tab .appointment-tabs ul li .nav-link:hover,::ng-deep .setting-tab .appointment-tabs ul li .nav-link.active {
+    background: #93a692 !important;
+    color: #ffffff;
+}
+::ng-deep .setting-tab .appointment-tabs ul li .nav-link {
+    background: #ffffff !important;
+    padding: 7px 20px;
+}
+::ng-deep .appointment-tabs ul li .nav-link.active {
+    background: #0E82FD;
+    color: #ffffff;
+    border-color: #93a692 !important;
+}
+
+::ng-deep .prime-btn {
+    background-color: #93a692 !important;
+    border: 1px solid #93a692 !important;
+    box-shadow: inset 0 0 0 0 #ffffff;
+}
+:root {
+    --p-button-border-radius: var(--p-form-field-border-radius);
+    --p-button-rounded-border-radius: 2rem;
+    --p-button-gap: 0.5rem;
+    --p-button-padding-x: var(--p-form-field-padding-x);
+    --p-button-padding-y: var(--p-form-field-padding-y);
+    --p-button-icon-only-width: 2.5rem;
+    --p-button-sm-font-size: var(--p-form-field-sm-font-size);
+    --p-button-sm-padding-x: var(--p-form-field-sm-padding-x);
+    --p-button-sm-padding-y: var(--p-form-field-sm-padding-y);
+    --p-button-lg-font-size: var(--p-form-field-lg-font-size);
+    --p-button-lg-padding-x: var(--p-form-field-lg-padding-x);
+    --p-button-lg-padding-y: var(--p-form-field-lg-padding-y);
+    --p-button-label-font-weight: 500;
+    --p-button-raised-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    --p-button-focus-ring-width: var(--p-focus-ring-width);
+    --p-button-focus-ring-style: var(--p-focus-ring-style);
+    --p-button-focus-ring-offset: var(--p-focus-ring-offset);
+    --p-button-badge-size: 1rem;
+    --p-button-transition-duration: var(--p-form-field-transition-duration);
+    --p-button-primary-background: var(--p-primary-color);
+    --p-button-primary-hover-background: var(--p-primary-hover-color);
+    --p-button-primary-active-background: var(--p-primary-active-color);
+    --p-button-primary-border-color: var(--p-primary-color);
+    --p-button-primary-hover-border-color: var(--p-primary-hover-color);
+    --p-button-primary-active-border-color: var(--p-primary-active-color);
+    --p-button-primary-color: var(--p-primary-contrast-color);
+    --p-button-primary-hover-color: var(--p-primary-contrast-color);
+    --p-button-primary-active-color: var(--p-primary-contrast-color);
+    --p-button-primary-focus-ring-color: var(--p-primary-color);
+    --p-button-primary-focus-ring-shadow: none;
+    --p-button-secondary-background: var(--p-surface-100);
+    --p-button-secondary-hover-background: var(--p-surface-200);
+    --p-button-secondary-active-background: var(--p-surface-300);
+    --p-button-secondary-border-color: var(--p-surface-100);
+    --p-button-secondary-hover-border-color: var(--p-surface-200);
+    --p-button-secondary-active-border-color: var(--p-surface-300);
+    --p-button-secondary-color: var(--p-surface-600);
+    --p-button-secondary-hover-color: var(--p-surface-700);
+    --p-button-secondary-active-color: var(--p-surface-800);
+    --p-button-secondary-focus-ring-color: var(--p-surface-600);
+    --p-button-secondary-focus-ring-shadow: none;
+    --p-button-info-background: var(--p-sky-500);
+    --p-button-info-hover-background: var(--p-sky-600);
+    --p-button-info-active-background: var(--p-sky-700);
+    --p-button-info-border-color: var(--p-sky-500);
+    --p-button-info-hover-border-color: var(--p-sky-600);
+    --p-button-info-active-border-color: var(--p-sky-700);
+    --p-button-info-color: #ffffff;
+    --p-button-info-hover-color: #ffffff;
+    --p-button-info-active-color: #ffffff;
+    --p-button-info-focus-ring-color: var(--p-sky-500);
+    --p-button-info-focus-ring-shadow: none;
+    --p-button-success-background: var(--p-green-500);
+    --p-button-success-hover-background: var(--p-green-600);
+    --p-button-success-active-background: var(--p-green-700);
+    --p-button-success-border-color: var(--p-green-500);
+    --p-button-success-hover-border-color: var(--p-green-600);
+    --p-button-success-active-border-color: var(--p-green-700);
+    --p-button-success-color: #ffffff;
+    --p-button-success-hover-color: #ffffff;
+    --p-button-success-active-color: #ffffff;
+    --p-button-success-focus-ring-color: var(--p-green-500);
+    --p-button-success-focus-ring-shadow: none;
+    --p-button-warn-background: var(--p-orange-500);
+    --p-button-warn-hover-background: var(--p-orange-600);
+    --p-button-warn-active-background: var(--p-orange-700);
+    --p-button-warn-border-color: var(--p-orange-500);
+    --p-button-warn-hover-border-color: var(--p-orange-600);
+    --p-button-warn-active-border-color: var(--p-orange-700);
+    --p-button-warn-color: #ffffff;
+    --p-button-warn-hover-color: #ffffff;
+    --p-button-warn-active-color: #ffffff;
+    --p-button-warn-focus-ring-color: var(--p-orange-500);
+    --p-button-warn-focus-ring-shadow: none;
+    --p-button-help-background: var(--p-purple-500);
+    --p-button-help-hover-background: var(--p-purple-600);
+    --p-button-help-active-background: var(--p-purple-700);
+    --p-button-help-border-color: var(--p-purple-500);
+    --p-button-help-hover-border-color: var(--p-purple-600);
+    --p-button-help-active-border-color: var(--p-purple-700);
+    --p-button-help-color: #ffffff;
+    --p-button-help-hover-color: #ffffff;
+    --p-button-help-active-color: #ffffff;
+    --p-button-help-focus-ring-color: var(--p-purple-500);
+    --p-button-help-focus-ring-shadow: none;
+    --p-button-danger-background: var(--p-red-500);
+    --p-button-danger-hover-background: var(--p-red-600);
+    --p-button-danger-active-background: var(--p-red-700);
+    --p-button-danger-border-color: var(--p-red-500);
+    --p-button-danger-hover-border-color: var(--p-red-600);
+    --p-button-danger-active-border-color: var(--p-red-700);
+    --p-button-danger-color: #ffffff;
+    --p-button-danger-hover-color: #ffffff;
+    --p-button-danger-active-color: #ffffff;
+    --p-button-danger-focus-ring-color: var(--p-red-500);
+    --p-button-danger-focus-ring-shadow: none;
+    --p-button-contrast-background: var(--p-surface-950);
+    --p-button-contrast-hover-background: var(--p-surface-900);
+    --p-button-contrast-active-background: var(--p-surface-800);
+    --p-button-contrast-border-color: var(--p-surface-950);
+    --p-button-contrast-hover-border-color: var(--p-surface-900);
+    --p-button-contrast-active-border-color: var(--p-surface-800);
+    --p-button-contrast-color: var(--p-surface-0);
+    --p-button-contrast-hover-color: var(--p-surface-0);
+    --p-button-contrast-active-color: var(--p-surface-0);
+    --p-button-contrast-focus-ring-color: var(--p-surface-950);
+    --p-button-contrast-focus-ring-shadow: none;
+    --p-button-outlined-primary-hover-background: var(--p-primary-50);
+    --p-button-outlined-primary-active-background: var(--p-primary-100);
+    --p-button-outlined-primary-border-color: var(--p-primary-200);
+    --p-button-outlined-primary-color: var(--p-primary-color);
+    --p-button-outlined-secondary-hover-background: var(--p-surface-50);
+    --p-button-outlined-secondary-active-background: var(--p-surface-100);
+    --p-button-outlined-secondary-border-color: var(--p-surface-200);
+    --p-button-outlined-secondary-color: var(--p-surface-500);
+    --p-button-outlined-success-hover-background: var(--p-green-50);
+    --p-button-outlined-success-active-background: var(--p-green-100);
+    --p-button-outlined-success-border-color: var(--p-green-200);
+    --p-button-outlined-success-color: var(--p-green-500);
+    --p-button-outlined-info-hover-background: var(--p-sky-50);
+    --p-button-outlined-info-active-background: var(--p-sky-100);
+    --p-button-outlined-info-border-color: var(--p-sky-200);
+    --p-button-outlined-info-color: var(--p-sky-500);
+    --p-button-outlined-warn-hover-background: var(--p-orange-50);
+    --p-button-outlined-warn-active-background: var(--p-orange-100);
+    --p-button-outlined-warn-border-color: var(--p-orange-200);
+    --p-button-outlined-warn-color: var(--p-orange-500);
+    --p-button-outlined-help-hover-background: var(--p-purple-50);
+    --p-button-outlined-help-active-background: var(--p-purple-100);
+    --p-button-outlined-help-border-color: var(--p-purple-200);
+    --p-button-outlined-help-color: var(--p-purple-500);
+    --p-button-outlined-danger-hover-background: var(--p-red-50);
+    --p-button-outlined-danger-active-background: var(--p-red-100);
+    --p-button-outlined-danger-border-color: var(--p-red-200);
+    --p-button-outlined-danger-color: var(--p-red-500);
+    --p-button-outlined-contrast-hover-background: var(--p-surface-50);
+    --p-button-outlined-contrast-active-background: var(--p-surface-100);
+    --p-button-outlined-contrast-border-color: var(--p-surface-700);
+    --p-button-outlined-contrast-color: var(--p-surface-950);
+    --p-button-outlined-plain-hover-background: var(--p-surface-50);
+    --p-button-outlined-plain-active-background: var(--p-surface-100);
+    --p-button-outlined-plain-border-color: var(--p-surface-200);
+    --p-button-outlined-plain-color: var(--p-surface-700);
+    --p-button-text-primary-hover-background: var(--p-primary-50);
+    --p-button-text-primary-active-background: var(--p-primary-100);
+    --p-button-text-primary-color: var(--p-primary-color);
+    --p-button-text-secondary-hover-background: var(--p-surface-50);
+    --p-button-text-secondary-active-background: var(--p-surface-100);
+    --p-button-text-secondary-color: var(--p-surface-500);
+    --p-button-text-success-hover-background: var(--p-green-50);
+    --p-button-text-success-active-background: var(--p-green-100);
+    --p-button-text-success-color: var(--p-green-500);
+    --p-button-text-info-hover-background: var(--p-sky-50);
+    --p-button-text-info-active-background: var(--p-sky-100);
+    --p-button-text-info-color: var(--p-sky-500);
+    --p-button-text-warn-hover-background: var(--p-orange-50);
+    --p-button-text-warn-active-background: var(--p-orange-100);
+    --p-button-text-warn-color: var(--p-orange-500);
+    --p-button-text-help-hover-background: var(--p-purple-50);
+    --p-button-text-help-active-background: var(--p-purple-100);
+    --p-button-text-help-color: var(--p-purple-500);
+    --p-button-text-danger-hover-background: var(--p-red-50);
+    --p-button-text-danger-active-background: var(--p-red-100);
+    --p-button-text-danger-color: var(--p-red-500);
+    --p-button-text-contrast-hover-background: var(--p-surface-50);
+    --p-button-text-contrast-active-background: var(--p-surface-100);
+    --p-button-text-contrast-color: var(--p-surface-950);
+    --p-button-text-plain-hover-background: var(--p-surface-50);
+    --p-button-text-plain-active-background: var(--p-surface-100);
+    --p-button-text-plain-color: var(--p-surface-700);
+    --p-button-link-color: var(--p-primary-color);
+    --p-button-link-hover-color: var(--p-primary-color);
+    --p-button-link-active-color: var(--p-primary-color);
+} 
+::ng-deep .p-fileupload-header {
+    display: flex
+;
+    align-items: center;
+    padding: var(--p-fileupload-header-padding);
+    background: var(--p-fileupload-header-background);
+    color: var(--p-fileupload-header-color);
+    border-style: solid;
+    border-width: var(--p-fileupload-header-border-width);
+    border-color: var(--p-fileupload-header-border-color);
+    border-radius: var(--p-fileupload-header-border-radius);
+    gap: var(--p-fileupload-header-gap);
+}
+
+::ng-deep .p-button {
+    display: inline-flex
+;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    color: var(--p-button-primary-color);
+    background: var(--p-button-primary-background);
+    border: 1px solid var(--p-button-primary-border-color);
+    padding-block: var(--p-button-padding-y);
+    padding-inline: var(--p-button-padding-x);
+    font-size: 1rem;
+    font-family: inherit;
+    font-feature-settings: inherit;
+    transition: background var(--p-button-transition-duration), color var(--p-button-transition-duration), border-color var(--p-button-transition-duration), outline-color var(--p-button-transition-duration), box-shadow var(--p-button-transition-duration);
+    border-radius: var(--p-button-border-radius);
+    outline-color: transparent;
+    gap: var(--p-button-gap);
+}
+
+
+::ng-deep .prime-btn:focus, .prime-btn:hover, .prime-btn:active, .prime-btn.active {
+    color: #93a692;
+    background-color: #ffffff;
+    border-color: #0E82FD;
+    box-shadow: inset 0 0 0 50px #ffffff;
+    -webkit-transition: 0.7s;
+    -ms-transition: 0.7s;
+    transition: 0.7s;
+}

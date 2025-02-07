@@ -8,13 +8,15 @@ import { CalendarModule } from 'primeng/calendar';
 import { MessageService } from 'primeng/api';
 import { Toast, ToastModule } from 'primeng/toast';
 import { HeaderComponent } from "../header/header.component";
+import { FileUploadModule } from 'primeng/fileupload';
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 
 declare var google: any;
 
 @Component({
   selector: 'app-activites-settings',
   standalone: true,
-  imports: [FormsModule, CommonModule, CalendarModule, ToastModule, HeaderComponent],
+  imports: [FormsModule, CommonModule, CalendarModule, ToastModule, HeaderComponent, FileUploadModule, HttpClientModule], // Add HttpClientModule here
   templateUrl: './activites-settings.component.html',
   styleUrl: './activites-settings.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -24,6 +26,7 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   categories: any[] = [];
   cities: any[] = [];
   imageUrl: string | ArrayBuffer | null = null;
+  imagePlatUrl: string | ArrayBuffer | null = null; // Add this line
   activity = {
     name: '',
     description: '',
@@ -34,7 +37,9 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     logo: new File([], ''),
     activity_id: 0,
     latitude: 0,
-    longitude: 0
+    longitude: 0,
+    reservations_allowed: false, // Add this line
+    active: false // Add this line
   };
   activityId: any;
   activeTab: string = 'details-de-base';
@@ -59,6 +64,18 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   marker: any;
   selectedPosition: { lat: number, lng: number } | null = null;
   user: any = {};
+  unsavedChanges: boolean = false;
+  showUnsavedChangesModal: boolean = false;
+  nextTab: string = '';
+  isCritereModalVisible: boolean = false;
+  selectedCritereType: string = 'restaurant';
+  critere: any = {};
+  typeMenus: any[] = []; // Add this line to store type menus
+  typeSoins: any[] = []; // Add this line to store type soins
+  serviceSalons: any[] = []; // Add this line to store service salons
+  servicePiscines: any[] = []; // Add this line to store service piscines
+  serviceVillas: any[] = []; // Add this line to store service villas
+  uploadedFiles: any[] = []; // Add this line to store uploaded files
 
   constructor(private renderer: Renderer2, @Inject(PLATFORM_ID) private platformId: Object, private messageService: MessageService) {
     // Set default values for startTime and endTime
@@ -68,7 +85,7 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     this.endTime.setHours(18, 0, 0); // 06:00 PM
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.loadStyles();
       this.loadScriptED();
@@ -76,11 +93,18 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     this.fetchCategoriesAndCities();
     this.populateActivityFields();
     this.setActiveDay('monday'); // Set default selected day to 'monday'
+    this.trackChanges();
+    this.typeMenus = await UserService.getTypeMenus(); // Fetch type menus
+    console.log('Type Menus:', this.typeMenus);
+    this.typeSoins = await UserService.getTypeSoins(); // Fetch type soins
+    this.serviceSalons = await UserService.getServiceSalons(); // Fetch service salons
+    this.servicePiscines = await UserService.getServicePiscines(); // Fetch service piscines
+    this.serviceVillas = await UserService.getServiceVillas(); // Fetch service villas
   }
 
   ngAfterViewInit() {
-    this.loadScripts();
-    this.loadGoogleMapsScript();
+    //this.loadScripts();
+   // this.loadGoogleMapsScript();
   }
 
   private loadStyles() {
@@ -135,99 +159,87 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
 
   private async populateActivityFields() {
     try {
-        if (isPlatformBrowser(this.platformId)) {
-            const userId = localStorage.getItem('userId');
-            const token = localStorage.getItem('userToken');
-            if (userId && token) {
-                const user = await UserService.getUserById(Number(userId), token);
-                if (user.data) {
-                    this.user = {
-                        name: user.data.user.first_name + ' ' + user.data.user.last_name,
-                        qualification: user.data.user.email,
-                        role: user.data.role_id === 4 ? 'Propriétaire' : user.data.role_id === 3 ? 'Client' : 'Utilisateur'
-                    };
-                    console.log('User:', this.user);
-                }
-                if (user.data.activities && user.data.activities.length > 0) {
-                    const activity = user.data.activities[0];
-                    console.log('Activity:', activity);
-                    this.activityId = activity.activity_id;
-                    this.activity.name = activity.name;
-                    this.activity.description = activity.description;
-                    this.activity.city_id = activity.city_id;
-                    this.activity.category_id = activity.category_id;
-                    this.activity.address = activity.address;
-                    this.activity.capacity = activity.capacity;
-                    this.imageUrl = activity.logo;
-
-                    // Handle images
-                    this.images = activity.images.map((img: any) => ({
-                        id: img.image_id, // Ensure the id is assigned correctly
-                        url: img.image_url,
-                        file: null
-                    }));
-
-                    // Set activity hours
-                    const defaultStartTime = new Date();
-                    defaultStartTime.setHours(8, 0, 0);
-                    const defaultEndTime = new Date();
-                    defaultEndTime.setHours(18, 0, 0);
-
-                    activity.hours.forEach((hour: any) => {
-                        const day = hour.day_of_week.toLowerCase();
-                        this.slots[day] = {
-                            startTime: new Date(`1970-01-01T${hour.opening_time}Z`),
-                            endTime: new Date(`1970-01-01T${hour.closing_time}Z`),
-                            isNonWorkingDay: hour.is_closed === 1
-                        };
-                    });
-
-                    // Set default hours for days not provided
-                    for (const day in this.slots) {
-                        if (!activity.hours.some((hour: any) => hour.day_of_week.toLowerCase() === day)) {
-                            this.slots[day] = {
-                                startTime: defaultStartTime,
-                                endTime: defaultEndTime,
-                                isNonWorkingDay: false
-                            };
-                        }
-                    }
-                }
+      if (isPlatformBrowser(this.platformId)) {
+        const userId = localStorage.getItem('userId');
+        const token = localStorage.getItem('userToken');
+        if (userId && token) {
+          const user = await UserService.getUserById(Number(userId), token);
+          if (user.data) {
+            this.user = {
+              name: user.data.user.first_name + ' ' + user.data.user.last_name,
+              qualification: user.data.user.email,
+              role: user.data.role_id === 4 ? 'Propriétaire' : user.data.role_id === 3 ? 'Client' : 'Utilisateur'
+            };
+            console.log('User:', this.user);
+          }
+          if (user.data.activities && user.data.activities.length > 0) {
+            const activity = user.data.activities[0];
+            console.log('Activity:', activity);
+            this.activityId = activity.activity_id;
+            this.activity.name = activity.name;
+            this.activity.description = activity.description;
+            this.activity.city_id = activity.city_id;
+            this.activity.category_id = activity.category_id;
+            this.activity.address = activity.address;
+            this.activity.capacity = activity.capacity;
+            this.imageUrl = activity.logo;
+            this.activity.reservations_allowed = activity.reservations_allowed;
+            this.activity.active = activity.active;
+            // Handle images
+            if (activity.images) {
+              this.images = activity.images.map((img: any) => ({
+                id: img.image_id,
+                url: img.image_url,
+                file: null
+              }));
             }
+
+            // Set activity hours
+            const defaultStartTime = new Date();
+            defaultStartTime.setHours(8, 0, 0);
+            const defaultEndTime = new Date();
+            defaultEndTime.setHours(18, 0, 0);
+
+            if (activity.hours) {
+              activity.hours.forEach((hour: any) => {
+                const day = hour.day_of_week.toLowerCase();
+                this.slots[day] = {
+                  startTime: new Date(`1970-01-01T${hour.opening_time}Z`),
+                  endTime: new Date(`1970-01-01T${hour.closing_time}Z`),
+                  isNonWorkingDay: hour.is_closed === 1
+                };
+              });
+            }
+
+            // Set default hours for days not provided
+            for (const day in this.slots) {
+              if (!activity.hours || !activity.hours.some((hour: any) => hour.day_of_week.toLowerCase() === day)) {
+                this.slots[day] = {
+                  startTime: defaultStartTime,
+                  endTime: defaultEndTime,
+                  isNonWorkingDay: false
+                };
+              }
+            }
+          }
         }
+      }
     } catch (error) {
-        console.error('Error fetching user activity:', error);
+      console.error('Error fetching user activity:', error);
     }
   }
 
   private loadScripts() {
-
     if (isPlatformBrowser(this.platformId)) {
       const jqueryScript = this.renderer.createElement('script');
       jqueryScript.type = 'text/javascript';
       jqueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
       jqueryScript.onload = () => {
-        const datetimepickerScript = this.renderer.createElement('script');
-        datetimepickerScript.type = 'text/javascript';
-        datetimepickerScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js';
-        datetimepickerScript.onload = () => {
-          ($('.datetimepicker') as any).datetimepicker({
-            format: 'LT'
-          });
+        const momentScript = this.renderer.createElement('script');
+        momentScript.type = 'text/javascript';
+        momentScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js';
 
-          // Add yeti-alerts.js
-          const yetiAlertsScript = this.renderer.createElement('script');
-          yetiAlertsScript.type = 'text/javascript';
-          yetiAlertsScript.src = 'assets2/yeti-alerts.js';
-          this.renderer.appendChild(document.body, yetiAlertsScript);
-
-          // Add script.js
-          const customScript = this.renderer.createElement('script');
-          customScript.type = 'text/javascript';
-          customScript.src = 'assets2/script.js';
-          this.renderer.appendChild(document.body, customScript);
-        };
-        this.renderer.appendChild(document.body, datetimepickerScript);
+        this.renderer.appendChild(document.body, momentScript);
       };
       this.renderer.appendChild(document.body, jqueryScript);
     }
@@ -298,6 +310,20 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onImagePlatUpload(event: Event) { // Add this method
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagePlatUrl = e.target?.result ?? null;
+        if (input.files && input.files[0]) {
+          this.critere.imageplat = input.files[0];
+        }
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
   async onSubmit() {
     try {
       const token = localStorage.getItem('userToken');
@@ -306,7 +332,8 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
         if (this.images.some(image => image.file)) {
           await this.uploadImages();
         }
-        alert('Activity updated successfully');
+        this.showSuccess('Détails de l\'activité mis à jour avec succès'); // Remplacer l'alerte par un toast
+        this.unsavedChanges = false;
       } else {
         alert('User token not found');
       }
@@ -317,7 +344,22 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   }
 
   setActiveTab(tab: string) {
-    this.activeTab = tab;
+    if (this.unsavedChanges) {
+      this.nextTab = tab;
+      this.showUnsavedChangesModal = true;
+    } else {
+      this.activeTab = tab;
+    }
+  }
+
+  confirmTabChange() {
+    this.onSubmit();
+    this.activeTab = this.nextTab;
+    this.showUnsavedChangesModal = false;
+  }
+
+  discardChanges() {
+    this.showUnsavedChangesModal = false;
   }
 
   setActiveDay(day: string) {
@@ -351,7 +393,9 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   setNonWorkingDay(day: string) {
     this.slots[day] = { startTime: new Date(0), endTime: new Date(0), isNonWorkingDay: true };
   }
-
+  close(){
+    this.showUnsavedChangesModal = false;
+  }
   async saveActivityHours() {
     try {
       const token = localStorage.getItem('userToken');
@@ -441,7 +485,7 @@ showInfo(detail: string) {
       severity: 'success',
       summary: 'Succès',
       detail,
-      life: 60000,
+      life: 3000,
       styleClass: 'custom-toast'
     });
   }
@@ -484,4 +528,129 @@ showInfo(detail: string) {
     this.images = [];
   }
   
+  async onSubmitReservations() {
+    // Logic to handle the form submission for reservations settings
+    console.log('Reservations settings saved:', this.activity);
+    try {
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        // Check if the logo image has changed
+        let activite: {
+          reservations_allowed: boolean;
+          active: boolean;
+          name: string;
+          description: string;
+          city_id: number;
+          category_id: number;
+          address: string;
+          capacity: number;
+          logo?: File;
+          activity_id: number;
+          latitude: number;
+          longitude: number;
+        };
+        if (this.activity.logo.size == 0) {
+          console.log('Logo image not changed');
+          // If the logo image hasn't changed, remove it from the activity object
+           activite = {
+            reservations_allowed: this.activity.reservations_allowed,
+            active: this.activity.active,
+            name: this.activity.name,
+            description: this.activity.description,
+            city_id:  this.activity.city_id,
+            category_id:  this.activity.category_id,
+            address: this.activity.address,
+            capacity: this.activity.capacity,
+       
+            activity_id: this.activityId,
+            latitude: 0,
+            longitude: 0,
+  
+          }
+        } else {
+          // If the logo image has changed, update it in the activity object
+           activite = {
+            reservations_allowed: this.activity.reservations_allowed,
+            active: this.activity.active,
+            name: this.activity.name,
+            description: this.activity.description,
+            city_id:  this.activity.city_id,
+            category_id:  this.activity.category_id,
+            address: this.activity.address,
+            capacity: this.activity.capacity,
+            logo : this.activity.logo,
+            activity_id: this.activityId,
+            latitude: 0,
+            longitude: 0,
+  
+          }
+        }
+        await UserService.updateActivity(this.activityId, activite , token);
+        this.showSuccess('Paramètres d\'activité mis à jour avec succès'); // Replace alert with toast
+        this.unsavedChanges = false;
+      } else {
+        alert('User token not found');
+      }
+    } catch (error) {
+      console.error('Error updating activity:', error);
+      alert('Error updating activity');
+    }
+    
+    // Add your save logic here
+  }
+  
+  trackChanges() {
+    this.renderer.listen(document, 'input', () => {
+      this.unsavedChanges = true;
+    });
+  }
+
+  onSubmitCriteres() {
+    // Logic to handle form submission for Critères
+    console.log('Critères form submitted', this.activity);
+    // Add your form submission logic here
+  }
+
+  showCritereModal() {
+    this.isCritereModalVisible = true;
+  }
+
+  hideCritereModal() {
+    this.isCritereModalVisible = false;
+  }
+
+  async onAddCritere() {
+    try {
+        const token = localStorage.getItem('userToken');
+        if (token) {
+            if (this.activity.category_id === 3) {
+                await UserService.createMenu(this.critere, token);
+            } else if (this.activity.category_id === 4) {
+                await UserService.createSpaSoin(this.critere, token);
+            } else if (this.activity.category_id === 5) {
+                await UserService.createSalonService(this.critere, token);
+            } else if (this.activity.category_id === 6) {
+                await UserService.createServicePiscine(this.critere, token);
+            } else if (this.activity.category_id === 7) {
+                await UserService.createVillaService(this.critere, token);
+            } else if (this.activity.category_id === 8) {
+                await UserService.createActivity(this.critere, token);
+            }
+            this.showSuccess('Critère ajouté avec succès');
+            this.hideCritereModal();
+        } else {
+            alert('User token not found');
+        }
+    } catch (error) {
+        console.error('Error adding critère:', error);
+        alert('Error adding critère');
+    }
+  }
+
+  onUpload(event: any) {
+    for (let file of event.files) {
+        this.uploadedFiles.push(file);
+    }
+    this.showSuccess('Fichier téléchargé avec succès');
+  }
 }

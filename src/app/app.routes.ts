@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistreComponent } from './registre/registre.component';
 import { RegistreProprietaireComponent } from './registre-proprietaire/registre-proprietaire.component';
 import { ActivitesSettingsComponent } from './activites-settings/activites-settings.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -11,4 +12,5 @@ export const routes: Routes = [
     { path: 'connexion', component: LoginComponent },
     { path: 'inscrire', component: RegistreComponent },
     { path: 'inscrire_proprietaire', component: RegistreProprietaireComponent },
+    {path: 'detail', component: BookDetailComponent}
 ];
