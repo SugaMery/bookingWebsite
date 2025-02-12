@@ -14,7 +14,7 @@
     outline: 0;
 }
 
-.bootstrap-datetimepicker-widget.dropdown-menu.bottom {
+ .bootstrap-datetimepicker-widget.dropdown-menu.bottom {
     position: absolute;
     top: 100%;
     left: 0;
@@ -35,10 +35,10 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
 }
 
+ 
 
 
-
-::ng-deep p-calendar span {
+ ::ng-deep p-calendar span {
     width: 100% !important;
 }
 
@@ -51,9 +51,9 @@
     margin-top: calc(var(--p-anchor-gutter));
     z-index: 1002;
     border-radius: 0.5rem !important;
-}
+} 
 
-::ng-deep p-calendar span {
+ ::ng-deep p-calendar span {
     width: 100% !important;
     text-align: center !important;
 }
@@ -82,7 +82,7 @@
     width: 100% !important;
     text-align: center !important;
     color:  black !important;
-}
+} 
 
 
 ::ng-deep .p-toast .p-toast-message.p-toast-message-success {
@@ -206,7 +206,7 @@
 
 }
 
-::ng-deep .doctor-content {
+ ::ng-deep .doctor-content {
     background-color: #ffffff;
     margin: 0;
     padding: 140px 0 60px;
@@ -452,4 +452,43 @@
     -webkit-transition: 0.7s;
     -ms-transition: 0.7s;
     transition: 0.7s;
+} 
+
+::ng-deep .setting-card {
+    border: 1px solid #E2E8F0;
+    margin: 0 0 24px;
+    padding: 24px 24px 9px;
+    border-radius: 10px;
+    /* color: black; */
+    box-shadow: 0px 7.5px 17.5px 0px rgba(0, 0, 0, 0.0509803922);
+}
+
+::ng-deep .available-tab ul li a.active {
+    background: #93a692 !important;
+    border-color: #93a692 !important;
+    color: #ffffff;
+}
+
+::ng-deep .available-tab ul li a:hover {
+    background: #93a692 !important;
+    border-color: #93a692 !important;
+    color: #ffffff;
+}
+
+::ng-deep  .card-header {
+
+ border-bottom: none !important;
+    margin: 0 0 0px !important;
+}
+
+
+::ng-deep  .user-accordion-item .accordion-wrap::before {
+    content: "\f078";
+    font-family: Font Awesome\ 6 Pro !important;
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
 }

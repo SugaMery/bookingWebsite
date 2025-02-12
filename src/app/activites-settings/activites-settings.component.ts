@@ -76,6 +76,7 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   servicePiscines: any[] = []; // Add this line to store service piscines
   serviceVillas: any[] = []; // Add this line to store service villas
   uploadedFiles: any[] = []; // Add this line to store uploaded files
+  criteres: any[] = []; // Add this line to store criteres
 
   constructor(private renderer: Renderer2, @Inject(PLATFORM_ID) private platformId: Object, private messageService: MessageService) {
     // Set default values for startTime and endTime
@@ -100,6 +101,9 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     this.serviceSalons = await UserService.getServiceSalons(); // Fetch service salons
     this.servicePiscines = await UserService.getServicePiscines(); // Fetch service piscines
     this.serviceVillas = await UserService.getServiceVillas(); // Fetch service villas
+    this.saveToLocalStorage();
+    this.loadFromLocalStorage();
+    
   }
 
   ngAfterViewInit() {
@@ -170,7 +174,7 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
               qualification: user.data.user.email,
               role: user.data.role_id === 4 ? 'Propriétaire' : user.data.role_id === 3 ? 'Client' : 'Utilisateur'
             };
-            console.log('User:', this.user);
+            console.log('User:', user.data);
           }
           if (user.data.activities && user.data.activities.length > 0) {
             const activity = user.data.activities[0];
@@ -310,36 +314,97 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onImagePlatUpload(event: Event) { // Add this method
+  onImagePlatUpload(event: Event, index?: number) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        this.imagePlatUrl = e.target?.result ?? null;
-        if (input.files && input.files[0]) {
-          this.critere.imageplat = input.files[0];
+        if (index !== undefined) {
+          this.criteres[index].imageUrl = e.target?.result ?? null;
+        } else {
+          this.imagePlatUrl = e.target?.result ?? null;
+          if (input.files && input.files[0]) {
+            this.critere.imageplat = input.files[0];
+          }
         }
       };
       reader.readAsDataURL(input.files[0]);
     }
   }
 
+  removeImagePlat(index: number) {
+    this.criteres[index].imageUrl = null;
+  }
+
   async onSubmit() {
     try {
       const token = localStorage.getItem('userToken');
       if (token) {
-        await UserService.updateActivity(this.activityId, this.activity, token);
+        console.log('activityId:', this.activityId);
+        if (this.activityId != undefined ) {
+          await UserService.updateActivity(this.activityId, this.activity, token);
+        } else {
+          const response = await UserService.createActivity(this.activity, token);
+          this.activityId = response.data.activityId;
+          console.log('New activityId:',response.data, this.activityId); // Log the new activityId
+          await this.createActivityHours(token); // Create activity hours after creating the activity
+        }
         if (this.images.some(image => image.file)) {
           await this.uploadImages();
         }
         this.showSuccess('Détails de l\'activité mis à jour avec succès'); // Remplacer l'alerte par un toast
         this.unsavedChanges = false;
+        this.saveToLocalStorage(); // Save to local storage
       } else {
         alert('User token not found');
       }
     } catch (error) {
       console.error('Error updating activity:', error);
       alert('Error updating activity');
+    }
+  }
+
+  private async createActivityHours(token: string) {
+    try {
+      for (const day in this.slots) {
+        const slot = this.slots[day];
+        const activityHour = {
+          activity_id: this.activityId,
+          day_of_week: day,
+          opening_time: new Date(slot.startTime).toISOString().split('T')[1].split('.')[0], // Ensure startTime is a Date object
+          closing_time: new Date(slot.endTime).toISOString().split('T')[1].split('.')[0], // Ensure endTime is a Date object
+          is_closed: slot.isNonWorkingDay ? 1 : 0
+        };
+        console.log('Activity hour:', activityHour);
+        await UserService.createActivityHour(activityHour, token);
+      }
+      this.showSuccess('Les heures d\'activité ont été créées avec succès.');
+    } catch (error) {
+      console.error('Error creating activity hours:', error);
+      alert('Error creating activity hours');
+    }
+  }
+
+
+  
+  private async createActivityHour(token: string , activityId: number) {
+    try {
+      for (const day in this.slots) {
+        const slot = this.slots[day];
+        const activityHour = {
+          activity_id: activityId,
+          day_of_week: day,
+          opening_time: new Date(slot.startTime).toISOString().split('T')[1].split('.')[0], // Ensure startTime is a Date object
+          closing_time: new Date(slot.endTime).toISOString().split('T')[1].split('.')[0], // Ensure endTime is a Date object
+          is_closed: slot.isNonWorkingDay ? 1 : 0
+        };
+        console.log('Activity hour:', activityHour);
+        await UserService.createActivityHour(activityHour, token);
+      }
+      this.showSuccess('Les heures d\'activité ont été créées avec succès.');
+    } catch (error) {
+      console.error('Error creating activity hours:', error);
+      alert('Error creating activity hours');
     }
   }
 
@@ -359,7 +424,10 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   }
 
   discardChanges() {
+    this.loadFromLocalStorage();
+    this.activeTab = this.nextTab;
     this.showUnsavedChangesModal = false;
+    this.unsavedChanges = false; // Reset unsaved changes flag
   }
 
   setActiveDay(day: string) {
@@ -368,8 +436,8 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
 
   showModal(day: string) {
     this.currentDay = day;
-    this.startTime = this.slots[day].startTime || new Date();
-    this.endTime = this.slots[day].endTime || new Date();
+    this.startTime = new Date(this.slots[day].startTime); // Ensure startTime is a Date object
+    this.endTime = new Date(this.slots[day].endTime); // Ensure endTime is a Date object
     this.isModalVisible = true;
   }
 
@@ -379,36 +447,41 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
 
   onAddSlot() {
     this.slots[this.currentDay] = {
-      startTime: new Date(this.startTime),
-      endTime: new Date(this.endTime),
+      startTime: new Date(this.startTime), // Ensure startTime is a Date object
+      endTime: new Date(this.endTime), // Ensure endTime is a Date object
       isNonWorkingDay: false
     };
+    this.unsavedChanges = true; // Mark changes as unsaved
     this.hideModal();
   }
 
   clearSlots(day: string) {
     this.slots[day] = { startTime: new Date(), endTime: new Date(), isNonWorkingDay: false };
+    this.unsavedChanges = true; // Mark changes as unsaved
   }
 
   setNonWorkingDay(day: string) {
     this.slots[day] = { startTime: new Date(0), endTime: new Date(0), isNonWorkingDay: true };
+    this.unsavedChanges = true; // Mark changes as unsaved
   }
-  close(){
+
+  close() {
     this.showUnsavedChangesModal = false;
   }
+
   async saveActivityHours() {
     try {
       const token = localStorage.getItem('userToken');
       if (token) {
         for (const day in this.slots) {
           const slot = this.slots[day];
-            const activityHour = {
-              activity_id: this.activityId,
-              day_of_week: day,
-              opening_time: slot.startTime.toISOString().split('T')[1].split('.')[0],
-              closing_time: slot.endTime.toISOString().split('T')[1].split('.')[0],
-              is_closed: slot.isNonWorkingDay ? 1 : 0
-            };
+          const activityHour = {
+            activity_id: this.activityId,
+            day_of_week: day,
+            opening_time: new Date(slot.startTime).toISOString().split('T')[1].split('.')[0], // Ensure startTime is a Date object
+            closing_time: new Date(slot.endTime).toISOString().split('T')[1].split('.')[0], // Ensure endTime is a Date object
+            is_closed: slot.isNonWorkingDay ? 1 : 0
+          };
           console.log('Activity hour:', activityHour);
           await UserService.createActivityHour(activityHour, token);
         }
@@ -424,61 +497,61 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
 
   async uploadImages() {
     try {
-        const token = localStorage.getItem('userToken');
-        if (token) {
-            const formData = new FormData();
-            formData.append('activity_id', this.activityId.toString());
-            this.images.forEach(image => {
-                if (image.file) {
-                    formData.append('images', image.file);
-                }
-            });
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        const formData = new FormData();
+        formData.append('activity_id', this.activityId.toString());
+        this.images.forEach(image => {
+          if (image.file) {
+            formData.append('images', image.file);
+          }
+        });
 
-            if (formData.has('images')) {
-                const response = await UserService.uploadActivityImages(formData, token);
-                this.showSuccess('Images uploaded successfully');
+        if (formData.has('images')) {
+          const response = await UserService.uploadActivityImages(formData, token);
+            this.showSuccess('Images téléchargées avec succès');
 
-                // Update the images array with the newly uploaded images
-                const uploadedImages = response.data.imageUrls.map((url: string, index: number) => ({
-                    id: response.data.imageIds[index], // Set the id for each uploaded image
-                    url,
-                    file: null
-                }));
-                this.images = this.images.map(image => image.file ? uploadedImages.shift() : image);
-            } else {
-                this.showInfo('Aucune image à télécharger');
-            }
+          // Update the images array with the newly uploaded images
+          const uploadedImages = response.data.imageUrls.map((url: string, index: number) => ({
+            id: response.data.imageIds[index], // Set the id for each uploaded image
+            url,
+            file: null
+          }));
+          this.images = this.images.map(image => image.file ? uploadedImages.shift() : image);
         } else {
-            alert('User token not found');
+          this.showInfo('Aucune image à télécharger');
         }
+      } else {
+        alert('User token not found');
+      }
     } catch (error) {
-        console.error('Error uploading images:', error);
-        alert('Error uploading images');
+      console.error('Error uploading images:', error);
+      alert('Error uploading images');
     }
-}
+  }
 
-showInfo(detail: string) {
-  this.messageService.add({
-    severity: 'info',
-    detail,
-    life: 60000,
-    styleClass: 'custom-toast'
-  });
-}
+  showInfo(detail: string) {
+    this.messageService.add({
+      severity: 'info',
+      detail,
+      life: 60000,
+      styleClass: 'custom-toast'
+    });
+  }
 
   async deleteImage(image: any) {
     try {
-        const token = localStorage.getItem('userToken');
-        if (token && image.file === null) { // Only delete images that are already uploaded
-            await UserService.deleteActivityImage(image.id, token);
-            this.showSuccess('Image supprimée avec succès');
-        }
-        this.images = this.images.filter(img => img !== image);
+      const token = localStorage.getItem('userToken');
+      if (token && image.file === null) { // Only delete images that are already uploaded
+        await UserService.deleteActivityImage(image.id, token);
+        this.showSuccess('Image supprimée avec succès');
+      }
+      this.images = this.images.filter(img => img !== image);
     } catch (error) {
-        console.error('Error deleting image:', error);
-        alert('Error deleting image');
+      console.error('Error deleting image:', error);
+      alert('Error deleting image');
     }
-}
+  }
 
   showSuccess(detail: string) {
     this.messageService.add({
@@ -527,7 +600,7 @@ showInfo(detail: string) {
   resetImages() {
     this.images = [];
   }
-  
+
   async onSubmitReservations() {
     // Logic to handle the form submission for reservations settings
     console.log('Reservations settings saved:', this.activity);
@@ -619,23 +692,18 @@ showInfo(detail: string) {
     this.isCritereModalVisible = false;
   }
 
-  async onAddCritere() {
+/*   async onAddCritere() {
     try {
         const token = localStorage.getItem('userToken');
         if (token) {
-            if (this.activity.category_id === 3) {
-                await UserService.createMenu(this.critere, token);
-            } else if (this.activity.category_id === 4) {
-                await UserService.createSpaSoin(this.critere, token);
-            } else if (this.activity.category_id === 5) {
-                await UserService.createSalonService(this.critere, token);
-            } else if (this.activity.category_id === 6) {
-                await UserService.createServicePiscine(this.critere, token);
-            } else if (this.activity.category_id === 7) {
-                await UserService.createVillaService(this.critere, token);
-            } else if (this.activity.category_id === 8) {
-                await UserService.createActivity(this.critere, token);
+            // Validate critere object
+            if (!this.critere.nom || !this.critere.prix || !this.critere.description) {
+                this.showInfo('Veuillez remplir tous les champs obligatoires.');
+                return;
             }
+            // Log critere object for debugging
+            console.log('Critere object:', this.critere);
+
             this.showSuccess('Critère ajouté avec succès');
             this.hideCritereModal();
         } else {
@@ -645,12 +713,68 @@ showInfo(detail: string) {
         console.error('Error adding critère:', error);
         alert('Error adding critère');
     }
-  }
+} */
 
   onUpload(event: any) {
     for (let file of event.files) {
         this.uploadedFiles.push(file);
     }
     this.showSuccess('Fichier téléchargé avec succès');
+  }
+
+/*   deleteCritere(critere: any) {
+    this.criteres = this.criteres.filter(c => c.id !== critere.id);
+  }
+ */
+  resetCritere(critere: any) {
+    critere.nom = '';
+    critere.prix = '';
+    critere.description = '';
+    critere.imageUrl = null;
+  }
+
+  onAddCritere() {
+    this.criteres.push({ ...this.critere, imageUrl: this.imagePlatUrl });
+    this.critere = {};
+    this.imagePlatUrl = null;
+    this.hideCritereModal();
+  }
+
+  deleteCritere(index: number) {
+    this.criteres.splice(index, 1);
+  }
+
+  onImagePlatUploadS(event: any, index: number) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.criteres[index].imageUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  removeImagePlatS(index: number) {
+    this.criteres[index].imageUrl = null;
+  }
+
+  // Save current state to local storage
+  saveToLocalStorage() {
+    console.log('Saving to local storage:', this.activity, this.slots, this.images);
+    localStorage.setItem('activity', JSON.stringify(this.activity));
+    localStorage.setItem('slots', JSON.stringify(this.slots));
+    localStorage.setItem('images', JSON.stringify(this.images));
+  }
+
+  // Load state from local storage
+  loadFromLocalStorage() {
+    const activity = localStorage.getItem('activity');
+    const slots = localStorage.getItem('slots');
+    const images = localStorage.getItem('images');
+    console.log('Loading from local storage:', activity, slots, images);
+    if (activity) this.activity = JSON.parse(activity);
+    if (slots) this.slots = JSON.parse(slots);
+    if (images) this.images = JSON.parse(images);
   }
 }

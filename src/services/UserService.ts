@@ -370,7 +370,8 @@ class ActivityOwnerService {
             formData.append('address', activity.address);
             formData.append('capacity', activity.capacity.toString());
             formData.append('logo', activity.logo);
-
+            formData.append('active', "1");
+            formData.append('reservations_allowed', "1");
             const response = await axios.post(`${this.baseUrls}/activities`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
