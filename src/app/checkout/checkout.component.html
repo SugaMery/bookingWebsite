@@ -1,0 +1,549 @@
+<app-header></app-header>
+<div class="breadcumb-wrapper background-image" style="opacity: 0.65; padding: 40px 0 !important; background-image: url('assets/img/bg/bgMarrakech.jpg');">
+    <div class="container" >
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title" style="font-family: 'Quicksand', sans-serif;">Finalisation de la réservation</h1>
+            <ul class="breadcumb-menu">
+            <li><a href="home-travel.html" style="font-family: 'Quicksand', sans-serif;">Accueil</a></li>
+            <li style="font-family: 'Quicksand', sans-serif;;">Finalisation de la réservation</li>
+            </ul>
+        </div>
+        </div>
+    </div>
+<div class="th-checkout-wrapper space-top space-extra-bottom">
+    <div class="container">
+
+        <form action="#" class="woocommerce-checkout mt-40">
+            <div class="row">
+<!--                 <div class="col-lg-8"  style="
+                     width: 67.6666666667%;
+            "> -->
+                            <div class="col-lg-8" >
+                    <h2  style="font-family: 'Quicksand', sans-serif;">Saisir les informations</h2>
+
+                    <div class="row">
+ <!--                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" placeholder="Prénom">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input type="text" class="form-control" placeholder="Nom">
+                        </div>
+                        <div class="col-12 form-group">
+                            <input type="text" class="form-control" placeholder="Adresse e-mail">
+                        </div>
+                        <div class="col-12 form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <select class="form-select">
+                                        <option value="+33">+33</option>
+                                        <option value="+1">+1</option>
+                                        <option value="+44">+44</option>
+                                        <option value="+49">+49</option>
+                                        <option value="+61">+61</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" placeholder="Numéro de mobile">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 form-group">
+                            <textarea class="form-control" placeholder="Commentaire"></textarea>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input type="password" class="form-control" placeholder="Mot de passe" name="password">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input type="password" class="form-control" placeholder="Confirmer le mot de passe" name="confirmPassword">
+                        </div> -->
+
+
+
+
+
+
+
+
+                        <div class="col-6 form-group">
+                            <label for="nom">Nom</label>
+                            <input type="text" class="form-control" name="nom" id="nom" placeholder="Nom" [(ngModel)]="nom">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label for="prénom">Prénom</label>
+                            <input type="text" class="form-control" name="prénom" id="prénom" placeholder="Prénom" [(ngModel)]="prenom">
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="telephone">Numéro de téléphone</label>
+                            <div class="row">
+                                <div class="col-3">
+                                    <select class="form-control" name="phonePrefix" id="phonePrefix">
+                                        <option >+33</option>
+                                        <option selected="">+212</option>
+                                        <option>+1</option>
+                                        <!-- Add more options as needed -->
+                                    </select>
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" class="form-control" name="telephone" id="telephone" placeholder="Numéro de téléphone" [(ngModel)]="telephone">
+                         
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="email3">Email</label>
+                            <input type="email" class="form-control" name="email3" id="email3" placeholder="Votre Email" [(ngModel)]="email3"> 
+                            <img style="top: 50px;" src="assets/img/icon/mail.svg" alt="">
+                        </div>
+                        <div class="col-6 form-group">
+                            <label for="password">Mot de Passe</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Votre Mot de Passe" [(ngModel)]="password"> 
+                          
+                            <i style="top: 50px;font-size: 1.3rem" id="password-icon" class="pi pi-eye" (click)="togglePasswordVisibility('password')"></i>
+                        </div>
+                        <div class="col-6 form-group">
+                            <label for="confirmPassword">Confirmer Mot de Passe</label>
+                            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirmer Mot de Passe" [(ngModel)]="confirmPassword"> 
+                         
+                          
+                            <i style="top: 50px;font-size: 1.3rem" id="confirmPassword-icon" class="pi pi-eye " (click)="togglePasswordVisibility('confirmPassword')"></i>
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="commentaires">Commentaire</label>
+                            <textarea class="form-control" name="commentaires" id="commentaires" placeholder="Votre commentaire" [(ngModel)]="commentaires"></textarea>
+                        </div>
+
+                        <div class="form-btn col-12 mt-24" style="text-align: end;">
+                          <button type="submit" class="th-btn style3" (click)="onReserveNow($event)">Réserver maintenant <img src="assets/img/icon/plane.svg" alt=""></button>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+<!--                 <div class="col-lg-3" style="
+                width: 28%;
+            "> -->
+                            <div class="col-lg-4" style="
+                       
+                        ">
+                    <aside class="sidebar-area">
+                        <!--                          <div class="widget widget_search">
+                                                    <form class="search-form"><input type="text" placeholder="Search"> <button type="submit"><i
+                                                                class="far fa-search"></i></button></form>
+                                                </div> -->
+                                               <div class="tour-booking" style="
+                                               padding-top: 30px;    
+                                           ">
+                                                <h3 class="widget_title" style="font-family: 'Quicksand', sans-serif;">Détails de la réservation</h3>
+     <!--                                            <div class="booking-summary">
+                                                    <div class="booking-item" style="display: flex
+                                                    ;
+                                                        gap: 20px;
+                                                        align-items: flex-start;
+                                                        flex-wrap: wrap;">
+                                                                                                                    <img src="assets/img/bg/bgMarrakech.jpg" alt="Skoda Fabia" style="    border-radius: 8px;
+    object-fit: cover;">
+
+                                       
+                                                        <div class="booking-details">
+                                                            <h4 class="booking-model" style="
+                                                            TEXT-ALIGN: center;
+                                                        ">Skoda Fabia</h4>
+ 
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <div class="card">
+                                                    <div class="goto-buttons">
+                                                        <div class="booking-item" style="display: flex;gap: 20px;align-items: flex-start;flex-wrap: wrap;padding: 10px 20px;border-bottom: 1px solid #efefef;">
+                                                            <img *ngIf="activity" [src]="activity.logo" [alt]="activity.name" style="border-radius: 8px;object-fit: cover;height: 250px;width: 100%;">
+                                                            <div class="booking-details">
+                                                                <h4 class="booking-model" style="text-align: center;font-family: 'Quicksand', sans-serif;" *ngIf="activity">{{activity.name}}</h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="calendar-toolbar">
+                                                      <button class="prev month-btn">
+                                                        <i class="fas fa-chevron-left"></i>
+                                                      </button>
+                                                      <div class="current-month"></div>
+                                                      <button class="next month-btn">
+                                                        <i class="fas fa-chevron-right"></i>
+                                                      </button>
+                                                    </div>
+                                                    <div class="calendar">
+                                                      <div class="weekdays">
+                                                        <div class="weekday-name">Di</div>
+                                                        <div class="weekday-name">Lu</div>
+                                                        <div class="weekday-name">Ma</div>
+                                                        <div class="weekday-name">Me</div>
+                                                        <div class="weekday-name">Je</div>
+                                                        <div class="weekday-name">Ve</div>
+                                                        <div class="weekday-name">Sa</div>
+                                                      </div>
+                                                      <div class="calendar-days"></div>
+                                                    </div>
+                                                    <div class="time-selection" style="display: flex
+                                                    ;
+                                                        justify-content: center;
+                                                        align-items: center;
+                                                        text-align: center;
+                                                        flex-direction: column;">
+                                                        <label for="calendar-start-time" style="font-family: 'Quicksand', sans-serif !important; margin-top: 0.5rem; font-weight: 700;">Sélectionner une heure:q</label>
+                        <!--                                 <p-calendar inputId="calendar-start-time" [ngStyle]="{'width': '150px'}" [(ngModel)]="startTime" [showTime]="true" [timeOnly]="true" name="modalStartTime" [iconDisplay]="'input'" [showIcon]="true" [hourFormat]="'24'" [minDate]="timeRange.min" [maxDate]="timeRange.max"></p-calendar>
+                         -->                                <p-calendar inputId="calendar-start-time"  [ngStyle]="{'width': '80%'}" [(ngModel)]="startTime" [showTime]="true" [timeOnly]="true" name="modalStartTime" [iconDisplay]="'input'" [showIcon]="true" [hourFormat]="'24'" [minDate]="timeRange.min" [maxDate]="timeRange.max"></p-calendar>
+                        
+                                                    </div>
+                                                    <div class="person-selection" style="text-align: center; padding: 10px 20px;">
+                                                        <label for="number-of-people" style="color: rgba(0, 0, 0, 0.87);font-family: 'Quicksand', sans-serif !important; margin-top: 0.5rem; font-weight: 700;">Nombre de personnes:</label>
+                                                        <div class="person-counter" style="display: flex; justify-content: center; align-items: center; ">
+                                                            <button type="button" (click)="decrementPeople()" style="background: none; border: none; cursor: pointer;">
+                                                                <i class="fa fa-minus-circle" style="font-size: 24px;    color: #93a692;"></i>
+                                                            </button>
+                                                            <input id="number-of-people" type="number" [(ngModel)]="numberOfPeople" style=" text-align: center;" min="1" name="numberOfPeople">
+                                                            <button type="button" (click)="incrementPeople()" style="background: none; border: none; cursor: pointer;">
+                                                                <i class="fa fa-plus-circle" style="font-size: 24px;    color: #93a692;"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="goto-buttons">
+                                                      <button type="button" class="btn prev-year">Année préc</button>
+                                                      <button type="button" class="btn today">Aujourd'hui</button>
+                                                      <button type="button" class="btn next-year">Année suiv</button>
+                                                    </div>
+                                                  </div>
+<!--                                                   <div style="text-align: end;">
+                                                    <a class="th-btn th-icon" style="margin-top: 1.5rem; margin-bottom: 0px;" (click)="goToFinalisationCommande()">
+                                                        Réserver maintenant
+                                                    </a>
+                                                  </div> -->
+                        
+                            
+                                                </div> 
+                        
+                        <!--                         <div class="booking-container">
+                                                    <div class="booking-form">
+                                                        <h2>Réserver maintenant</h2>
+                                                        
+                                                        <div class="form-group">
+                                                            <label>Nom Complet</label>
+                                                            <input type="text" class="modern-input" placeholder="Jean Dupont">
+                                                        </div>
+                                                
+                                                        <div class="form-group">
+                                                            <label>Adresse E-mail</label>
+                                                            <input type="email" class="modern-input" placeholder="jean.dupont@email.com">
+                                                        </div>
+                                                
+                                                        <div class="phone-group">
+                                                            <div class="form-group small">
+                                                                <label>Indicatif</label>
+                                                                <select class="modern-input">
+                                                                    <option>+33</option>
+                                                                    <option>+32</option>
+                                                                    <option>+41</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Téléphone</label>
+                                                                <input type="tel" class="modern-input" placeholder="6 12 34 56 78">
+                                                            </div>
+                                                        </div>
+                                                
+                                                        <div class="date-time-group">
+                                                            <div class="form-group">
+                                                                <label>Date</label>
+                                                                <input type="date" class="modern-input">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Heure</label>
+                                                                <input type="time" class="modern-input">
+                                                            </div>
+                                                        </div>
+                                                
+                                                        <div class="form-group">
+                                                            <label>Horaire retour</label>
+                                                            <input type="time" class="modern-input">
+                                                        </div>
+                                                
+                                                        <div class="guests-group">
+                                                            <div class="form-group">
+                                                                <label>Adultes</label>
+                                                                <input type="number" class="modern-input" value="2" min="0">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Enfants</label>
+                                                                <input type="number" class="modern-input" value="1" min="0">
+                                                            </div>
+                                                        </div>
+                                                
+                                                        <div class="form-group">
+                                                            <label>Commentaires</label>
+                                                            <textarea class="modern-input" rows="3"></textarea>
+                                                        </div>
+                                                
+                                                        <div class="checkbox-group">
+                                                            <label class="custom-checkbox">
+                                                                <input type="checkbox">
+                                                                <span class="checkmark"></span>
+                                                                Noter votre hôtel gratuit
+                                                            </label>
+                                                        </div>
+                                                
+                                                        <a href="contact.html" class="th-btn th-icon">Book Now</a>
+                                                    </div>
+                                                
+                                                    <div class="booking-summary">
+                                                        <div class="price-badge">
+                                                            <span>À partir de</span>
+                                                            <div class="price">$75.00</div>
+                                                        </div>
+                                                
+                                                        <div class="summary-details">
+                                                            <div class="detail-item">
+                                                                <strong>Dates :</strong>
+                                                                <span>15 juin - 20 juillet 2024</span>
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <strong>Participants :</strong>
+                                                                <span>2 adultes - 1 enfant</span>
+                                                            </div>
+                                                        </div>
+                                                
+                                                        <div class="reviews">
+                                                            <span class="heart-icon">♥</span>
+                                                            88% des voyageurs recommandent cette expérience
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                
+                    
+                        
+                                            </aside>
+                </div>
+
+                <style>
+.booking-summary {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 24px;
+    max-width: 500px;
+    margin: 20px auto;
+    border: 1px solid var(--gray-color);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--white-color);
+}
+
+.summary-title {
+    color: #2d3436;
+    margin-bottom: 20px;
+    font-size: 24px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 12px;
+}
+
+.booking-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.booking-image {
+    flex-shrink: 0;
+}
+
+.booking-image img {
+    width: 120px;
+    height: 90px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.booking-details {
+    flex-grow: 1;
+}
+
+.booking-model {
+    color: #2d3436;
+    margin: 0 0 12px 0;
+    font-size: 20px;
+}
+
+.detail-line {
+    display: flex;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-label {
+    width: 100px;
+    color: #636e72;
+    font-weight: 500;
+}
+
+detail-value {
+    color: #2d3436;
+    font-weight: 600;
+}
+
+detail-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: #fff;
+    border: 2px solid #0984e3;
+    color: #0984e3;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+detail-button:hover {
+    background: #0984e3;
+    color: white;
+}                </style>
+            </div>
+        </form>
+<!-- 
+        <div class="mt-lg-3 mb-30">
+            <div class="woocommerce-checkout-payment">
+                <ul class="wc_payment_methods payment_methods methods">
+                    <li class="wc_payment_method payment_method_bacs">
+                        <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs" checked="checked">
+                        <label for="payment_method_bacs">Direct bank transfer</label>
+                        <div class="payment_box payment_method_bacs">
+                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+                        </div>
+                    </li>
+                    <li class="wc_payment_method payment_method_cheque">
+                        <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque">
+                        <label for="payment_method_cheque">Cheque Payment</label>
+                        <div class="payment_box payment_method_cheque">
+                            <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                        </div>
+                    </li>
+                    <li class="wc_payment_method payment_method_cod">
+                        <input id="payment_method_cod" type="radio" class="input-radio" name="payment_method">
+                        <label for="payment_method_cod">Credit Cart</label>
+                        <div class="payment_box payment_method_cod">
+                            <p>Pay with cash upon delivery.</p>
+                        </div>
+                    </li>
+                    <li class="wc_payment_method payment_method_paypal">
+                        <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal">
+                        <label for="payment_method_paypal">Paypal</label>
+                        <div class="payment_box payment_method_paypal">
+                            <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="form-row place-order">
+                    <button type="submit" class="th-btn">Place order</button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+
+<app-footer></app-footer>
+<div class="scroll-top">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+    </svg>
+</div>
+<div id="login-form" class="popup-login-register mfp-hide">
+    <ul class="nav" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-menu" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Login</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-menu active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Register</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            <h3 class="box-title mb-30">Sign in to your account</h3>
+            <div class="th-login-form">
+                <form action="mail.php" method="POST" class="login-form ajax-contact">
+                    <div class="row">
+                        <div class="form-group col-12">
+                            <label>Username or email</label>
+                            <input type="text" class="form-control" name="email" id="email" required="required">
+                        </div>
+                        <div class="form-group col-12">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="pasword" id="pasword" required="required">
+                        </div>
+                        <div class="form-btn mb-20 col-12">
+                            <button class="th-btn btn-fw th-radius2">Send Message</button>
+                        </div>
+                    </div>
+                    <div id="forgot_url">
+                        <a href="my-account.html">Forgot password?</a>
+                    </div>
+                    <p class="form-messages mb-0 mt-3"></p>
+                </form>
+            </div>
+        </div>
+        <div class="tab-pane fade active show" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <h3 class="th-form-title mb-30">Sign in to your account</h3>
+            <form action="mail.php" method="POST" class="login-form ajax-contact">
+                <div class="row">
+                    <div class="form-group col-12">
+                        <label>Username*</label>
+                        <input type="text" class="form-control" name="usename" id="usename" required="required">
+                    </div>
+                    <div class="form-group col-12">
+                        <label>First name*</label>
+                        <input type="text" class="form-control" name="firstname" id="firstname" required="required">
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Last name*</label>
+                        <input type="text" class="form-control" name="lastname" id="lastname" required="required">
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="new_email">Your email*</label>
+                        <input type="text" class="form-control" name="new_email" id="new_email" required="required">
+                    </div>
+                    <div class="form-group col-12">
+                        <label for="new_email_confirm">Confirm email*</label>
+                        <input type="text" class="form-control" name="new_email_confirm" id="new_email_confirm" required="required">
+                    </div>
+                    <div class="col-6 form-group">
+                        <label for="password">Mot de Passe</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Votre Mot de Passe" [(ngModel)]="password" required> 
+                        <i style="top: 50px;font-size: 1.3rem" id="password-icon" class="pi pi-eye" (click)="togglePasswordVisibility('password')"></i>
+                        <div  class="alerts alert-dangers">Ce champ est obligatoire.</div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label for="confirmPassword">Confirmer Mot de Passe</label>
+                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirmer Mot de Passe" [(ngModel)]="confirmPassword" required> 
+                        <i style="top: 50px;font-size: 1.3rem" id="confirmPassword-icon" class="pi pi-eye" (click)="togglePasswordVisibility('confirmPassword')"></i>
+                        <div  class="alerts alert-dangers">Ce champ est obligatoire.</div>
+                    </div>
+                    <div class="form-btn mt-20 col-12">
+                        <button class="th-btn btn-fw th-radius2">Sign up</button>
+                    </div>
+                </div>
+                <p class="form-messages mb-0 mt-3"></p>
+            </form>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>

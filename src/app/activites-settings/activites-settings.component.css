@@ -492,3 +492,78 @@
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
 }
+
+::ng-deep .profile-sidebar.profile-sidebar-new .widget-profile .profile-info-widget::after {
+    content: "";
+    background-image: url(../../assets/img/bg/bgMarrakech.jpg);
+    width: 100%;
+    height: 148px;
+    border-radius: 10px 10px 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    opacity: 0.65;
+}
+
+::ng-deep .profile-sidebar.profile-sidebar-new .widget-profile .profile-det-info .doctor-role-badge {
+    color: #ffffff !important;
+
+}
+
+::ng-deep .badge {
+
+    padding: .35em .65em !important;
+}
+
+
+::ng-deep .profile-sidebar.profile-sidebar-new .widget-profile .profile-det-info .doctor-role-badge i {
+    font-size: 6px;
+    color: #ffffff !important;
+    margin-right: 5px;
+}
+
+
+::ng-deep .profile-sidebar .dashboard-widget .dashboard-menu>ul>li.active>a {
+    color: #ffffff;
+    background: #93a692 !important;
+}
+
+
+::ng-deep .profile-sidebar.profile-sidebar-new .widget-profile .profile-det-info h3 a:hover {
+    color:  #93a692 !important;
+}
+
+
+
+
+::ng-deep textarea {
+    max-height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin; /* Réduit la largeur du scroll (Firefox) */
+    scrollbar-color: #888 #f1f1f1; /* Couleur du scroll */
+    resize: vertical; 
+  }
+  
+  /* Pour Webkit (Chrome, Edge, Safari) */
+  ::ng-deep textarea::-webkit-scrollbar {
+    width: 0.4rem !important;
+    background-color: #F5F5F5 !important;
+  }
+  
+  ::ng-deep  textarea::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+    background-color: #93a692;
+    border: 5px solid #93a692;
+    border-radius:  4px;
+  }
+  
+  ::ng-deep textarea::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+  }
+  
+
+
+  

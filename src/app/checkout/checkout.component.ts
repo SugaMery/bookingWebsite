@@ -1,15 +1,17 @@
 import { CommonModule, isPlatformBrowser, registerLocaleData } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core'; // Import OnChanges and SimpleChanges
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FooterComponent } from '../footer/footer.component';
-import { HeaderComponent } from '../header/header.component';
-import ActivityOwnerService from '../../services/UserService';
 import { ActivatedRoute, Router } from '@angular/router';
-import localeFr from '@angular/common/locales/fr';
-import UserService from '../../services/UserService'; // Ensure you have this import
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'; // Import DomSanitizer
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import UserService from '../../services/UserService';
+import ActivityOwnerService from '../../services/UserService';
+import localeFr from '@angular/common/locales/fr';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 registerLocaleData(localeFr);
 
@@ -41,13 +43,16 @@ declare global {
 }
 
 @Component({
-  selector: 'app-book-detail',
+  selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, InputNumberModule, FooterComponent, FormsModule, CalendarModule], // Ensure FormsModule is added here
-  templateUrl: './book-detail.component.html',
-  styleUrl: './book-detail.component.css'
+  imports: [CommonModule, HeaderComponent, InputNumberModule, FooterComponent, FormsModule, CalendarModule, ToastModule], // Ensure FormsModule is added here
+  templateUrl: './checkout.component.html',
+  styleUrl: './checkout.component.css',
+  providers: [MessageService] // Add MessageService to providers
 })
-export class BookDetailComponent implements OnChanges {
+export class CheckoutComponent implements OnInit {
+
+
   errorMessage: string | null = null;
   categories: Category[] = [];
   cities: City[] = [];
@@ -60,12 +65,19 @@ export class BookDetailComponent implements OnChanges {
   serviceSalonBeautes: any[] = [];
   mapUrl: SafeResourceUrl | null = null; // Add mapUrl property
   popularTags: string[] = [];
-  startTime: Date = new Date(); // Set default value to the current time
-  selectedDate: Date | null = null; // Add this property for the selected date
+  startTime!: Date ; // Set default value to the current time
+  selectedDate!: Date ; // Add this property for the selected date
   timeRange: { min: Date | null, max: Date | null } = { min: new Date(new Date().setHours(8, 0, 0, 0)), max: new Date(new Date().setHours(20, 0, 0, 0)) }; // Update this property for the time range
   numberOfPeople: number = 1; // Add property to store the number of people
+  time: string | null = null; // Add property to store the time
 
-
+  nom: string = ''; // Add property for nom
+  prenom: string = ''; // Add property for prenom
+  telephone: string = ''; // Add property for telephone
+  email3: string = ''; // Add property for email3
+  password: string = ''; // Add property for password
+  confirmPassword: string = ''; // Add property for confirmPassword
+  commentaires: string = ''; // Add property for commentaires
 
   value3: number = 25;
 
@@ -74,7 +86,8 @@ export class BookDetailComponent implements OnChanges {
     private router: Router,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer, // Inject DomSanitizer
-    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+    private cdr: ChangeDetectorRef, // Inject ChangeDetectorRef
+    private messageService: MessageService, // Inject MessageService
   ) {}
   id!: string;
 
@@ -86,11 +99,26 @@ export class BookDetailComponent implements OnChanges {
     this.fetchCategories();
     this.fetchCitys();
     this.fetchActivities();
-    this.initializeCalendar(); // Initialize the calendar
+   // Initialize the calendar
     //get id from url and use
     this.route.queryParams.subscribe((params: { [x: string]: any; }) => {
-      this.id = params['id'];
-      this.getActivityById(this.id);
+      this.id = params['idActivite'];
+     
+
+      // Set the values from the URL parameters
+      if (params['startTime']) {
+        this.startTime = new Date(params['startTime']);
+        this.selectedDate = new Date(params['startTime']);
+        this.time = this.startTime.toTimeString().split(' ')[0];
+        console.log('Selected datezzzzzzzzzzzzz:', this.time);
+       // this.initializeCalendar( this.time);
+        this.getActivityById(this.id);
+        
+        
+      }
+      if (params['nombreDePersonnes']) {
+        this.numberOfPeople = +params['nombreDePersonnes'];
+      }
     });
     window.updateTimeRange = this.updateTimeRange.bind(this); // Bind the function to the component context
   }
@@ -217,21 +245,7 @@ export class BookDetailComponent implements OnChanges {
     document.head.appendChild(linkElement);
   }
 
-  togglePasswordVisibility(id: string): void {
-    const input = document.getElementById(id) as HTMLInputElement;
-    if (input) {
-      const icon = input.nextElementSibling?.querySelector('i');
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon?.classList.remove('fa-eye');
-        icon?.classList.add('fa-eye-slash');
-      } else {
-        input.type = 'password';
-        icon?.classList.remove('fa-eye-slash');
-        icon?.classList.add('fa-eye');
-      }
-    }
-  }
+
 
   async onRegisterActivityOwner(event: Event) {
     console.log('Registering activity owner...');
@@ -290,7 +304,11 @@ export class BookDetailComponent implements OnChanges {
     try {
       this.activity = await ActivityOwnerService.getActivityById(Number(activityId));
       console.log('Activity:', this.activity);
-      this.hours = this.activity.hours; // Store the activity hours
+      this.hours = this.activity.hours; // Store the activity 
+      
+
+      console.log('Activity hours:', this.hours, this.selectedDate,this.startTime);
+      this.updateTimeRange(this.selectedDate);
       this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.google.com/maps/embed/v1/place?key=AIzaSyAgd5AQZWYpCZYv9S0WEnQLGGu1dardz_s&q=${this.activity.city_name}`);
       this.extractPopularTags(this.activity.description);
       if (this.activity.category_id === 3) {
@@ -312,7 +330,8 @@ export class BookDetailComponent implements OnChanges {
         this.serviceSalonBeautes = await UserService.getServiceSalonBeaute();
         console.log('Service Salon Beautes:', this.serviceSalonBeautes);
       }
-      this.initializeCalendar(); // Reinitialize the calendar with the new hours
+      this.startTime = this.selectedDate ;
+      this.initializeCalendar(this.time || '00:00:00',this.selectedDate); // Reinitialize the calendar with the new hours
       // Handle the fetched activity (e.g., display it on the page)
     } catch (error) {
       console.error('Error fetching activity by ID:', error);
@@ -355,7 +374,8 @@ export class BookDetailComponent implements OnChanges {
     return days[day] || day;
   }
 
-private initializeCalendar() {
+private initializeCalendar(time: string, selectedDate?: Date) {
+  console.log('Activity hours: 11', this.hours, this.selectedDate,this.startTime);
   const script = document.createElement('script');
   script.innerHTML = `
     (function() {
@@ -363,14 +383,15 @@ private initializeCalendar() {
       let calendarDays = document.querySelector(".calendar-days");
       let today = new Date();
       let date = new Date();
-      let selectedDate = null;
-
+      let selectedDate = ${selectedDate ? `new Date('${selectedDate.toISOString()}')` : 'null'};
+      let selectedTime = ${this.route.snapshot.queryParams['heure'] ? `new Date('${this.route.snapshot.queryParams['heure']}')` : 'null'};
+      let times = '${time}';
       currentMonth.textContent = date.toLocaleDateString("en-US", {month:'long', year:'numeric'});
       today.setHours(0,0,0,0);
       renderCalendar();
 
       function renderCalendar(){
-        console.log('Rendering calendar...');
+        console.log('Rendering calendar...',selectedDate);
         const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
         const totalMonthDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
         const startWeekDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
@@ -385,12 +406,9 @@ private initializeCalendar() {
             calendarDays.innerHTML += \`<div class='padding-day'>\${prevLastDay - startWeekDay + i + 1}</div>\`;
           } else if (day <= totalMonthDay) {
             let currentDate = new Date(date.getFullYear(), date.getMonth(), day);
-            currentDate.setHours(0, 0, 0, 0);
-
-            let dayClass = currentDate.getTime() === today.getTime() && !selectedDate ? 'current-day' : 'month-day';
-            if (selectedDate && currentDate.getTime() === selectedDate.getTime()) {
-              dayClass = 'current-day';
-            }
+            currentDate.setHours(...times.split(':').map(Number));
+            console.log('Selected date:', currentDate, selectedTime, times);
+            let dayClass = currentDate.getTime() === selectedDate?.getTime() ? 'current-day' : 'month-day';
 
             // Disable non-working days
             const dayOfWeek = currentDate.toLocaleString('en-US', { weekday: 'long' });
@@ -399,7 +417,7 @@ private initializeCalendar() {
               dayClass += ' disabled-day';
             }
 
-            calendarDays.innerHTML += \`<div class='\${dayClass}' data-date='\${currentDate.toISOString()}'>\${day}</div>\`;
+            calendarDays.innerHTML += \`<div class='\${dayClass}' data-date='\${currentDate.toISOString()}' >\${day}</div>\`;
           } else {
             calendarDays.innerHTML += \`<div class='padding-day'>\${day - totalMonthDay}</div>\`;
           }
@@ -448,6 +466,9 @@ private initializeCalendar() {
       });
     })();
   `;
+  const [hours, minutes, seconds] = time.split(':').map(Number);
+  this.startTime.setHours(hours, minutes, seconds);
+  console.log('Activity hours:', this.hours, this.selectedDate,this.startTime);
   document.body.appendChild(script);
 }
 
@@ -467,7 +488,7 @@ private updateTimeRange(selectedDate: Date) {
     this.timeRange = { min: null, max: null };
     this.startTime = new Date(); // Reset the start time to the current time
   }
-  console.log('Updated time range:', this.timeRange);
+  console.log('Updated time range:', this.timeRange,selectedDate,this.hours);
   this.cdr.detectChanges(); // Trigger change detection
 }
 
@@ -481,15 +502,76 @@ decrementPeople() {
   }
 }
 
-goToFinalisationCommande() {
-  const queryParams = {
-    heure: this.startTime.toTimeString().split(' ')[0], // Extraire l'heure sans la date
-    idActivite: this.id,
-    date: this.startTime.toISOString().split('T')[0], // Extraire la date sans l'heure
-    nombreDePersonnes: this.numberOfPeople,
-   startTime : this.startTime
-  };
-  //console.log('Query params:', queryParams);
-  this.router.navigate(['/finalisation-reservation'], { queryParams });
+
+
+togglePasswordVisibility(id: string) {
+  const input = document.getElementById(id) as HTMLInputElement;
+  const icon = document.getElementById(id + '-icon') as HTMLElement;
+  if (input.type === "password") {
+    input.type = "text";
+    icon.classList.remove('pi-eye');
+    icon.classList.add('pi-eye-slash');
+  } else {
+    input.type = "password";
+    icon.classList.remove('pi-eye-slash');
+    icon.classList.add('pi-eye');
+  }
 }
+
+isValidPassword(password: string): boolean {
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  return passwordRegex.test(password);
+}
+
+async onReserveNow(event: Event) {
+  event.preventDefault();
+  if (this.isFormValid()) {
+    if (this.password !== this.confirmPassword) {
+      this.messageService.add({ severity: 'warn', summary: 'Attention', detail: 'Les mots de passe ne correspondent pas.' });
+      return;
+    }
+    try {
+      // Create user
+      const user = {
+        last_name: this.nom,
+        first_name: this.prenom,
+        email: this.email3,
+        telephone: this.telephone,
+        role_id: 3, // Assuming 2 is the role ID for a regular user
+        password: this.password,
+        repeat_password: this.confirmPassword
+      };
+      const createdUser = await UserService.createUser(user);
+      console.log('User created:', createdUser);
+
+      // Add reservation
+      const reservation = {
+        user_id: createdUser.data.userId,
+        activity_id: Number(this.id),
+        reservation_time: this.startTime.toTimeString().split(' ')[0],
+        reservation_date: this.startTime.toISOString().split('T')[0],
+        nombre_personnes : this.numberOfPeople,
+        commentaires: this.commentaires // Include commentaires in the reservation object
+      };
+      console.log('Reservation created:', reservation);
+
+      const createdReservation = await UserService.createReservation(reservation);
+
+      // Show success message
+      this.messageService.add({ severity: 'success', summary: 'Succès', detail: 'Réservation effectuée avec succès.' });
+      this.router.navigate(['/reservation-reussite']);
+        } catch (error) {
+      console.error('Error creating user or reservation:', error);
+      this.messageService.add({ severity: 'error', summary: 'Erreur', detail: 'Une erreur est survenue lors de la création de l\'utilisateur ou de la réservation.' });
+    }
+  } else {
+    // Show toast message
+    this.messageService.add({ severity: 'warn', summary: 'Attention', detail: 'Veuillez remplir tous les champs pour confirmer votre réservation.' });
+  }
+}
+
+isFormValid(): boolean {
+  return this.nom.trim() !== '' && this.prenom.trim() !== '' && this.telephone.trim() !== '' && this.email3.trim() !== '' && this.password.trim() !== '' && this.confirmPassword.trim() !== '' && this.startTime !== null;
+}
+
 }

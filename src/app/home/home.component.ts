@@ -4,7 +4,7 @@ import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
 import ActivityOwnerService from '../../services/UserService';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 interface Category {
   name: string;
@@ -20,6 +20,12 @@ interface City {
   active?: boolean;
   region?: string;
 }
+interface Activity {
+  name: string;
+  description: string;
+  image_url?: string;
+  price?: number;
+}
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -31,8 +37,9 @@ export class HomeComponent implements OnInit {
   errorMessage: string | null = null;
   categories: Category[] = [];
   cities: City[] = [];
+  activities: any[] = [];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private router: Router) {}
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -41,6 +48,7 @@ export class HomeComponent implements OnInit {
     }
     this.fetchCategories();
     this.fetchCitys();
+    this.fetchActivities();
   }
 
   private async fetchCategories() {
@@ -62,6 +70,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  private async fetchActivities() {
+    try {
+      this.activities = await ActivityOwnerService.getActivities();
+      console.log('Activitiesyyyyyyy:', this.activities);
+    } catch (error) {
+      console.error('Error fetching activities:', error);
+    }
+  }
 
   destinations = [
     { title: "Marrakech", image: "assets/img/destination/marrakech.png", annonces: 15 },
@@ -202,5 +218,20 @@ export class HomeComponent implements OnInit {
       // Handle error (e.g., show an error message)
       console.log('errorMessage', this.errorMessage);
     }
+  }
+
+  getAverageRating(reviews: any[]): number {
+    if (!reviews.length) return 0;
+    const total = reviews.reduce((sum, review) => sum + review.rating, 0);
+    return parseFloat((total / reviews.length).toFixed(1));
+  }
+
+  getRatingPercentage(reviews: any[]): string {
+    const averageRating = this.getAverageRating(reviews);
+    return `${(averageRating / 5) * 100}%`;
+  }
+
+  goToDetail(activityId: string, activityName: string, cityName: string, categoryName: string) {
+    this.router.navigate(['/detail'], { queryParams: { id: activityId, ville: cityName, titre: activityName} });
   }
 }

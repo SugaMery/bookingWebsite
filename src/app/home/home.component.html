@@ -187,8 +187,8 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="title-area text-center">
                     <span class="sub-title">Découvrez les meilleurs lieux pour vous détendre</span>
-                    <h2 class="sec-title">Nos destinations les plus populaires</h2>
-                    <p class="sec-text">Plongez dans une expérience unique avec nos spas, restaurants, hébergements, piscines et activités sélectionnés pour répondre à toutes vos envies. Réservez dès maintenant et profitez de moments inoubliables.</p>
+                    <h2 class="sec-title">Destinations populaires</h2>
+                    <p class="sec-text">Découvrez nos spas, restaurants, hébergements, piscines et activités. Réservez maintenant pour des moments inoubliables.</p>
                 </div>
             </div>
         </div>
@@ -196,29 +196,37 @@
         <div class="slider-area tour-slider">
             <div class="swiper th-slider has-shadow slider-drag-wrap" data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"2"},"1200":{"slidesPerView":"3"},"1300":{"slidesPerView":"4"}}}'>
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" *ngFor="let tour of tours">
+                    <div class="swiper-slide" style="
+                    cursor: pointer;
+                " *ngFor="let activity of activities" (click)="goToDetail(activity.activity_id, activity.name, activity.city_name , activity.category_name)">
                       <div class="tour-box th-ani gsap-cursor">
                         <div class="tour-box_img global-img">
-                          <img [src]="tour.image" [alt]="tour.title" />
+                          <img [src]="activity.logo" [alt]="activity.name" />
                         </div>
                         <div class="tour-content">
                           <h3 class="box-title">
-                            <a [href]="tour.link">{{ tour.title }}</a>
+                            <a (click)="goToDetail(activity.activity_id, activity.name, activity.city_name , activity.category_name)">{{ activity.name }}</a>
                           </h3>
                           <div class="tour-rating">
-                            <div class="star-rating" role="img" [attr.aria-label]="'Rated ' + tour.rating + ' out of 5'">
-                              <span [style.width]="(tour.rating / 5) * 100 + '%'">
-                                Rated <strong class="rating">{{ tour.rating }}</strong> out of 5
-                              </span>
+                            <div class="star-rating" role="img" [attr.aria-label]="'Rated ' + getAverageRating(activity.reviews) + ' out of 5'">
+                                <span [style.width]="getRatingPercentage(activity.reviews)">
+                                    Rated <strong class="rating">{{ getAverageRating(activity.reviews) }}</strong> out of 5
+                                </span>
                             </div>
-                            <a [href]="tour.link" class="woocommerce-review-link">({{ tour.rating }} Rating)</a>
-                          </div>
-                          <h4 class="tour-box_price">
-                            <span class="currency">{{ tour.price }}</span>/Person
+                            <a (click)="goToDetail(activity.activity_id, activity.name, activity.city_name , activity.category_name)" class="woocommerce-review-link">({{ getAverageRating(activity.reviews) }} Évaluation)</a>
+
+                        </div>
+                          <h4 class="tour-box_price" style="margin-bottom: 15px;">
+                            {{ activity.description.length > 80 ? (activity.description | slice:0:80) + '...' : activity.description }}
                           </h4>
-                          <div class="tour-action">
-                            <span><i class="fa-light fa-clock"></i> {{ tour.duration }}</span>
-                            <a href="contact.html" class="th-btn style4 th-icon">Book Now</a>
+                          <h5 class="tour-box_price"  style="margin-bottom: 15px;">
+                            <span class="currency" style="    font-size: 18px;"><i class="fa-light fa-sharp-duotone fa-solid fa-location-dot"></i> {{ activity.city_name }}</span>
+                          </h5>
+                          <div class="tour-action" style="
+                          cursor: pointer;
+                      ">
+                           
+                            <a  class="th-btn style4 th-icon"  (click)="goToDetail(activity.activity_id, activity.name, activity.city_name , activity.category_name)">Réserver maintenant</a>
                           </div>
                         </div>
                       </div>

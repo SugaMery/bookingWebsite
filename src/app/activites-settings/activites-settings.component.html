@@ -20,11 +20,11 @@
                 <div class="profile-sidebar doctor-sidebar profile-sidebar-new">
                     <div class="widget-profile pro-widget-content">
                         <div class="profile-info-widget">
-                            <a href="doctor-profile.html" class="booking-doc-img">
-                                <img src="assets2/img/doctors-dashboard/doctor-profile-img.jpg" alt="Image de l'utilisateur">
+                            <a href="" class="booking-doc-img">
+                                <img src="assets2/img/doctors-dashboard/compte (1).png" alt="Image de l'utilisateur">
                             </a>
                             <div class="profile-det-info">
-                                <h3><a href="doctor-profile.html">{{ user.name }}</a></h3>
+                                <h3><a href="">{{ user.name }}</a></h3>
                                 <div class="patient-details">
                                     <h5 class="mb-0">{{ user.qualification }}</h5>
                                 </div>
@@ -43,7 +43,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="appointments.html">
+                                    <a (click)="setActiveTab('rendez-vous')">
                                         <i class="fa-solid fa-calendar-days"></i>
                                         <span>Rendez-vous</span>
                                     </a>
@@ -91,6 +91,221 @@
                 </div>
                 <!-- /Barre latérale du profil -->
             </div>
+            <div class="col-lg-8 col-xl-9" *ngIf="activeTab === 'rendez-vous'">
+                <div class="dashboard-header">
+                    <h3>Requests</h3>
+                    <ul>
+                        <li>
+                            <div class="dropdown header-dropdown">
+                                <a class="dropdown-toggle nav-tog" data-bs-toggle="dropdown" href="javascript:void(0);">
+                                    Last 7 Days
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a href="javascript:void(0);" class="dropdown-item">
+                                        Today
+                                    </a>
+                                    <a href="javascript:void(0);" class="dropdown-item">
+                                        This Month
+                                    </a>
+                                    <a href="javascript:void(0);" class="dropdown-item">
+                                        Last 7 Days
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Request List -->
+                <div class="appointment-wrap">
+                    <ul>
+                        <li>
+                            <div class="patinet-information">
+                                <a href="patient-profile.html">
+                                    <img src="assets/img/doctors-dashboard/profile-01.jpg" alt="User Image">
+                                </a>
+                                <div class="patient-info">
+                                    <p>#Apt0001</p>
+                                    <h6><a href="patient-profile.html">Adrian</a><span class="badge new-tag">New</span></h6>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="appointment-info">
+                            <p><i class="isax isax-clock5"></i>11 Nov 2024 10.45 AM</p>
+                            <p class="md-text">General Visit</p>
+                        </li>
+                        <li class="appointment-type">
+                            <p class="md-text">Type of Appointment</p>
+                            <p><i class="isax isax-video5 text-blue"></i>Video Call</p>
+                        </li>
+                        <li>
+                            <ul class="request-action">
+                                <li>
+                                    <a href="#" class="accept-link" data-bs-toggle="modal" data-bs-target="#accept_appointment"><i class="fa-solid fa-check"></i>Accept</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="reject-link" data-bs-toggle="modal" data-bs-target="#cancel_appointment"><i class="fa-solid fa-xmark"></i>Reject</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /Request List -->
+
+                <!-- Request List -->
+                <div class="appointment-wrap">
+                    <ul>
+                        <li>
+                            <div class="patinet-information">
+                                <a href="patient-profile.html">
+                                    <img src="assets/img/doctors-dashboard/profile-02.jpg" alt="User Image">
+                                </a>
+                                <div class="patient-info">
+                                    <p>#Apt0002</p>
+                                    <h6><a href="patient-profile.html">Kelly</a></h6>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="appointment-info">
+                            <p><i class="isax isax-clock5"></i>10 Nov 2024 02.00 PM</p>
+                            <p class="md-text">General Visit</p>
+                        </li>
+                        <li class="appointment-type">
+                            <p class="md-text">Type of Appointment</p>
+                            <p><i class="isax isax-building5 text-green"></i>Direct Visit <i class="fa-solid fa-circle-info" data-bs-toggle="tooltip" aria-label="Clinic Location Sofia’s Clinic" data-bs-original-title="Clinic Location Sofia’s Clinic"></i></p>
+                        </li>
+                        <li>
+                            <ul class="request-action">
+                                <li>
+                                    <a href="#" class="accept-link" data-bs-toggle="modal" data-bs-target="#accept_appointment"><i class="fa-solid fa-check"></i>Accept</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="reject-link" data-bs-toggle="modal" data-bs-target="#cancel_appointment"><i class="fa-solid fa-xmark"></i>Reject</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /Request List -->
+
+                <!-- Request List -->
+                <div class="appointment-wrap">
+                    <ul>
+                        <li>
+                            <div class="patinet-information">
+                                <a href="patient-profile.html">
+                                    <img src="assets/img/doctors-dashboard/profile-03.jpg" alt="User Image">
+                                </a>
+                                <div class="patient-info">
+                                    <p>#Apt0003</p>
+                                    <h6><a href="patient-profile.html">Samuel</a></h6>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="appointment-info">
+                            <p><i class="isax isax-clock5"></i>08 Nov 2024 08.30 AM</p>
+                            <p class="md-text">Consultation for Cardio</p>
+                        </li>
+                        <li class="appointment-type">
+                            <p class="md-text">Type of Appointment</p>
+                            <p><i class="isax isax-call5 text-indigo"></i>Audio Call</p>
+                        </li>
+                        <li>
+                            <ul class="request-action">
+                                <li>
+                                    <a href="#" class="accept-link" data-bs-toggle="modal" data-bs-target="#accept_appointment"><i class="fa-solid fa-check"></i>Accept</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="reject-link" data-bs-toggle="modal" data-bs-target="#cancel_appointment"><i class="fa-solid fa-xmark"></i>Reject</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /Request List -->
+
+                <!-- Request List -->
+                <div class="appointment-wrap">
+                    <ul>
+                        <li>
+                            <div class="patinet-information">
+                                <a href="patient-profile.html">
+                                    <img src="assets/img/doctors-dashboard/profile-06.jpg" alt="User Image">
+                                </a>
+                                <div class="patient-info">
+                                    <p>#Apt0004</p>
+                                    <h6><a href="patient-profile.html">Anderea</a></h6>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="appointment-info">
+                            <p><i class="isax isax-clock5"></i>05 Nov 2024 11.00 AM</p>
+                            <p class="md-text">Consultation for Dental</p>
+                        </li>
+                        <li class="appointment-type">
+                            <p class="md-text">Type of Appointment</p>
+                            <p><i class="isax isax-call5 text-indigo"></i>Audio Call</p>
+                        </li>
+                        <li>
+                            <ul class="request-action">
+                                <li>
+                                    <a href="#" class="accept-link" data-bs-toggle="modal" data-bs-target="#accept_appointment"><i class="fa-solid fa-check"></i>Accept</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="reject-link" data-bs-toggle="modal" data-bs-target="#cancel_appointment"><i class="fa-solid fa-xmark"></i>Reject</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /Request List -->
+
+                <!-- Request List -->
+                <div class="appointment-wrap">
+                    <ul>
+                        <li>
+                            <div class="patinet-information">
+                                <a href="patient-profile.html">
+                                    <img src="assets/img/doctors-dashboard/profile-05.jpg" alt="User Image">
+                                </a>
+                                <div class="patient-info">
+                                    <p>#Apt0005</p>
+                                    <h6><a href="patient-profile.html">Robert</a></h6>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="appointment-info">
+                            <p><i class="isax isax-clock5"></i>07 Nov 2024 11.00 AM</p>
+                            <p class="md-text">General Visit</p>
+                        </li>
+                        <li class="appointment-type">
+                            <p class="md-text">Type of Appointment</p>
+                            <p><i class="isax isax-call5 text-indigo"></i>Audio Call</p>
+                        </li>
+                        <li>
+                            <ul class="request-action">
+                                <li>
+                                    <a href="#" class="accept-link" data-bs-toggle="modal" data-bs-target="#accept_appointment"><i class="fa-solid fa-check"></i>Accept</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="reject-link" data-bs-toggle="modal" data-bs-target="#cancel_appointment"><i class="fa-solid fa-xmark"></i>Reject</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /Request List -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="loader-item text-center">
+                            <a href="javascript:void(0);" class="btn btn-load">Load More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
             <div class="col-lg-8 col-xl-9">
                 <!-- Paramètres du profil -->
                 <div class="dashboard-header">
@@ -159,7 +374,7 @@
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-wrap">
                                     <label class="col-form-label">Description <span class="text-danger">*</span></label>
-                                    <textarea rows="500" style="min-height: none;" class="form-control" [(ngModel)]="activity.description" name="description"></textarea>
+                                    <textarea   style="min-height: none;" class="form-control" style="min-height: 154px !important;" [(ngModel)]="activity.description" name="description"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6">
@@ -624,7 +839,6 @@
                                     <ul class="d-flex justify-content-end mb-0">
                                         <li>
                                             <a href="#" class="btn btn-primary prime-btn add-experiences me-2" (click)="showCritereModal()">Ajouter un critère</a>
-                                            <a href="#" class="btn btn-primary prime-btn add-experiences" (click)="showCritereModal()">Enregistrer</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -638,15 +852,17 @@
                             <!-- Dynamically added criteria items will be inserted here -->
                             <div *ngFor="let critere of criteres; let i = index" class="user-accordion-item">
                                 <a href="#" class="accordion-wrap collapsed" data-bs-toggle="collapse" [attr.data-bs-target]="'#experience' + i" aria-expanded="false">
-                                    {{ critere.nom }}<span (click)="deleteCritere(i)">Delete</span>
+                                    {{ getCritereName(critere) }}
+                                    <span (click)="deleteCritere(i)">Supprimer</span>
                                 </a>
+                                
                                 <div class="accordion-collapse collapse" [attr.id]="'experience' + i" data-bs-parent="#list-accord">
                                     <div class="content-collapse">
                                         <div class="add-service-info">
                                             <div class="add-info">
                                                 <!-- Display critere details here -->
                                                 <div class="row align-items-center">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-12" *ngIf="activity.category_id === 3">
                                                         <div class="form-wrap mb-2">
                                                             <div class="change-avatar img-upload">
                                                                 <div class="profile-img">
@@ -667,22 +883,86 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                                                                        <div class="col-md-6" *ngIf="activity.category_id === 5">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Service Beauté</label>
+                                                            <select class="form-control" [(ngModel)]="critere.service_id" name="service_villa_id">
+                                                                <option *ngFor="let serviceSalonBeaute of serviceSalonBeautes" [value]="serviceSalonBeaute.id">{{ serviceSalonBeaute.nom }}</option>
+                                                              </select>                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-6" *ngIf="activity.category_id === 7">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Service de Villa</label>
+                                                            <select class="form-control" [(ngModel)]="critere.service_villa_id" name="service_villa_id">
+                                                                <option *ngFor="let serviceVilla of serviceVillas" [value]="serviceVilla.id">{{ serviceVilla.nom }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" *ngIf="activity.category_id === 7">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Nombre de Chambres</label>
+                                                            <input type="number" class="form-control" [(ngModel)]="critere.nombre_chambres" name="nombre_chambres">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6" *ngIf="activity.category_id === 6">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Service de Piscine</label>
+                                                            <select class="form-control" [(ngModel)]="critere.service_id " name="service_piscine_id">
+                                                                <option *ngFor="let servicePiscine of servicePiscines" [value]="servicePiscine.id">{{ servicePiscine.nom }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12" *ngIf="activity.category_id === 4">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Type de Soin</label>
+                                                            <select class="form-control" [(ngModel)]="critere.type_soin_id" name="type_soin_id">
+                                                                <option *ngFor="let typeSoin of typeSoins" [value]="typeSoin.id">{{ typeSoin.nom }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12" *ngIf="activity.category_id === 7">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Prix par Nuit (MAD)</label>
+                                                            <input type="number" class="form-control" [(ngModel)]="critere.prix_nuit" name="prix_nuit">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" *ngIf="activity.category_id === 3">
                                                         <div class="form-wrap">
                                                             <label class="col-form-label">Nom</label>
                                                             <input type="text" class="form-control" [(ngModel)]="critere.nom" name="nom">
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12" *ngIf="activity.category_id === 8">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Titre</label>
+                                                            <input type="text" class="form-control" [(ngModel)]="critere.nom" name="nom">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" *ngIf="activity.category_id === 4">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Durée par minute</label>
+                                                            <input type="text" class="form-control" [(ngModel)]="critere.duree" name="duree">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" *ngIf="activity.category_id !== 7">
                                                         <div class="form-wrap">
                                                             <label class="col-form-label">Prix (MAD)</label>
                                                             <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6" *ngIf="activity.category_id === 8">
+                                                        <div class="form-wrap">
+                                                            <label class="col-form-label">Durée par minute</label>
+                                                            <input type="text" class="form-control" [(ngModel)]="critere.duree" name="duree">
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-12">
                                                         <div class="form-wrap">
                                                             <label class="col-form-label">Description</label>
-                                                            <textarea class="form-control" [(ngModel)]="critere.description" name="description"></textarea>
+                                                            
+                                                            <textarea class="form-control" style=" min-height: 154px !important; " [(ngModel)]="critere.description" name="description"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12" *ngIf="activity.category_id === 3">
@@ -693,48 +973,15 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-6" *ngIf="activity.category_id === 4">
-                                                        <div class="form-wrap">
-                                                            <label class="col-form-label">Type de Soin</label>
-                                                            <select class="form-control" [(ngModel)]="critere.type_soin_id" name="type_soin_id">
-                                                                <option *ngFor="let typeSoin of typeSoins" [value]="typeSoin.id">{{ typeSoin.nom }}</option>
-                                                            </select>
-                                                        </div>
+
+
+
+
+
+                                                    <div class="col-md-12 text-end">
+                                                        <a href="#" class="btn btn-primary prime-btn" style="margin-bottom:1rem" (click)="onUpdateCritere(i)">Mettre à jour</a>
                                                     </div>
-                                                    <div class="col-md-6" *ngIf="activity.category_id === 5">
-                                                        <div class="form-wrap">
-                                                            <label class="col-form-label">Service de Piscine</label>
-                                                            <select class="form-control" [(ngModel)]="critere.service_piscine_id" name="service_piscine_id">
-                                                                <option *ngFor="let servicePiscine of servicePiscines" [value]="servicePiscine.id">{{ servicePiscine.nom }}</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6" *ngIf="activity.category_id === 6">
-                                                        <div class="form-wrap">
-                                                            <label class="col-form-label">Service de Villa</label>
-                                                            <select class="form-control" [(ngModel)]="critere.service_villa_id" name="service_villa_id">
-                                                                <option *ngFor="let serviceVilla of serviceVillas" [value]="serviceVilla.id">{{ serviceVilla.nom }}</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6" *ngIf="activity.category_id === 6">
-                                                        <div class="form-wrap">
-                                                            <label class="col-form-label">Nombre de Chambres</label>
-                                                            <input type="number" class="form-control" [(ngModel)]="critere.nombre_chambres" name="nombre_chambres">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6" *ngIf="activity.category_id === 6">
-                                                        <div class="form-wrap">
-                                                            <label class="col-form-label">Prix par Nuit (MAD)</label>
-                                                            <input type="number" class="form-control" [(ngModel)]="critere.prix_nuit" name="prix_nuit">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6" *ngIf="activity.category_id === 7">
-                                                        <div class="form-wrap">
-                                                            <label class="col-form-label">Durée</label>
-                                                            <input type="text" class="form-control" [(ngModel)]="critere.duree" name="duree">
-                                                        </div>
-                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -762,7 +1009,7 @@
                       </div>
                       <form (ngSubmit)="onAddCritere()">
                         <div class="modal-body">
-                          <div *ngIf="activity.category_id === 3">
+                          <div *ngIf="activity.category_id == 3">
                             <div class="form-wrap">
                               <label class="col-form-label">Type de Menu</label>
                               <select class="form-control" [(ngModel)]="critere.type_menu_id" name="type_menu_id">
@@ -776,7 +1023,7 @@
                                   <input type="text" class="form-control" [(ngModel)]="critere.nom" name="nom">
                                 </div>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-6" >
                                 <div class="form-wrap">
                                   <label class="col-form-label">Prix (MAD)</label>
                                   <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
@@ -809,7 +1056,7 @@
                             </div>
                             <!-- End of added section -->
                           </div>
-                          <div *ngIf="activity.category_id === 4">
+                          <div *ngIf="activity.category_id == 4">
                             <div class="form-wrap">
                               <label class="col-form-label">Type de Soin</label>
                               <select class="form-control" [(ngModel)]="critere.type_soin_id" name="type_soin_id">
@@ -823,7 +1070,7 @@
                             <div class="row">
                               <div class="col-md-6">
                                 <div class="form-wrap">
-                                  <label class="col-form-label">Durée</label>
+                                  <label class="col-form-label">Durée par minute</label>
                                   <input type="text" class="form-control" [(ngModel)]="critere.duree" name="duree">
                                 </div>
                               </div>
@@ -835,10 +1082,10 @@
                               </div>
                             </div>
                           </div>
-                          <div *ngIf="activity.category_id === 5">
+                          <div *ngIf="activity.category_id == 6">
                             <div class="form-wrap">
                               <label class="col-form-label">Service de Piscine</label>
-                              <select class="form-control" [(ngModel)]="critere.service_piscine_id" name="service_piscine_id">
+                              <select class="form-control" [(ngModel)]="critere.service_id " name="service_piscine_id">
                                 <option *ngFor="let servicePiscine of servicePiscines" [value]="servicePiscine.id">{{ servicePiscine.nom }}</option>
                               </select>
                             </div>
@@ -851,7 +1098,7 @@
                               <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
                             </div>
                           </div>
-                          <div *ngIf="activity.category_id === 6">
+                          <div *ngIf="activity.category_id == 7">
                             <div class="form-wrap">
                               <label class="col-form-label">Service de Villa</label>
                               <select class="form-control" [(ngModel)]="critere.service_villa_id" name="service_villa_id">
@@ -862,28 +1109,35 @@
                               <label class="col-form-label">Nombre de Chambres</label>
                               <input type="number" class="form-control" [(ngModel)]="critere.nombre_chambres" name="nombre_chambres">
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                  <div class="form-wrap">
+                                    <label class="col-form-label">Prix par Nuit (MAD)</label>
+                                    <input type="number" class="form-control" [(ngModel)]="critere.prix_nuit" name="prix_nuit">
+                                  </div>
+                                </div>
+                                <div class="col-md-6" *ngIf="activity.category_id != 7">
+                                  <div class="form-wrap">
+                                    <label class="col-form-label">Prix (MAD)</label>
+                                    <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
+                                  </div>
+                                </div>
+                              </div>
                             <div class="form-wrap">
                               <label class="col-form-label">Description</label>
                               <textarea class="form-control" [(ngModel)]="critere.description" name="description"></textarea>
                             </div>
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="form-wrap">
-                                  <label class="col-form-label">Prix par Nuit (MAD)</label>
-                                  <input type="number" class="form-control" [(ngModel)]="critere.prix_nuit" name="prix_nuit">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="form-wrap">
-                                  <label class="col-form-label">Prix (MAD)</label>
-                                  <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
-                                </div>
-                              </div>
-                            </div>
+
                           </div>
-                          <div *ngIf="activity.category_id === 7">
+                          <div *ngIf="activity.category_id == 8">
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                  <label class="col-form-label">Titre</label>
+                                  <input type="text" class="form-control" [(ngModel)]="critere.nom" name="nom">
+                                </div>
+                              </div>
                             <div class="row">
-                              <div class="col-md-6">
+                              <div class="col-md-6" >
                                 <div class="form-wrap">
                                   <label class="col-form-label">Prix (MAD)</label>
                                   <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
@@ -900,6 +1154,23 @@
                               <label class="col-form-label">Description</label>
                               <textarea class="form-control" [(ngModel)]="critere.description" name="description"></textarea>
                             </div>
+                          </div>
+                          <div *ngIf="activity.category_id == 5">
+
+                            <div class="form-wrap">
+                              <label class="col-form-label">Service Beauté</label>
+                              <select class="form-control" [(ngModel)]="critere.service_id" name="service_villa_id">
+                                <option *ngFor="let serviceSalonBeaute of serviceSalonBeautes" [value]="serviceSalonBeaute.id">{{ serviceSalonBeaute.nom }}</option>
+                              </select>
+                            </div>
+                            <div class="form-wrap">
+                              <label class="col-form-label">Prix (MAD)</label>
+                              <input type="number" class="form-control" [(ngModel)]="critere.prix" name="prix">
+                            </div>
+                            <div class="form-wrap">
+                                <label class="col-form-label">Description</label>
+                                <textarea class="form-control" [(ngModel)]="critere.description" name="description"></textarea>
+                              </div>
                           </div>
                         </div>
                         <div class="modal-footer">
@@ -999,6 +1270,7 @@
     margin-top: 10px;
   }
 </style>
+<app-footer></app-footer>
 
 <p-toast></p-toast>
 
@@ -1009,3 +1281,47 @@
 
 
 
+
+
+<div class="modal fade custom-modal" id="appt_details">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Appointment Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="info-details">
+                    <li>
+                        <div class="details-header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="title">#APT0001</span>
+                                    <span class="text">21 Oct 2023 10:00 AM</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-end">
+                                        <button type="button" class="btn bg-success-light btn-sm" id="topup_status">Completed</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="title">Status:</span>
+                        <span class="text">Completed</span>
+                    </li>
+                    <li>
+                        <span class="title">Confirm Date:</span>
+                        <span class="text">29 Jun 2023</span>
+                    </li>
+                    <li>
+                        <span class="title">Paid Amount</span>
+                        <span class="text">$450</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

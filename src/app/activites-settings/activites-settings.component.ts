@@ -9,14 +9,15 @@ import { MessageService } from 'primeng/api';
 import { Toast, ToastModule } from 'primeng/toast';
 import { HeaderComponent } from "../header/header.component";
 import { FileUploadModule } from 'primeng/fileupload';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from "../footer/footer.component"; // Import HttpClientModule
 
 declare var google: any;
 
 @Component({
   selector: 'app-activites-settings',
   standalone: true,
-  imports: [FormsModule, CommonModule, CalendarModule, ToastModule, HeaderComponent, FileUploadModule, HttpClientModule], // Add HttpClientModule here
+  imports: [FormsModule, CommonModule, CalendarModule, ToastModule, HeaderComponent, FileUploadModule, HttpClientModule, FooterComponent], // Add HttpClientModule here
   templateUrl: './activites-settings.component.html',
   styleUrl: './activites-settings.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -38,8 +39,17 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     activity_id: 0,
     latitude: 0,
     longitude: 0,
-    reservations_allowed: false, // Add this line
-    active: false // Add this line
+    all: [
+      {
+        id: 0,
+        activity_id: 0,
+        created_at: null,
+        updated_at: null,
+        deleted_at: null
+      }
+    ],
+    reservations_allowed: false,
+    active: false
   };
   activityId: any;
   activeTab: string = 'details-de-base';
@@ -75,6 +85,8 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   serviceSalons: any[] = []; // Add this line to store service salons
   servicePiscines: any[] = []; // Add this line to store service piscines
   serviceVillas: any[] = []; // Add this line to store service villas
+  serviceSalonBeautes: any[] = []; // Add this line to store service villas
+
   uploadedFiles: any[] = []; // Add this line to store uploaded files
   criteres: any[] = []; // Add this line to store criteres
 
@@ -101,6 +113,7 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     this.serviceSalons = await UserService.getServiceSalons(); // Fetch service salons
     this.servicePiscines = await UserService.getServicePiscines(); // Fetch service piscines
     this.serviceVillas = await UserService.getServiceVillas(); // Fetch service villas
+    this.serviceSalonBeautes = await UserService.getServiceSalonBeaute(); // Fetch service salon de beauté
     this.saveToLocalStorage();
     this.loadFromLocalStorage();
     
@@ -189,6 +202,7 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
             this.imageUrl = activity.logo;
             this.activity.reservations_allowed = activity.reservations_allowed;
             this.activity.active = activity.active;
+            this.activity.all = activity.all;
             // Handle images
             if (activity.images) {
               this.images = activity.images.map((img: any) => ({
@@ -198,6 +212,96 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
               }));
             }
 
+            // Handle related criteria
+            if (activity.related && activity.category_id == 3 ) {
+              this.criteres = activity.related
+              .filter((critere: any) => critere.id !== null)
+              .map((critere: any) => ({
+                id: critere.id,
+                nom: critere.nom,
+                prix: critere.prix,
+                description: critere.description,
+                imageUrl: critere.imageplat,
+                type_menu_id: critere.type_menu_id,
+
+                category_id: 3
+              }));
+          }
+
+          if (activity.related && activity.category_id == 4 ) {
+            this.criteres = activity.related
+            .filter((critere: any) => critere.id !== null)
+            .map((critere: any) => ({
+              id: critere.spas_soins_id,
+              nom: critere.nom,
+              prix: critere.prix,
+              description: critere.description,
+              duree: critere.duree,
+              type_soin_id: critere.type_soin_id,
+              spa_id: critere.spa_id,
+              category_id: 4
+            }));
+        }
+
+        if (activity.related && activity.category_id == 5 ) {
+          this.criteres = activity.related
+          .filter((critere: any) => critere.id !== null)
+          .map((critere: any) => ({
+            id: critere.salons_services_id            ,
+            nom: critere.service_nom,
+            prix: critere.prix,
+            description: critere.description,
+            service_id: critere.service_id,
+            salon_id: critere.salon_id,
+            category_id: 5
+          }));
+      }
+
+      if (activity.related && activity.category_id == 6 ) {
+        this.criteres = activity.related
+        .filter((critere: any) => critere.id !== null)
+        .map((critere: any) => ({
+          id: critere.piscines_services_id            ,
+          nom: critere.service_nom,
+          prix: critere.prix,
+          description: critere.description,
+          service_id : critere.service_id,
+          piscine_id: critere.piscine_id,
+          category_id: 6
+        }));
+    }
+
+    if (activity.related && activity.category_id == 7) {
+      this.criteres = activity.related
+      .filter((critere: any) => critere.id !== null)
+      .map((critere: any) => ({
+          id: critere.villas_services_id,
+          nom: critere.service_nom,
+          prix: critere.prix,
+          description: critere.description,
+          service_villa_id: critere.service_id,
+          nombre_chambres: critere.nombre_chambres,
+          prix_nuit: critere.prix_nuit,
+          villa_id: critere.villa_id,
+          category_id: 7
+      }));
+  }
+
+  if (activity.related && activity.category_id == 8) {
+    this.criteres = activity.related
+    .filter((critere: any) => critere.id !== null)
+    .map((critere: any) => ({
+        id: critere.excursions_id,
+        nom: critere.nom,
+        prix: critere.prix,
+        description: critere.description,
+        duree: critere.duree,
+        category_id: 8,
+        activity_id : this.activityId
+    }));
+}
+
+console.log('Criteresrrrrrrrrrrrrrrr:', this.criteres);
             // Set activity hours
             const defaultStartTime = new Date();
             defaultStartTime.setHours(8, 0, 0);
@@ -317,20 +421,23 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   onImagePlatUpload(event: Event, index?: number) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (index !== undefined) {
-          this.criteres[index].imageUrl = e.target?.result ?? null;
-        } else {
-          this.imagePlatUrl = e.target?.result ?? null;
-          if (input.files && input.files[0]) {
-            this.critere.imageplat = input.files[0];
-          }
-        }
-      };
-      reader.readAsDataURL(input.files[0]);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            if (index !== undefined) {
+                this.criteres[index].imageUrl = e.target?.result ?? null;
+                if (input.files) {
+                    this.criteres[index].imageplat = input.files[0]; // Add this line to update the image file
+                }
+            } else {
+                this.imagePlatUrl = e.target?.result ?? null;
+                if (input.files && input.files[0]) {
+                    this.critere.imageplat = input.files[0];
+                }
+            }
+        };
+        reader.readAsDataURL(input.files[0]);
     }
-  }
+}
 
   removeImagePlat(index: number) {
     this.criteres[index].imageUrl = null;
@@ -339,6 +446,7 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   async onSubmit() {
     try {
       const token = localStorage.getItem('userToken');
+      this.activity.capacity = this.activity.capacity || 0;
       if (token) {
         console.log('activityId:', this.activityId);
         if (this.activityId != undefined ) {
@@ -354,7 +462,9 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
         }
         this.showSuccess('Détails de l\'activité mis à jour avec succès'); // Remplacer l'alerte par un toast
         this.unsavedChanges = false;
+        
         this.saveToLocalStorage(); // Save to local storage
+        location.reload(); // Actualise la page
       } else {
         alert('User token not found');
       }
@@ -409,12 +519,9 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
   }
 
   setActiveTab(tab: string) {
-    if (this.unsavedChanges) {
-      this.nextTab = tab;
-      this.showUnsavedChangesModal = true;
-    } else {
+    
       this.activeTab = tab;
-    }
+   
   }
 
   confirmTabChange() {
@@ -692,28 +799,220 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     this.isCritereModalVisible = false;
   }
 
-/*   async onAddCritere() {
-    try {
-        const token = localStorage.getItem('userToken');
-        if (token) {
-            // Validate critere object
-            if (!this.critere.nom || !this.critere.prix || !this.critere.description) {
-                this.showInfo('Veuillez remplir tous les champs obligatoires.');
-                return;
-            }
-            // Log critere object for debugging
-            console.log('Critere object:', this.critere);
+  async onAddCritere() {
+    console.log('Critere object:', this.critere,  this.activity.category_id);
 
-            this.showSuccess('Critère ajouté avec succès');
-            this.hideCritereModal();
-        } else {
-            alert('User token not found');
+    try {
+      const token = localStorage.getItem('userToken');
+      
+      if (token) {
+
+        // Log critere object for debugging
+
+        // Check if category is 3 and create menu
+        if (this.activity.category_id === 3) {
+          const menu = {
+            restaurant_id: this.activity.all[0].id,
+            type_menu_id: this.critere.type_menu_id,
+            nom: this.critere.nom,
+            description: this.critere.description,
+            prix: this.critere.prix,
+            imageplat: this.critere.imageplat
+          };
+          await UserService.createMenu(menu, token);
+          this.showSuccess('Menu créé avec succès');
         }
-    } catch (error) {
-        console.error('Error adding critère:', error);
-        alert('Error adding critère');
+
+        // Check if category is 4 and create soin
+        if (this.activity.category_id === 4) {
+          const spaSoin = {
+            spa_id: this.activity.all[0].id,
+            type_soin_id: this.critere.type_soin_id,
+            description: this.critere.description,
+            duree: this.critere.duree,
+            prix: this.critere.prix
+          };
+          console.log('Soin object:', spaSoin);
+          await UserService.createSpaSoin(spaSoin, token);
+          this.showSuccess('Soin créé avec succès');
+        }
+
+        if (this.activity.category_id === 5) {
+          const salonBeaute = {
+            salon_id: this.activity.all[0].id,
+            service_id: this.critere.service_id,
+            description: this.critere.description,
+            prix: this.critere.prix
+          };
+          console.log('salonBeaute object:', salonBeaute);
+          await UserService.createSalonService(salonBeaute, token);
+          this.showSuccess('Service Salon Beaute créé avec succès');
+        }
+
+        if (this.activity.category_id === 6) {
+          const Piscine = {
+            piscine_id: this.activity.all[0].id,
+            service_id: this.critere.service_id ,
+            description: this.critere.description,
+            prix: this.critere.prix
+          };
+          console.log('salonBeaute object:', Piscine, this.activity)
+            await UserService.createPiscineService(Piscine, token);
+            this.showSuccess('Service Piscine créé avec succès');
+        }
+
+        if (this.activity.category_id === 7) {
+          const villaService = {
+              villa_id: this.activity.all[0].id,
+              service_id: this.critere.service_villa_id,
+              description: this.critere.description,
+              nombre_chambres: this.critere.nombre_chambres,
+              prix_nuit: this.critere.prix_nuit,
+              prix: this.critere.prix
+          };
+          console.log('Villa Service object:', villaService);
+          await UserService.createVillaService(villaService, token);
+          this.showSuccess('Service Villa créé avec succès');
+      }
+      console.log('Excursion objectyyyyyyyyyyyyyyyyy:', this.activity);
+
+      if (this.activity.category_id === 8) {
+        const excursion = {
+            activity_id: this.activityId,
+            nom: this.critere.nom,
+            description: this.critere.description,
+            duree: this.critere.duree,
+            prix: this.critere.prix
+        };
+        console.log('Excursion object:', excursion);
+        await UserService.createExcursion(excursion, token);
+        this.showSuccess('Excursion créée avec succès');
     }
-} */
+
+    
+
+        // Temporarily add the critère to the list
+        this.criteres.push({ ...this.critere, imageUrl: this.imagePlatUrl });
+        this.showSuccess('Critère ajouté temporairement');
+        this.hideCritereModal();
+      } else {
+        alert('User token not found');
+      }
+    } catch (error) {
+      console.error('Error adding critère:', error);
+      alert('Error adding critère');
+    }
+  }
+
+  async onUpdateCritere(index: number) {
+    try {
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        const critere = this.criteres[index];
+        // Validate critere object
+        if (!critere.nom || !critere.prix || !critere.description) {
+          this.showInfo('Veuillez remplir tous les champs obligatoires.');
+          return;
+        }
+        // Log critere object for debugging
+        console.log('Critere object:', critere);
+
+        // Check if category is 3 and update menu
+        if (this.activity.category_id === 3) {
+          const menu = {
+            restaurant_id: this.activity.all[0].id,
+            type_menu_id: critere.type_menu_id,
+            nom: critere.nom,
+            description: critere.description,
+            prix: critere.prix,
+            imageplat: critere.imageplat
+          };
+          await UserService.updateMenu(critere.id, menu, token);
+          this.showSuccess('Menu mis à jour avec succès');
+        }
+
+
+        if (this.activity.category_id === 4) {
+          const spaSoin = {
+            type_soin_id: critere.type_soin_id,
+            nom: critere.nom,
+            description: critere.description,
+            prix: critere.prix,
+            duree: critere.duree,
+            spa_id: critere.spa_id
+
+          };
+          console.log('Soin objecttttttttttttt:', spaSoin,critere.id,critere);
+          await UserService.updateSpaSoin(critere.id, spaSoin, token);
+          this.showSuccess('Menu mis à jour avec succès');
+        }
+
+        if (this.activity.category_id === 5) {
+          const salonBeaute = {
+            service_id: critere.service_id,
+            nom: critere.nom,
+            description: critere.description,
+            prix: critere.prix,
+            salon_id: critere.salon_id	
+
+          };
+          console.log('Soin objecttttttttttttt:', salonBeaute,critere.id,critere);
+          await UserService.updateSalonService(critere.id, salonBeaute, token);
+          this.showSuccess('Menu mis à jour avec succès');
+        }
+
+
+        if (this.activity.category_id === 6) {
+          const piscine = {
+            service_id: critere.service_id ,
+            nom: critere.nom,
+            description: critere.description,
+            prix: critere.prix,
+            piscine_id: critere.piscine_id	
+
+          };
+          console.log('piscine objecttttttttttttt:', piscine,critere.id,critere);
+            await UserService.updatePiscineService(critere.id, piscine, token);
+            this.showSuccess('Service Piscine mis à jour avec succès');
+        }
+
+        if (this.activity.category_id === 7) {
+          const villaService = {
+              service_id: critere.service_villa_id,
+              description: critere.description,
+              prix: critere.prix,
+              nombre_chambres: critere.nombre_chambres,
+              prix_nuit: critere.prix_nuit,
+              villa_id: critere.villa_id
+          };
+          console.log('Villa Service object:', villaService);
+          await UserService.updateVillaService(critere.id, villaService, token);
+          this.showSuccess('Service Villa mis à jour avec succès');
+      }
+
+      if (this.activity.category_id === 8) {
+        const excursion = {
+            nom: critere.nom,
+            description: critere.description,
+            duree: critere.duree,
+            prix: critere.prix,
+            excursion_id: critere.excursion_id,
+            activity_id : this.activityId
+        };
+        console.log('Excursion object:', excursion ,critere);
+        await UserService.updateExcursion(critere.id, excursion, token);
+        this.showSuccess('Excursion mise à jour avec succès');
+    }
+
+        this.showSuccess('Critère mis à jour temporairement');
+      } else {
+        alert('User token not found');
+      }
+    } catch (error) {
+      console.error('Error updating critère:', error);
+      alert('Error updating critère');
+    }
+  }
 
   onUpload(event: any) {
     for (let file of event.files) {
@@ -733,15 +1032,50 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     critere.imageUrl = null;
   }
 
-  onAddCritere() {
+/*   onAddCritere() {
     this.criteres.push({ ...this.critere, imageUrl: this.imagePlatUrl });
     this.critere = {};
     this.imagePlatUrl = null;
     this.hideCritereModal();
-  }
+  } */
 
-  deleteCritere(index: number) {
-    this.criteres.splice(index, 1);
+  async deleteCritere(index: number) {
+    try {
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        const critere = this.criteres[index];
+        if (this.activity.category_id === 3) {
+          await UserService.deleteMenu(critere.id, token);
+          this.showSuccess('Menu supprimé avec succès');
+        }
+        if (this.activity.category_id === 4) {
+          await UserService.deleteSpaSoin(critere.id, token);
+          this.showSuccess('Soin spa supprimé avec succès');
+        }
+        if (this.activity.category_id === 5) {
+          await UserService.deleteSalonService(critere.id, token);
+          this.showSuccess('Service Salon supprimé avec succès');
+        }
+        if (this.activity.category_id === 6) {
+            await UserService.deletePiscineService(critere.id, token);
+            this.showSuccess('Service Piscine supprimé avec succès');
+        }
+        if (this.activity.category_id === 7) {
+          await UserService.deleteVillaService(critere.id, token);
+          this.showSuccess('Service Villa supprimé avec succès');
+      }
+      if (this.activity.category_id === 8) {
+        await UserService.deleteExcursion(critere.id, token);
+        this.showSuccess('Excursion supprimée avec succès');
+    }
+        this.criteres.splice(index, 1);
+      } else {
+        alert('User token not found');
+      }
+    } catch (error) {
+      console.error('Error deleting critère:', error);
+      alert('Error deleting critère');
+    }
   }
 
   onImagePlatUploadS(event: any, index: number) {
@@ -776,5 +1110,61 @@ export class ActivitesSettingsComponent implements OnInit, AfterViewInit {
     if (activity) this.activity = JSON.parse(activity);
     if (slots) this.slots = JSON.parse(slots);
     if (images) this.images = JSON.parse(images);
+  }
+
+  getCritereName(critere: any): string {
+   // console.log('Critere:', critere, this.activity.category_id);
+    if (this.activity.category_id === 3) {
+        return critere.nom;
+    }  
+    
+    if (this.activity.category_id === 4) {
+        //const typeSoin = this.typeSoins.find(typeSoin =>{ typeSoin.id == critere.type_soin_id; console.log('Type Soin:', typeSoin.id, critere.type_soin_id, typeSoin.id==critere.type_soin_id)});
+        for (let typeSoin of this.typeSoins) {
+         // console.log('typeSointypeSoinuuuuuuu:', typeSoin);
+          if(typeSoin.id == critere.type_soin_id) {
+           // console.log('typeSointypeSoinuuuuuuu:', typeSoin);
+            return typeSoin ? typeSoin.nom : '';
+          }
+        }
+       // console.log('typeSointypeSoin:', typeSoin,this.typeSoins);
+
+     
+
+    }
+     if (this.activity.category_id === 5) {
+      console.log('Critere:', this.serviceSalonBeautes ,critere, this.activity.category_id);
+
+      for (let serviceSalonBeaute of this.serviceSalonBeautes) {
+       // console.log('typeSointypeSoinuuuuuuu:', serviceSalonBeaute);
+        if(serviceSalonBeaute.id == critere.service_id) {
+          console.log('typeSointypeSoinuuuuuuu:', serviceSalonBeaute,critere.service_id,serviceSalonBeaute.id);
+          return serviceSalonBeaute ? serviceSalonBeaute.nom : '';
+        }
+      }
+    }
+
+    if (this.activity.category_id === 6) {
+      console.log('Critere:', this.serviceSalonBeautes ,critere, this.activity.category_id);
+
+      for (let servicePiscine of this.servicePiscines) {
+       // console.log('typeSointypeSoinuuuuuuu:', serviceSalonBeaute);
+        if(servicePiscine.id == critere.service_piscine_id) {
+          console.log('typeSointypeSoinuuuuuuu:', servicePiscine,critere.service_id,servicePiscine.id);
+          return servicePiscine ? servicePiscine.nom : '';
+        }
+      }
+    }
+
+    if (this.activity.category_id === 7) {
+      const serviceVilla = this.serviceVillas.find(serviceVilla => serviceVilla.id == critere.service_villa_id);
+      return serviceVilla ? serviceVilla.nom : '';
+  }
+
+  if (this.activity.category_id === 8) {
+    return critere.nom;
+}
+
+    return critere.nom;
   }
 }

@@ -19404,7 +19404,7 @@ html.menu-opened body {
 
 .profile-sidebar.profile-sidebar-new .widget-profile .profile-info-widget::after {
     content: "";
-    background-image: url(../img/doctors-dashboard/doctor-sidebar-bg.jpg);
+    background-image: url(../../assets/img/bg/bgMarrakech.jpg);
     width: 100%;
     height: 148px;
     border-radius: 10px 10px 0 0;

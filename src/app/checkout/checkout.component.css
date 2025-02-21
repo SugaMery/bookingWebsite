@@ -669,3 +669,26 @@ color: rgba(0, 0, 0, 0.87);
     right: 0.75rem;
     color: #93a692 ;
 }
+
+::ng-deep .space-top {
+  padding-top: 50px !important;
+}
+
+::ng-deep .calendar-toolbar {
+  display: flex
+;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  padding-top: 5px !important;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #efefef;
+}
+
+::ng-deep .p-calendar {
+  position: relative;
+  display: inline-flex
+;
+  max-width: 100%;
+  WIDTH: 100%;
+}
